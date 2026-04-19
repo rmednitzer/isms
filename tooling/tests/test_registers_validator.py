@@ -1,11 +1,10 @@
 """Tests for the register validator (schema + cross-register resolution)."""
 from __future__ import annotations
 
+import json
 import sys
 import textwrap
 from pathlib import Path
-
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
@@ -14,7 +13,6 @@ sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
 class TestRegisterSchemas:
     def test_all_register_schemas_load(self) -> None:
         from validate_registers import REGISTERS
-        import json
 
         for name, spec in REGISTERS.items():
             assert spec["schema"].is_file(), f"schema missing for {name}"
@@ -45,8 +43,6 @@ class TestCrossRegisterResolution:
 class TestInvalidData:
     def test_dangling_asset_location_ref_detected(self, tmp_path: Path) -> None:
         """Simulate a register with an unresolvable location_ref."""
-        from validate_registers import validate_crossrefs
-
         fake_ids = {
             "assets": {"ASSET-0001"},
             "facilities": {"FAC-001"},
