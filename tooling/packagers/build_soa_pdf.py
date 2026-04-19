@@ -5,8 +5,9 @@ Render the Statement of Applicability to a PDF suitable for QES signing.
 The SoA source of record is `template/governance/soa/soa.yaml` (instantiated
 to `instance/governance/soa/soa.yaml`). For presentation, an accompanying
 markdown wrapper (`soa-justifications.md`) carries the narrative and front-
-matter. This packager renders that wrapper through the shared PDF renderer
-and additionally attaches the YAML SoA content as an appendix.
+matter. This packager renders that wrapper through the shared PDF renderer;
+the full YAML SoA travels alongside the signed PDF in the audit pack and is
+not embedded here.
 
 Copyright 2026 isms contributors
 SPDX-License-Identifier: Apache-2.0
@@ -64,15 +65,18 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     entity_legal_name = load_entity_legal_name(REPO_ROOT / "instance" / "config.yaml")
+    generated_at = datetime.now(UTC)
     html = render_html(
         doc,
         entity_legal_name=entity_legal_name,
         emit_signature_block=True,
-        generated_at=datetime.now(UTC),
+        generated_at=generated_at,
     )
 
     out_path = args.out or default_output_path(
-        doc, suffix=".html" if args.html_only else ".pdf"
+        doc,
+        suffix=".html" if args.html_only else ".pdf",
+        generated_at=generated_at,
     )
     out_path.parent.mkdir(parents=True, exist_ok=True)
 

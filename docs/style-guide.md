@@ -154,7 +154,7 @@ sub-type; the minimum is:
 5. Evidence pointers (to `instance/evidence/`)
 6. Revision history
 
-### 7.6 Report (REP-NNN or REC-YYYY-NNN with doc_type=report)
+### 7.6 Report (REC-YYYY-NNN with doc_type=report)
 
 1. Purpose and audience
 2. Scope of the reported period

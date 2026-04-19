@@ -27,7 +27,7 @@ Instance-specific content (the actual policies and evidence of a deploying organ
 
 ## Style
 
-The authoritative editorial style guide is `docs/style-guide.md` (DOC-003).
+The authoritative editorial style guide is `docs/style-guide.md` (DOC-009).
 Summary of the most-cited rules:
 
 - English for code, comments, and template content.

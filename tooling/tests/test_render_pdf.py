@@ -17,6 +17,8 @@ sys.path.insert(0, str(REPO_ROOT / "tooling" / "packagers"))
 
 from render_pdf import (  # noqa: E402
     RenderError,
+    _minimal_markdown,
+    default_output_path,
     main,
     markdown_to_html,
     normalize_frontmatter,
@@ -97,6 +99,47 @@ def test_render_html_for_draft_includes_draft_watermark() -> None:
     )
     assert "draft-watermark" in html
     assert "DRAFT" in html
+
+
+def test_minimal_markdown_escapes_ampersand_exactly_once() -> None:
+    html = _minimal_markdown("A & B in a paragraph.\n")
+    assert "&amp;amp;" not in html
+    assert "A &amp; B" in html
+
+
+def test_minimal_markdown_quotes_link_url() -> None:
+    html = _minimal_markdown('See [doc](https://x.example/?a="1&b=2).\n')
+    assert 'href="https://x.example/?a=&quot;1&amp;b=2"' in html
+
+
+def test_parse_document_accepts_trailing_whitespace_on_fences(tmp_path: Path) -> None:
+    src = tmp_path / "doc.md"
+    src.write_text("---   \ndoc_id: X\n---  \n\nBody\n", encoding="utf-8")
+    doc = parse_document(src)
+    assert doc.front_matter["doc_id"] == "X"
+    assert doc.body_md.strip() == "Body"
+
+
+def test_default_output_path_uses_provided_generated_at() -> None:
+    fm = {"doc_id": "P-000", "revision": 2}
+    doc = type("D", (), {"front_matter": fm, "source_path": Path("P-000.md")})()
+    stamp = datetime(2025, 1, 2, 0, 0, 0, tzinfo=UTC)
+    path = default_output_path(doc, suffix=".pdf", generated_at=stamp)
+    assert path.name == "P-000-R2-2025-01-02.pdf"
+
+
+def test_render_html_normalises_non_utc_generated_at() -> None:
+    import datetime as _dt
+
+    tz_plus_two = _dt.timezone(_dt.timedelta(hours=2))
+    doc = parse_document(POLICY_SAMPLE)
+    html = render_html(
+        doc,
+        entity_legal_name=None,
+        emit_signature_block=False,
+        generated_at=datetime(2026, 4, 19, 14, 0, 0, tzinfo=tz_plus_two),
+    )
+    assert "2026-04-19T12:00:00Z" in html
 
 
 def test_cli_html_only_writes_output(tmp_path: Path, capsys: pytest.CaptureFixture) -> None:

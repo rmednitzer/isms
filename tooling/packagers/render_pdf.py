@@ -33,6 +33,7 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import argparse
+import html as _html
 import re
 import sys
 from dataclasses import dataclass
@@ -48,7 +49,10 @@ DIST_DIR = REPO_ROOT / "dist"
 
 DOC_TYPES_REQUIRING_QES = {"policy", "plan"}
 
-_FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n(.*)\Z", re.DOTALL)
+_FRONT_MATTER_RE = re.compile(
+    r"\A---\s*\r?\n(.*?)\r?\n---\s*\r?\n(.*)\Z",
+    re.DOTALL,
+)
 
 _yaml = YAML(typ="safe")
 
@@ -97,24 +101,44 @@ def markdown_to_html(md_text: str) -> str:
         return _minimal_markdown(md_text)
 
 
-def _escape_html(s: str) -> str:
-    return (
-        s.replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-    )
+def _escape_html(s: str, *, quote: bool = False) -> str:
+    return _html.escape(s, quote=quote)
 
 
-def _inline(s: str) -> str:
-    # Inline code first so bold/italic do not eat its backticks.
-    s = re.sub(r"`([^`]+)`", lambda m: f"<code>{_escape_html(m.group(1))}</code>", s)
-    # Links: [text](url)
-    s = re.sub(
-        r"\[([^\]]+)\]\(([^)]+)\)",
-        lambda m: f'<a href="{_escape_html(m.group(2))}">{_escape_html(m.group(1))}</a>',
-        s,
+def _inline(raw: str) -> str:
+    """Apply inline markdown rules to a raw (unescaped) string, escaping
+    non-markup text exactly once.
+
+    Split the string into tokens for inline code and links (which must not
+    be further markdown-interpreted), escape those tokens appropriately
+    for their HTML context, then escape the remaining prose and apply
+    bold/italic to it.
+    """
+    token_re = re.compile(
+        r"(?P<code>`([^`]+)`)"
+        r"|(?P<link>\[([^\]]+)\]\(([^)]+)\))"
     )
-    # Bold then italic.
+
+    out: list[str] = []
+    pos = 0
+    for m in token_re.finditer(raw):
+        if m.start() > pos:
+            out.append(_prose(raw[pos:m.start()]))
+        if m.group("code"):
+            out.append(f"<code>{_escape_html(m.group(2))}</code>")
+        else:
+            text, url = m.group(4), m.group(5)
+            out.append(
+                f'<a href="{_escape_html(url, quote=True)}">{_escape_html(text)}</a>'
+            )
+        pos = m.end()
+    if pos < len(raw):
+        out.append(_prose(raw[pos:]))
+    return "".join(out)
+
+
+def _prose(raw: str) -> str:
+    s = _escape_html(raw)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", s)
     return s
@@ -137,7 +161,7 @@ def _minimal_markdown(md_text: str) -> str:
             return
         text = " ".join(buf).strip()
         if text:
-            out.append(f"<p>{_inline(_escape_html(text))}</p>")
+            out.append(f"<p>{_inline(text)}</p>")
         buf.clear()
 
     para: list[str] = []
@@ -164,7 +188,7 @@ def _minimal_markdown(md_text: str) -> str:
         if heading:
             flush_paragraph(para)
             level = len(heading.group(1))
-            out.append(f"<h{level}>{_inline(_escape_html(heading.group(2).strip()))}</h{level}>")
+            out.append(f"<h{level}>{_inline(heading.group(2).strip())}</h{level}>")
             i += 1
             continue
 
@@ -173,7 +197,7 @@ def _minimal_markdown(md_text: str) -> str:
             out.append("<ul>")
             while i < len(lines) and re.match(r"^\s*[-*]\s+", lines[i]):
                 item = re.sub(r"^\s*[-*]\s+", "", lines[i])
-                out.append(f"<li>{_inline(_escape_html(item))}</li>")
+                out.append(f"<li>{_inline(item)}</li>")
                 i += 1
             out.append("</ul>")
             continue
@@ -183,7 +207,7 @@ def _minimal_markdown(md_text: str) -> str:
             out.append("<ol>")
             while i < len(lines) and re.match(r"^\s*\d+\.\s+", lines[i]):
                 item = re.sub(r"^\s*\d+\.\s+", "", lines[i])
-                out.append(f"<li>{_inline(_escape_html(item))}</li>")
+                out.append(f"<li>{_inline(item)}</li>")
                 i += 1
             out.append("</ol>")
             continue
@@ -196,13 +220,13 @@ def _minimal_markdown(md_text: str) -> str:
             i += 2
             out.append("<table><thead><tr>")
             for c in header_cells:
-                out.append(f"<th>{_inline(_escape_html(c))}</th>")
+                out.append(f"<th>{_inline(c)}</th>")
             out.append("</tr></thead><tbody>")
             while i < len(lines) and lines[i].strip().startswith("|"):
                 row_cells = [c.strip() for c in lines[i].strip().strip("|").split("|")]
                 out.append("<tr>")
                 for c in row_cells:
-                    out.append(f"<td>{_inline(_escape_html(c))}</td>")
+                    out.append(f"<td>{_inline(c)}</td>")
                 out.append("</tr>")
                 i += 1
             out.append("</tbody></table>")
@@ -284,6 +308,7 @@ def render_html(
 
     body_html = markdown_to_html(doc.body_md)
 
+    generated_utc = generated_at.astimezone(UTC)
     return tpl.render(
         fm=fm,
         body_html=body_html,
@@ -291,8 +316,8 @@ def render_html(
         entity_legal_name=entity_legal_name,
         emit_signature_block=emit_signature_block,
         source_rel_path=str(source_rel),
-        generated_utc=generated_at.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        generated_date=generated_at.strftime("%Y-%m-%d"),
+        generated_utc=generated_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        generated_date=generated_utc.strftime("%Y-%m-%d"),
     )
 
 
@@ -318,11 +343,14 @@ def load_entity_legal_name(config_path: Path | None) -> str | None:
     return None
 
 
-def default_output_path(doc: ParsedDoc, *, suffix: str) -> Path:
+def default_output_path(
+    doc: ParsedDoc, *, suffix: str, generated_at: datetime | None = None
+) -> Path:
     fm = doc.front_matter
     doc_id = fm.get("doc_id", doc.source_path.stem)
     rev = fm.get("revision", 1)
-    date_part = fm.get("approved_date") or datetime.now(UTC).strftime("%Y-%m-%d")
+    stamp = (generated_at or datetime.now(UTC)).astimezone(UTC)
+    date_part = fm.get("approved_date") or stamp.strftime("%Y-%m-%d")
     return DIST_DIR / f"{doc_id}-R{rev}-{date_part}{suffix}"
 
 
@@ -383,7 +411,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     out_path = args.out or default_output_path(
-        doc, suffix=".html" if args.html_only else ".pdf"
+        doc,
+        suffix=".html" if args.html_only else ".pdf",
+        generated_at=generated_at,
     )
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
