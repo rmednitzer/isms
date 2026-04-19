@@ -1,0 +1,21 @@
+schema_version: 1
+description: Separation of duties matrix. Flags role pairs that must not be held
+  by the same person.
+incompatible_role_pairs:
+  - role_a: InternalAuditor
+    role_b: Auditee
+    rationale: Auditor must be independent of the audited function (ISO 19011)
+  - role_a: CISO
+    role_b: InternalAuditor
+    rationale: CISO owns ISMS direction; internal audit must be independent
+  - role_a: SysAdmin
+    role_b: InternalAuditor
+    rationale: Technical operator cannot audit own implementation
+  - role_a: Management
+    role_b: InternalAuditor
+    rationale: Management reviews audit output; must not produce it
+small_organisation_exception:
+  description: Where organisational size makes full separation infeasible, 
+    InternalAuditor may be provided by an external contracted auditor. Document 
+    the choice and maintain evidence of contractor independence.
+  requires_risk_acceptance: true

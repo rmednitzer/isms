@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regulatory-calendar.schema.json",
+  "title": "Regulatory calendar milestones",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "milestones"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "source_id",
+          "event",
+          "date"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^MS-\\d{4}-\\d{3}$"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "confidence": {
+            "enum": [
+              "certain",
+              "likely",
+              "uncertain",
+              "planned"
+            ]
+          },
+          "obligations_triggered": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "artifacts_requiring_readiness": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "review_at": {
+            "type": "string",
+            "format": "date"
+          },
+          "responsible_role": {
+            "type": "string",
+            "pattern": "^role:"
+          }
+        }
+      }
+    }
+  }
+}

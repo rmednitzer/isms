@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "soa.schema.json",
+  "title": "Statement of Applicability",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "revision",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "approved_date": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "date"
+        }
+      ]
+    },
+    "approved_by": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "scope_reference": {
+      "type": "string"
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "applicable",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^A\\.\\d{1,2}\\.\\d{1,2}$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "theme": {
+            "enum": [
+              "organisational",
+              "people",
+              "physical",
+              "technological"
+            ]
+          },
+          "applicable": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "justification_ref": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "exclusion_ref": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "implementation_ref": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "not_assessed",
+              "planned",
+              "implementing",
+              "implemented",
+              "monitored"
+            ]
+          },
+          "evidence_task_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owner": {
+            "type": "string",
+            "pattern": "^role:"
+          },
+          "last_review_date": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

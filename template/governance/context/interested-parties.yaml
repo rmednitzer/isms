@@ -1,0 +1,55 @@
+schema_version: 1
+interested_parties:
+  - id: IP-001
+    name: Management (Leitungsorgan)
+    interests:
+      - accountability under § 31 NISG 2026
+      - ISMS effectiveness
+      - certification achievement
+    requirements:
+      - approve P-000
+      - approve SoA
+      - attend management review
+  - id: IP-002
+    name: Customers
+    interests:
+      - CIA of data
+      - service availability
+    requirements:
+      - meet contractual security commitments
+  - id: IP-003
+    name: Employees
+    interests:
+      - clear rules
+      - workable controls
+    requirements:
+      - awareness training
+      - acceptable use policy
+  - id: IP-004
+    name: Suppliers
+    interests:
+      - clear security expectations
+    requirements:
+      - DPAs, SLAs, SOP-008
+  - id: IP-005
+    name: Bundesamt für Cybersicherheit
+    interests:
+      - § 31 compliance
+      - § 32 reporting
+      - § 33 self-declaration
+    requirements:
+      - registration by 2026-12-31
+      - Selbstdeklaration by 2027-09-30
+  - id: IP-006
+    name: Datenschutzbehörde (DSB)
+    interests:
+      - GDPR compliance
+    requirements:
+      - breach notification per Art. 33
+  - id: IP-007
+    name: Certification body
+    interests:
+      - audit evidence
+      - ISMS effectiveness
+    requirements:
+      - stage 1, stage 2, surveillance audits

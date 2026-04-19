@@ -1,0 +1,160 @@
+schema_version: 1
+
+# =========================================================================
+# Instance configuration for one deployment of this ISMS template.
+#
+# Every placeholder in template/ resolves against this file.
+# Replace all TODO values before first render. After render, re-run:
+#     python tooling/instantiate.py --config instance/config.yaml
+# whenever this file or template/ changes. Re-rendering is idempotent.
+#
+# Secrets must NEVER appear in this file. Reference them by name and bind
+# them via environment variables or a secret manager at runtime.
+# =========================================================================
+
+entity:
+  legal_name: "TODO: Example Organisation GmbH"
+  short_name: "TODO: Example"
+  jurisdiction: at            # at | de | ch | li | eu
+  legal_form: GmbH            # GmbH | AG | OeG | KG | Verein | GmbH & Co KG | etc.
+  register_number: "FN TODO"  # Firmenbuchnummer
+  address:
+    street: "TODO Strasse 1"
+    postal_code: "1010"
+    city: "Vienna"
+    country: "Austria"
+  primary_language: en        # en | de: language of internal artefacts
+  authority_language: de      # en | de: authoritative language for authority-facing artefacts
+  draft_date: "2026-04-19"    # date to stamp into revision history of freshly rendered artefacts
+
+# =========================================================================
+# Classification under applicable frameworks
+# =========================================================================
+
+classification:
+  # NISG 2026 entity classification. Re-evaluate after entering the Bundesamt
+  # registration interview process.
+  nisg2026_category: "TODO: wesentliche-einrichtung | wichtige-einrichtung | out-of-scope"
+  nisg2026_sectors: "TODO: list applicable Annex I sectors"
+  nisg2026_registration_id: "TODO: populate after registration"
+
+  # GDPR role classification for this entity
+  gdpr_role: controller       # controller | processor | joint-controller
+
+  # ISO 27001 certification target
+  iso27001_target_cert_date: "2026-09-30"  # YYYY-MM-DD
+
+  # DORA applicability (separate regime; not primary here but flagged)
+  dora_applicable: false
+
+# =========================================================================
+# ISMS scope
+# =========================================================================
+
+scope:
+  statement_summary: "TODO: one-paragraph description of the ISMS scope covering which services, systems, personnel, and physical locations are in scope."
+  included_locations: "TODO: primary site, secondary site"
+  included_business_units: "TODO: business units or service lines in scope"
+  excluded_items: "TODO: explicit exclusions with rationale (e.g. subsidiary entities with separate ISMS)"
+
+# =========================================================================
+# Role holders: map each role to a person id in instance/users/people/
+# Role definitions are in instance/users/roles.yaml
+# =========================================================================
+
+roles:
+  management:                   # Leitungsorgan (accountable per NISG 2026 section 31)
+    person_id: "TODO: person:mgmt-lead"
+  ciso:
+    person_id: "TODO: person:ciso"
+    deputy_person_id: null
+  isms_manager:
+    person_id: "TODO: person:isms-mgr"
+  dpo:
+    person_id: "TODO: person:dpo"
+  sysadmin:
+    person_id: "TODO: person:sysadmin"
+  internal_auditor:
+    person_id: "TODO: person:internal-auditor"  # must be independent of audited function
+
+# =========================================================================
+# Provider and integration bindings
+# Each provider is optional; collectors and packagers gracefully skip when absent.
+# =========================================================================
+
+providers:
+  # Qualified Trust Service Provider (for QES signing per SOP-201)
+  qts_provider:
+    name: "a-trust"             # a-trust | d-trust | globalsign-qualified | digicert-quovadis | null
+    contract_active: false
+    endpoint_env: "ATRUST_SIGNATUR_BOX_URL"
+    credential_env: "ATRUST_CLIENT_CERT"
+    # See DOC-002 section 4 and SOP-201 for the ceremony.
+
+  # ITSM / ticketing (optional, for change records integration)
+  itsm:
+    name: null                  # jira | servicenow | gitlab | github | linear | null
+    endpoint_env: null
+
+  # Backup provider
+  backup:
+    name: null                  # veeam | borg | restic | duplicati | rubrik | null
+    restore_test_cadence_days: 90
+
+  # Identity provider
+  identity:
+    name: null                  # keycloak | azure-ad | okta | google-workspace | null
+    mfa_mandatory: true
+    mfa_method: "totp"          # totp | webauthn | sms | hardware-token
+
+  # Endpoint protection
+  endpoint:
+    name: null                  # crowdstrike | sentinelone | defender | elastic | null
+
+  # Monitoring and logging
+  monitoring:
+    name: null                  # wazuh | elastic | splunk | datadog | prometheus+grafana | null
+    siem_retention_days: 365
+
+  # Vulnerability management
+  vuln_management:
+    name: null                  # openvas | nessus | qualys | rapid7 | null
+    scan_cadence_days: 7
+
+# =========================================================================
+# Supply chain
+# =========================================================================
+
+supply_chain:
+  critical_suppliers: []        # populate after supplier risk assessment; see SOP-008
+  # Example entry:
+  # - id: SUP-001
+  #   name: "Example Cloud GmbH"
+  #   service_type: "IaaS"
+  #   data_residency: "EU"
+  #   iso27001_certified: true
+  #   dpa_signed: true
+  #   last_review_date: "2026-04-01"
+
+# =========================================================================
+# Operational parameters
+# =========================================================================
+
+operational:
+  timezone: "Europe/Vienna"
+  business_hours: "08:00-18:00 Mon-Fri"
+  incident_response_on_call: "24x7"
+  evidence_retention_years: 7
+  log_retention_days: 365
+  classification_default: internal
+
+# =========================================================================
+# Feature flags
+# =========================================================================
+
+feature_flags:
+  use_qes: false                # when true: enforce QES-signed PDFs for approvals
+  use_cyber_trust_austria: false  # when true: include Platinum preparation in programme
+  bilingual_enforcement: false  # when true: validate parity of DE and EN where declared
+  multi_entity: false           # when true: add per-entity rendering
+  interim_signature_permitted: true  # permitted per DOC-002 section 5 during 90-day onboarding window

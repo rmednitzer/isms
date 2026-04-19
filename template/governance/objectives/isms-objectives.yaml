@@ -1,0 +1,23 @@
+schema_version: 1
+objectives:
+  - id: OBJ-001
+    title: Achieve ISO/IEC 27001:2022 certification
+    target_date: '{{classification.iso27001_target_cert_date}}'
+    kpi_ref: KPI-001
+  - id: OBJ-002
+    title: Register under NISG 2026
+    target_date: '2026-12-31'
+    kpi_ref:
+  - id: OBJ-003
+    title: Submit NISG 2026 Selbstdeklaration
+    target_date: '2027-09-30'
+    kpi_ref:
+  - id: OBJ-004
+    title: Zero significant cybersecurity incidents with material customer 
+      impact per year
+    target_date: annual
+    kpi_ref: KPI-010
+  - id: OBJ-005
+    title: 95% of controls with fresh evidence within cadence at any given time
+    target_date: continuous
+    kpi_ref: KPI-020

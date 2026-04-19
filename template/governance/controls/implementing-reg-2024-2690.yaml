@@ -1,0 +1,52 @@
+schema_version: 1
+source: Commission Implementing Regulation (EU) 2024/2690 of 17 October 2024 
+  (structural reference)
+authoritative_url: https://eur-lex.europa.eu/eli/reg_impl/2024/2690
+celex: 32024R2690
+note: Applies to specific sector categories under NIS2. Verify applicability per
+  entity classification.
+controls:
+  - id: Annex
+    title: Annex to Commission Implementing Regulation (EU) 2024/2690 (umbrella)
+    category: umbrella
+  - id: Annex.1.1
+    title: Policy on the security of network and information systems
+    category: policy
+  - id: Annex.1.2
+    title: Information security risk management framework
+    category: risk
+  - id: Annex.2
+    title: Incident handling policy and procedures
+    category: incident
+  - id: Annex.3
+    title: Business continuity and crisis management
+    category: continuity
+  - id: Annex.4
+    title: Supply chain security
+    category: supply_chain
+  - id: Annex.5
+    title: Security in network and information systems acquisition, development 
+      and maintenance
+    category: development
+  - id: Annex.6
+    title: Policies and procedures to assess the effectiveness of cybersecurity 
+      risk-management measures
+    category: measurement
+  - id: Annex.7
+    title: Basic cyber hygiene and cybersecurity training
+    category: people
+  - id: Annex.8
+    title: Cryptography
+    category: cryptography
+  - id: Annex.9
+    title: Human resources security
+    category: hr
+  - id: Annex.10
+    title: Access control
+    category: access
+  - id: Annex.11
+    title: Asset management
+    category: assets
+  - id: Annex.12
+    title: Environmental and physical security
+    category: physical

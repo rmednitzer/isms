@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "config.schema.json",
+  "title": "Instance configuration",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity",
+    "classification",
+    "scope",
+    "roles",
+    "providers",
+    "operational"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "entity": {
+      "type": "object",
+      "required": [
+        "legal_name",
+        "short_name",
+        "jurisdiction"
+      ],
+      "properties": {
+        "legal_name": {
+          "type": "string"
+        },
+        "short_name": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "enum": [
+            "at",
+            "de",
+            "ch",
+            "li",
+            "eu"
+          ]
+        },
+        "legal_form": {
+          "type": "string"
+        },
+        "register_number": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object"
+        },
+        "primary_language": {
+          "enum": [
+            "en",
+            "de"
+          ]
+        },
+        "authority_language": {
+          "enum": [
+            "en",
+            "de"
+          ]
+        }
+      }
+    },
+    "classification": {
+      "type": "object"
+    },
+    "scope": {
+      "type": "object"
+    },
+    "roles": {
+      "type": "object"
+    },
+    "providers": {
+      "type": "object"
+    },
+    "supply_chain": {
+      "type": "object"
+    },
+    "operational": {
+      "type": "object"
+    },
+    "feature_flags": {
+      "type": "object"
+    }
+  }
+}

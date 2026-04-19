@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "law-delta.schema.json",
+  "title": "Law change delta record",
+  "type": "object",
+  "required": [
+    "delta_id",
+    "source_id",
+    "detected_at",
+    "change_class",
+    "status"
+  ],
+  "properties": {
+    "delta_id": {
+      "type": "string",
+      "pattern": "^DLT-\\d{4}-\\d{3}$"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "detected_by": {
+      "type": "string"
+    },
+    "change_class": {
+      "enum": [
+        "editorial",
+        "minor",
+        "material",
+        "structural",
+        "new_subordinate_instrument"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "old_snapshot": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "new_snapshot": {
+      "type": "string"
+    },
+    "initial_assessment": {
+      "enum": [
+        "editorial",
+        "minor",
+        "material",
+        "structural"
+      ]
+    },
+    "assigned_to": {
+      "type": "string",
+      "pattern": "^role:"
+    },
+    "impact_assessment_ref": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "open",
+        "assessing",
+        "closed",
+        "rejected"
+      ]
+    }
+  }
+}

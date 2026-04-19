@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "attestation.schema.json",
+  "title": "Evidence attestation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "control_id",
+    "attestation_type",
+    "collected_at",
+    "collected_by",
+    "collection_method"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "control_id": {
+      "type": "string"
+    },
+    "attestation_type": {
+      "type": "string"
+    },
+    "evidence_task_id": {
+      "type": "string"
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "collected_by": {
+      "type": "string"
+    },
+    "collection_method": {
+      "enum": [
+        "api_pull",
+        "agent_push",
+        "manual_screenshot",
+        "manual_export",
+        "manual_observation",
+        "automated_test"
+      ]
+    },
+    "source_system": {
+      "type": "string"
+    },
+    "source_system_instance": {
+      "type": "string"
+    },
+    "source_endpoint": {
+      "type": "string"
+    },
+    "period_covered": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "observations": {
+      "type": "object"
+    },
+    "raw_snapshot_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "captured_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reviewer_notes": {
+      "type": "string"
+    },
+    "signed_by": {
+      "type": "string"
+    },
+    "signature_method": {
+      "enum": [
+        "gpg",
+        "ssh",
+        "qes"
+      ]
+    },
+    "supersedes": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

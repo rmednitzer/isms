@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frontmatter.schema.json",
+  "title": "ISMS document front-matter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "doc_id",
+    "doc_type",
+    "title",
+    "revision",
+    "status",
+    "owner",
+    "classification",
+    "next_review",
+    "language",
+    "framework_refs"
+  ],
+  "properties": {
+    "doc_id": {
+      "type": "string",
+      "pattern": "^(DOC|P|SOP|STD|PLAN|TMPL|RFC|REC-\\d{4}|INC-\\d{4}|IA-\\d{4}|DEC-\\d{4})-\\d{3,4}(-[a-z0-9-]+)?$"
+    },
+    "doc_type": {
+      "enum": [
+        "policy",
+        "procedure",
+        "standard",
+        "record",
+        "plan",
+        "report"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "under_review",
+        "approved",
+        "superseded",
+        "retired"
+      ]
+    },
+    "approved_date": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "date"
+        }
+      ]
+    },
+    "approved_by": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^(role|person):[A-Za-z0-9_-]+$"
+        }
+      ]
+    },
+    "owner": {
+      "type": "string",
+      "pattern": "^role:[A-Za-z0-9_-]+$"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "supersedes_revision": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 1
+        }
+      ]
+    },
+    "next_review": {
+      "type": "string",
+      "format": "date"
+    },
+    "language": {
+      "enum": [
+        "en",
+        "de"
+      ]
+    },
+    "framework_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+:.+$"
+      },
+      "minItems": 0
+    },
+    "signature_ref": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^instance/evidence/signatures/.+\\.pdf$"
+        }
+      ]
+    },
+    "interim_signature": {
+      "type": "boolean"
+    },
+    "bilingual": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_date",
+          "approved_by"
+        ],
+        "properties": {
+          "approved_date": {
+            "type": "string"
+          },
+          "approved_by": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 2
+          }
+        },
+        "required": [
+          "revision"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersedes_revision"
+        ]
+      }
+    }
+  ]
+}

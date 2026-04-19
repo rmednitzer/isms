@@ -1,0 +1,52 @@
+schema_version: 1
+source: Regulation (EU) 2016/679 Article 32 security of processing
+authoritative_url: https://eur-lex.europa.eu/eli/reg/2016/679
+celex: 32016R0679
+controls:
+  - id: Art.32(1)(a)
+    title: Pseudonymisation and encryption of personal data
+    category: technical
+  - id: Art.32(1)(b)
+    title: Ensure ongoing confidentiality, integrity, availability and 
+      resilience of processing systems and services
+    category: technical
+  - id: Art.32(1)(c)
+    title: Ability to restore availability and access to personal data in a 
+      timely manner in the event of a physical or technical incident
+    category: continuity
+  - id: Art.32(1)(d)
+    title: Process for regularly testing, assessing and evaluating the 
+      effectiveness of technical and organisational measures
+    category: measurement
+  - id: Art.32(2)
+    title: Assessment of risks posed by processing (accidental or unlawful 
+      destruction, loss, alteration, unauthorised disclosure, access)
+    category: risk
+  - id: Art.32(3)
+    title: Adherence to approved codes of conduct or certification mechanisms 
+      may be used as element to demonstrate compliance
+    category: assurance
+  - id: Art.32(4)
+    title: Ensure any natural person acting under the authority of the 
+      controller or processor only processes on instructions
+    category: organisational
+  - id: Art.33
+    title: Notification of personal data breach to supervisory authority (72 
+      hours)
+    category: reporting
+  - id: Art.34
+    title: Communication of personal data breach to the data subject
+    category: reporting
+  - id: Art.5
+    title: Principles relating to processing of personal data
+    category: principle
+  - id: Art.24
+    title: Responsibility of the controller
+    category: organisational
+  - id: Art.25
+    title: Data protection by design and by default
+    category: organisational
+  - id: Art.32
+    title: Security of processing (umbrella for Art.32(1)(a) through (d) and 
+      Art.32(2) to (4))
+    category: umbrella

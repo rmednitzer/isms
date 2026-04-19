@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "law-snapshot.schema.json",
+  "title": "Law snapshot metadata",
+  "type": "object",
+  "required": [
+    "source_id",
+    "fetched_at",
+    "fetch_method",
+    "version_identifier",
+    "artifact_files"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string"
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fetched_by": {
+      "type": "string"
+    },
+    "fetch_method": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "version_identifier": {
+      "type": "string"
+    },
+    "version_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "entry_into_force": {
+      "type": "string",
+      "format": "date"
+    },
+    "consolidated_as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "artifact_files": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "gpg",
+            "ssh",
+            "qes"
+          ]
+        },
+        "signer": {
+          "type": "string"
+        },
+        "signed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "supersedes": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

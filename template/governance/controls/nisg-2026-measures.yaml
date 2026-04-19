@@ -1,0 +1,61 @@
+schema_version: 1
+source: NISG 2026 (BGBl. I Nr. 94/2025) § 31 risk-management measures 
+  (structural reference)
+authoritative_url: https://www.ris.bka.gv.at/eli/bgbl/I/2025/94
+controls:
+  - id: §31
+    title: Cybersecurity risk-management measures (umbrella article covering 
+      §31(2)(a) through (j) and leadership obligations)
+    category: governance
+  - id: §31(2)(a)
+    title: Policies on risk analysis and information system security
+    category: governance
+  - id: §31(2)(b)
+    title: Incident handling
+    category: incident
+  - id: §31(2)(c)
+    title: Business continuity (backup management, disaster recovery, crisis 
+      management)
+    category: continuity
+  - id: §31(2)(d)
+    title: Supply chain security
+    category: supply_chain
+  - id: §31(2)(e)
+    title: Security in network and information systems acquisition, development,
+      maintenance, vulnerability handling and disclosure
+    category: development
+  - id: §31(2)(f)
+    title: Policies and procedures to assess the effectiveness of cybersecurity 
+      risk-management measures
+    category: measurement
+  - id: §31(2)(g)
+    title: Basic cyber hygiene practices and cybersecurity training
+    category: people
+  - id: §31(2)(h)
+    title: Policies and procedures regarding the use of cryptography and, where 
+      appropriate, encryption
+    category: cryptography
+  - id: §31(2)(i)
+    title: Human resources security, access control policies and asset 
+      management
+    category: hr_access
+  - id: §31(2)(j)
+    title: Use of multi-factor authentication or continuous authentication 
+      solutions, secured voice / video / text communications, emergency 
+      communication systems
+    category: authentication
+  - id: §31 leadership
+    title: Leitungsorgan responsibility and training obligation (leadership 
+      accountability)
+    category: governance
+  - id: §32
+    title: Significant cybersecurity incident reporting (Frühwarnung 24h, 
+      Meldung 72h, Abschlussbericht 1M)
+    category: reporting
+  - id: §33
+    title: Selbstdeklaration (self-declaration of implemented risk-management 
+      measures)
+    category: assurance
+  - id: §34
+    title: Entity registration with Bundesamt für Cybersicherheit
+    category: registration
