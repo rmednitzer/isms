@@ -117,7 +117,12 @@ def build_register_id_sets() -> dict[str, set[str]]:
     sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
     try:
         from validate_registers import REGISTERS, load_ids
-    except Exception:
+    except Exception as exc:
+        print(
+            f"WARNING: could not import validate_registers ({exc!r}); "
+            "register-ref checks skipped.",
+            file=sys.stderr,
+        )
         return {}
     return {name: load_ids(spec) for name, spec in REGISTERS.items()}
 

@@ -41,21 +41,46 @@ class TestCrossRegisterResolution:
 
 
 class TestInvalidData:
-    def test_dangling_asset_location_ref_detected(self, tmp_path: Path) -> None:
-        """Simulate a register with an unresolvable location_ref."""
-        fake_ids = {
-            "assets": {"ASSET-0001"},
-            "facilities": {"FAC-001"},
-            "networks": set(),
-            "suppliers": set(),
-            "data": set(),
-        }
-        # We can't easily swap the register files, so construct a direct test
-        # that the cross-ref logic would catch an unresolvable ID.
-        # For a full end-to-end test, write fake registers to tmp_path and
-        # monkeypatch REGISTERS; omitted here as validate_crossrefs reads
-        # from disk by design.
-        assert "FAC-999" not in fake_ids["facilities"]
+    def test_dangling_asset_location_ref_detected(self, tmp_path, monkeypatch) -> None:
+        """Write a fake asset register with an unresolvable location_ref and
+        confirm the cross-ref pass flags it."""
+        import validate_registers as vr
+
+        bad_register = tmp_path / "bad-register.yaml"
+        bad_register.write_text(
+            textwrap.dedent("""\
+                schema_version: 1
+                assets:
+                  - id: ASSET-0001
+                    name: "dangling"
+                    class: information
+                    owner_role: role:CISO
+                    location_ref: FAC-999
+                    in_scope: true
+                    lifecycle_status: operational
+            """)
+        )
+        monkeypatch.setitem(vr.REGISTERS["assets"], "instance", bad_register)
+        monkeypatch.setitem(vr.REGISTERS["assets"], "template", bad_register)
+
+        all_ids = {name: vr.load_ids(spec) for name, spec in vr.REGISTERS.items()}
+        errors = vr.validate_crossrefs(all_ids)
+        assert any("FAC-999" in e and "location_ref" in e for e in errors), (
+            f"expected dangling FAC-999 location_ref to be flagged, got: {errors}"
+        )
+
+    def test_missing_register_file_is_flagged(self, tmp_path, monkeypatch) -> None:
+        """A register whose template AND instance files are absent must be a
+        schema violation, not a silent pass."""
+        import validate_registers as vr
+
+        missing = tmp_path / "does-not-exist.yaml"
+        monkeypatch.setitem(vr.REGISTERS["assets"], "instance", missing)
+        monkeypatch.setitem(vr.REGISTERS["assets"], "template", missing)
+
+        errors = vr.validate_schema("assets", vr.REGISTERS["assets"])
+        assert errors, "missing register file should produce a schema error"
+        assert any("not found" in e for e in errors), errors
 
 
 class TestCrossrefExtension:
