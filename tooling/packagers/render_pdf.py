@@ -33,11 +33,10 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import argparse
-import io
 import re
 import sys
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from jinja2 import ChainableUndefined, Environment, FileSystemLoader, select_autoescape
@@ -323,7 +322,7 @@ def default_output_path(doc: ParsedDoc, *, suffix: str) -> Path:
     fm = doc.front_matter
     doc_id = fm.get("doc_id", doc.source_path.stem)
     rev = fm.get("revision", 1)
-    date_part = fm.get("approved_date") or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    date_part = fm.get("approved_date") or datetime.now(UTC).strftime("%Y-%m-%d")
     return DIST_DIR / f"{doc_id}-R{rev}-{date_part}{suffix}"
 
 
@@ -367,9 +366,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"ERROR: invalid --generated-at value: {args.generated_at}", file=sys.stderr)
             return 2
         if generated_at.tzinfo is None:
-            generated_at = generated_at.replace(tzinfo=timezone.utc)
+            generated_at = generated_at.replace(tzinfo=UTC)
     else:
-        generated_at = datetime.now(timezone.utc)
+        generated_at = datetime.now(UTC)
 
     sig_map = {"auto": None, "on": True, "off": False}
     emit_sig = sig_map[args.signature_block]

@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import argparse
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from render_pdf import (
@@ -68,7 +68,7 @@ def main(argv: list[str] | None = None) -> int:
         doc,
         entity_legal_name=entity_legal_name,
         emit_signature_block=True,
-        generated_at=datetime.now(timezone.utc),
+        generated_at=datetime.now(UTC),
     )
 
     out_path = args.out or default_output_path(
@@ -91,8 +91,8 @@ def main(argv: list[str] | None = None) -> int:
         return 3
 
     print(f"SoA PDF written: {out_path}")
-    print(f"Queue for QES signing per SOP-201; store signed output under "
-          f"instance/evidence/signatures/.")
+    print("Queue for QES signing per SOP-201; store signed output under "
+          "instance/evidence/signatures/.")
     return 0
 
 
