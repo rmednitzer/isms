@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "supplier-register.schema.json",
+  "title": "Supplier register",
+  "type": "object",
+  "required": ["schema_version", "suppliers"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "description": { "type": "string" },
+    "suppliers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "service_type", "criticality", "in_scope"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^SUP-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "service_type": {
+            "enum": [
+              "IaaS",
+              "PaaS",
+              "SaaS",
+              "managed_service",
+              "consultancy",
+              "hardware_supplier",
+              "telecom",
+              "qtsp",
+              "other"
+            ]
+          },
+          "criticality": {
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "classification_handled": {
+            "enum": ["public", "internal", "confidential", "restricted"]
+          },
+          "data_residency": {
+            "enum": ["AT", "EU", "EEA", "ADEQUACY", "THIRD_COUNTRY", "MIXED"]
+          },
+          "certifications": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "ISO27001",
+                "ISO27701",
+                "ISO22301",
+                "ISO42001",
+                "SOC2_TYPE_I",
+                "SOC2_TYPE_II",
+                "C5",
+                "CYBER_TRUST_AT_BASIC",
+                "CYBER_TRUST_AT_SILVER",
+                "CYBER_TRUST_AT_GOLD",
+                "CYBER_TRUST_AT_PLATINUM",
+                "TISAX",
+                "OTHER"
+              ]
+            }
+          },
+          "dpa_signed": { "type": "boolean" },
+          "dpa_date": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "format": "date" }
+            ]
+          },
+          "contract_ref": { "type": "string" },
+          "last_review_date": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "format": "date" }
+            ]
+          },
+          "next_review_date": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "format": "date" }
+            ]
+          },
+          "owner_role": {
+            "type": "string",
+            "pattern": "^role:[A-Za-z0-9_-]+$"
+          },
+          "in_scope": { "type": "boolean" },
+          "lifecycle_status": {
+            "enum": ["onboarding", "active", "under_review", "terminated"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

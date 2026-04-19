@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "data-inventory.schema.json",
+  "title": "Data inventory (GDPR Article 30 ROPA)",
+  "type": "object",
+  "required": ["schema_version", "processing_activities"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "description": { "type": "string" },
+    "processing_activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "controller_role",
+          "purposes",
+          "lawful_basis",
+          "classification",
+          "in_scope"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^DATA-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "controller_role": {
+            "enum": ["controller", "joint_controller", "processor"]
+          },
+          "categories_of_data_subjects": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "categories_of_data": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "special_categories": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "racial_or_ethnic_origin",
+                "political_opinions",
+                "religious_or_philosophical_beliefs",
+                "trade_union_membership",
+                "genetic_data",
+                "biometric_data",
+                "health_data",
+                "sex_life_or_sexual_orientation",
+                "criminal_convictions_or_offences"
+              ]
+            }
+          },
+          "purposes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "lawful_basis": {
+            "enum": [
+              "consent",
+              "contract",
+              "legal_obligation",
+              "vital_interests",
+              "public_task",
+              "legitimate_interests"
+            ]
+          },
+          "special_basis": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "enum": [
+                  "explicit_consent",
+                  "employment_social_security",
+                  "vital_interests_incapacitated",
+                  "nonprofit_internal",
+                  "manifestly_public",
+                  "legal_claims",
+                  "substantial_public_interest",
+                  "health_or_social_care",
+                  "public_health",
+                  "archiving_research_statistics"
+                ]
+              }
+            ]
+          },
+          "retention_period": { "type": "string" },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["ref_type", "ref"],
+              "additionalProperties": false,
+              "properties": {
+                "ref_type": {
+                  "enum": ["supplier", "role", "external_free_text"]
+                },
+                "ref": { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          },
+          "cross_border_transfers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["country", "safeguard"],
+              "additionalProperties": false,
+              "properties": {
+                "country": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{2}$"
+                },
+                "safeguard": {
+                  "enum": [
+                    "adequacy_decision",
+                    "scc",
+                    "bcr",
+                    "derogation_consent",
+                    "derogation_contract",
+                    "derogation_public_interest",
+                    "derogation_legal_claims",
+                    "derogation_vital_interests"
+                  ]
+                },
+                "notes": { "type": "string" }
+              }
+            }
+          },
+          "classification": {
+            "enum": ["public", "internal", "confidential", "restricted"]
+          },
+          "asset_refs": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ASSET-\\d{4}$" }
+          },
+          "security_measures": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "encryption_at_rest",
+                "encryption_in_transit",
+                "pseudonymisation",
+                "access_control",
+                "mfa_required",
+                "audit_logging",
+                "dlp",
+                "backup_encrypted",
+                "network_segmentation",
+                "key_management_hsm",
+                "data_masking",
+                "retention_automation"
+              ]
+            }
+          },
+          "owner_role": {
+            "type": "string",
+            "pattern": "^role:[A-Za-z0-9_-]+$"
+          },
+          "dpia_required": { "type": "boolean" },
+          "dpia_ref": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string" }
+            ]
+          },
+          "in_scope": { "type": "boolean" },
+          "lifecycle_status": {
+            "enum": ["planned", "operational", "legacy", "retired"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}
