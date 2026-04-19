@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "isms-tooling"
 version = "0.1.0"
 description = "Tooling for the ISMS repository: schemas, validators, collectors, signers, packagers, renderer."
-readme = "../README.md"
+readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "Apache-2.0" }
 authors = [
