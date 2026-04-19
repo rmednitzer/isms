@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="{{ fm.language or 'en' }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ fm.doc_id }} {{ fm.title }}</title>
+    <meta name="author" content="{{ fm.owner }}">
+    <meta name="keywords" content="{{ (fm.framework_refs or []) | join(', ') }}">
+    <meta name="description" content="{{ fm.doc_id }} Revision {{ fm.revision }} ({{ fm.status }})">
+    <style>{{ stylesheet | safe }}</style>
+</head>
+<body>
+
+{%- set is_draft = fm.status in ('draft', 'under_review') %}
+{%- set is_interim = fm.interim_signature and fm.status == 'approved' %}
+{%- set status_label = 'DRAFT' if is_draft else (fm.status | upper) %}
+{%- set rev_line_date = '(DRAFT)' if is_draft else ('- ' ~ (fm.approved_date or generated_date)) %}
+
+<section class="cover"
+         data-doc-id="{{ fm.doc_id }}"
+         data-title="{{ fm.title }}"
+         data-classification-label="{{ (fm.classification or 'internal') | upper }}"
+         data-status-label="{{ status_label }}"
+         data-generated="Generated {{ generated_utc }}"
+         data-revision="{{ fm.revision }}">
+
+    <div class="brand">{{ entity_legal_name or 'Information Security Management System' }}</div>
+
+    <h1>{{ fm.title }}</h1>
+
+    <div class="header-line">
+        <strong>{{ fm.doc_id }} Revision {{ fm.revision }} {{ rev_line_date }}</strong>
+    </div>
+    <div class="header-line">
+        <em>Status: <span class="status-{{ fm.status }}">{{ fm.status }}</span>.
+        Owner: {{ fm.owner }}.
+        Next review: {{ fm.next_review }}.</em>
+    </div>
+    {%- if is_interim %}
+    <div class="header-line">
+        <em>Interim: legal signature pending QES integration. Approved via git-level only.</em>
+    </div>
+    {%- endif %}
+
+    <section class="meta">
+        <dl>
+            <dt>Document ID</dt>           <dd>{{ fm.doc_id }}</dd>
+            <dt>Type</dt>                  <dd>{{ fm.doc_type }}</dd>
+            <dt>Revision</dt>              <dd>{{ fm.revision }}{% if fm.supersedes_revision %} (supersedes R{{ fm.supersedes_revision }}){% endif %}</dd>
+            <dt>Status</dt>                <dd class="status-{{ fm.status }}">{{ fm.status }}{% if is_interim %} (interim){% endif %}</dd>
+            <dt>Owner</dt>                 <dd>{{ fm.owner }}</dd>
+            {%- if fm.approved_by %}
+            <dt>Approved by</dt>           <dd>{{ fm.approved_by }}</dd>
+            {%- endif %}
+            {%- if fm.approved_date %}
+            <dt>Approved date</dt>         <dd>{{ fm.approved_date }}</dd>
+            {%- endif %}
+            <dt>Classification</dt>        <dd class="classification-{{ fm.classification }}">{{ fm.classification }}</dd>
+            <dt>Language</dt>              <dd>{{ fm.language }}</dd>
+            <dt>Next review</dt>           <dd>{{ fm.next_review }}</dd>
+            {%- if fm.framework_refs %}
+            <dt>Framework references</dt>
+            <dd class="framework-refs">
+                {%- for ref in fm.framework_refs %}
+                <span class="ref">{{ ref }}</span>
+                {%- endfor %}
+            </dd>
+            {%- endif %}
+            {%- if fm.signature_ref %}
+            <dt>Signature reference</dt>   <dd>{{ fm.signature_ref }}</dd>
+            {%- endif %}
+            <dt>Source</dt>                <dd>{{ source_rel_path }}</dd>
+            <dt>Rendered</dt>              <dd>{{ generated_utc }}</dd>
+        </dl>
+    </section>
+
+    {%- if is_draft %}
+    <div class="banner draft">
+        DRAFT. Not for external use. Content is not final and has not been approved per DOC-001 section 7.
+    </div>
+    {%- endif %}
+    {%- if is_interim %}
+    <div class="banner interim">
+        INTERIM SIGNATURE. Approved via git-level only, pending QES per DOC-002 section 5.
+        Surveillance window closes 90 days after first approval.
+    </div>
+    {%- endif %}
+</section>
+
+{%- if is_draft %}
+<div class="draft-watermark">DRAFT</div>
+{%- endif %}
+
+<main>
+{{ body_html | safe }}
+</main>
+
+{%- if emit_signature_block %}
+<section class="signature-block">
+    <h2>Signature</h2>
+    <p>
+        This page reserves visual space for the Qualified Electronic Signature (QES)
+        per PAdES (ETSI EN 319 142). The QTSP applies the signature during the
+        signing ceremony defined in SOP-201; the signed PDF is stored under
+        <code>instance/evidence/signatures/</code> and referenced from the source
+        markdown's <code>signature_ref</code> field.
+    </p>
+
+    <div class="sig-field">{{ fm.approved_by or 'Signatory (role:...)' }}</div>
+    <div class="sig-field">Date</div>
+
+    <p class="qes-note">
+        Pre-signing hash (SHA-256) and QTSP transaction ID are recorded in the
+        ceremony attestation alongside the signed artefact. Verification: EU DSS
+        or QTSP verification portal.
+    </p>
+</section>
+{%- endif %}
+
+</body>
+</html>
