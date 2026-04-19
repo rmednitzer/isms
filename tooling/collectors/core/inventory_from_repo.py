@@ -11,11 +11,10 @@ SPDX-License-Identifier: Apache-2.0
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
@@ -29,7 +28,7 @@ def git_rev() -> str:
 
 
 def main() -> int:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     artefacts = []
     for root_name in ["docs", "template/governance", "instance/governance"]:
         root = REPO_ROOT / root_name

@@ -4,12 +4,10 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import pytest
-
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "tooling"))
 
-from instantiate import render_placeholders, render_ifs  # noqa: E402
+from instantiate import render_ifs, render_placeholders  # noqa: E402
 
 
 def test_placeholder_substitution() -> None:
