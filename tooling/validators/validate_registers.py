@@ -97,10 +97,21 @@ def load_ids(spec: dict) -> set[str]:
     return ids
 
 
+def _display_path(p: Path) -> str:
+    try:
+        return str(p.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(p)
+
+
 def validate_schema(name: str, spec: dict) -> list[str]:
     path = resolve_register_path(spec)
     if path is None:
-        return []
+        return [
+            f"{name}: register file not found at either "
+            f"{_display_path(spec['instance'])} or "
+            f"{_display_path(spec['template'])}"
+        ]
     with spec["schema"].open("r") as f:
         schema = json.load(f)
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
@@ -134,10 +145,10 @@ def validate_crossrefs(all_ids: dict[str, set[str]]) -> list[str]:
                 errors.append(f"asset {aid}: network_ref {net} not found in networks register")
             for sup in a.get("supplier_refs", []) or []:
                 if sup not in all_ids["suppliers"]:
-                    errors.append(f"asset {aid}: supplier_ref {sup} not found in suppliers register")
+                    errors.append(f"asset {aid}: supplier_refs entry {sup} not found in suppliers register")
             for dref in a.get("data_refs", []) or []:
                 if dref not in all_ids["data"]:
-                    errors.append(f"asset {aid}: data_ref {dref} not found in data inventory")
+                    errors.append(f"asset {aid}: data_refs entry {dref} not found in data inventory")
             for dep in a.get("dependencies", []) or []:
                 if dep not in all_ids["assets"]:
                     errors.append(f"asset {aid}: dependency {dep} not found in asset register")
@@ -165,7 +176,7 @@ def validate_crossrefs(all_ids: dict[str, set[str]]) -> list[str]:
             did = act.get("id", "<unknown>")
             for aref in act.get("asset_refs", []) or []:
                 if aref not in all_ids["assets"]:
-                    errors.append(f"data {did}: asset_ref {aref} not found in asset register")
+                    errors.append(f"data {did}: asset_refs entry {aref} not found in asset register")
             for r in act.get("recipients", []) or []:
                 if r.get("ref_type") == "supplier":
                     sup = r.get("ref")
