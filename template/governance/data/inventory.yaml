@@ -1,0 +1,46 @@
+schema_version: 1
+description: >
+  Data inventory / GDPR Article 30 records of processing activities.
+  Each activity binds to asset_refs and recipient references (supplier
+  register or roles). Classification uses STD-005 levels.
+processing_activities:
+  - id: DATA-001
+    name: "EXAMPLE: Customer account management"
+    description: "Example entry."
+    controller_role: controller
+    categories_of_data_subjects:
+      - customers
+      - prospective_customers
+    categories_of_data:
+      - contact_information
+      - billing_information
+      - service_usage
+    special_categories: []
+    purposes:
+      - service_delivery
+      - billing
+      - customer_communication
+    lawful_basis: contract
+    special_basis: null
+    retention_period: "7 years from contract termination (tax retention)"
+    recipients:
+      - ref_type: supplier
+        ref: SUP-001
+        description: "IaaS hosting provider"
+    cross_border_transfers: []
+    classification: confidential
+    asset_refs:
+      - ASSET-0001
+    security_measures:
+      - encryption_at_rest
+      - encryption_in_transit
+      - access_control
+      - mfa_required
+      - audit_logging
+      - backup_encrypted
+    owner_role: role:DPO
+    dpia_required: false
+    dpia_ref: null
+    in_scope: true
+    lifecycle_status: operational
+    notes: "Illustrative example; replace with real processing activities."

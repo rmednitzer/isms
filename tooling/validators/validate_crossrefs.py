@@ -79,6 +79,54 @@ def extract_refs(path: Path) -> list[str]:
     return fm.get("framework_refs", []) or []
 
 
+REGISTER_REF_FIELDS = {
+    "asset_refs": ("ASSET-", "assets"),
+    "location_ref": ("FAC-", "facilities"),
+    "zone_ref": ("ZONE-", "facilities"),
+    "network_ref": ("NET-", "networks"),
+    "supplier_refs": ("SUP-", "suppliers"),
+    "data_refs": ("DATA-", "data"),
+}
+
+
+def extract_register_refs(path: Path) -> dict[str, list[str]]:
+    """Extract register references from frontmatter.
+
+    Returns a mapping of field name to list of referenced IDs.
+    """
+    text = path.read_text(encoding="utf-8")
+    m = FRONTMATTER_RE.match(text)
+    if not m:
+        return {}
+    fm = yaml.load(m.group(1)) or {}
+    out: dict[str, list[str]] = {}
+    for field in REGISTER_REF_FIELDS:
+        v = fm.get(field)
+        if v is None:
+            continue
+        if isinstance(v, str):
+            out[field] = [v]
+        elif isinstance(v, list):
+            out[field] = [str(x) for x in v]
+    return out
+
+
+def build_register_id_sets() -> dict[str, set[str]]:
+    """Load register IDs once for crossref resolution."""
+    # Import lazily to avoid coupling when the registers validator runs separately.
+    sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
+    try:
+        from validate_registers import REGISTERS, load_ids
+    except Exception as exc:
+        print(
+            f"WARNING: could not import validate_registers ({exc!r}); "
+            "register-ref checks skipped.",
+            file=sys.stderr,
+        )
+        return {}
+    return {name: load_ids(spec) for name, spec in REGISTERS.items()}
+
+
 def main() -> int:
     if not CONTROLS_DIR.is_dir():
         print(f"WARNING: controls directory missing: {CONTROLS_DIR}")
@@ -108,6 +156,26 @@ def main() -> int:
                     continue
                 if ident not in cat[prefix]:
                     violations.append(f"{md}: unknown control '{ref}' (not found in catalogue)")
+
+    register_ids = build_register_id_sets()
+    if register_ids:
+        for root in SCAN_ROOTS:
+            if not root.is_dir():
+                continue
+            for md in root.rglob("*.md"):
+                refs = extract_register_refs(md)
+                for field, ids in refs.items():
+                    prefix, target_register = REGISTER_REF_FIELDS[field]
+                    for rid in ids:
+                        if not rid.startswith(prefix):
+                            violations.append(
+                                f"{md}: {field} value '{rid}' does not match expected prefix '{prefix}'"
+                            )
+                            continue
+                        if rid not in register_ids.get(target_register, set()):
+                            violations.append(
+                                f"{md}: {field} reference '{rid}' not found in {target_register} register"
+                            )
 
     print(f"Checked framework_refs across {count} files.")
     if violations:

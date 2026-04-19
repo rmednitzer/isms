@@ -1,0 +1,26 @@
+schema_version: 1
+description: >
+  Asset register. Governance record, not a CMDB. Fields are
+  assurance-relevant. Operational detail lives in operational systems
+  (Ansible, CMDB, monitoring) and is referenced via operational_ref.
+  See DEC-2026-007 for the scope decision.
+assets:
+  - id: ASSET-0001
+    name: "EXAMPLE: Primary customer database"
+    class: information
+    description: "Example entry. Replace or remove before first audit."
+    owner_role: role:CISO
+    custodian_role: role:SysAdmin
+    criticality: high
+    classification: confidential
+    location_ref: FAC-001
+    zone_ref: ZONE-002
+    network_ref: NET-001
+    supplier_refs: []
+    data_refs:
+      - DATA-001
+    dependencies: []
+    in_scope: true
+    lifecycle_status: operational
+    operational_ref: ""
+    notes: "Illustrative example entry; remove when populating the register."

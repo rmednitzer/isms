@@ -127,6 +127,36 @@
     },
     "bilingual": {
       "type": "boolean"
+    },
+    "asset_refs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^ASSET-\\d{4}$" }
+    },
+    "location_ref": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^FAC-\\d{3}$" }
+      ]
+    },
+    "zone_ref": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^ZONE-\\d{3}$" }
+      ]
+    },
+    "network_ref": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^NET-\\d{3}$" }
+      ]
+    },
+    "supplier_refs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^SUP-\\d{3}$" }
+    },
+    "data_refs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^DATA-\\d{3}$" }
     }
   },
   "allOf": [

@@ -1,0 +1,19 @@
+schema_version: 1
+description: >
+  Network segments register. Segments are referenced from the asset
+  register via network_ref. CIDR is optional; omit for confidentiality if
+  the register classification requires it.
+segments:
+  - id: NET-001
+    name: "EXAMPLE: Production database segment"
+    description: "Example entry."
+    trust_level: trusted
+    cidr: ""
+    encryption_baseline: tls_1_3_min
+    ingress_policy: deny_default
+    egress_policy: deny_default
+    peering: []
+    location_ref: FAC-001
+    owner_role: role:SysAdmin
+    in_scope: true
+    notes: "Illustrative example; replace with real segments."

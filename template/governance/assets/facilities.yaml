@@ -1,0 +1,37 @@
+schema_version: 1
+description: >
+  Facilities register. Sites, rooms, and zones in scope of the ISMS,
+  with physical controls per zone class. Zones are referenced from the
+  asset register via zone_ref.
+facilities:
+  - id: FAC-001
+    name: "EXAMPLE: Primary office"
+    type: office
+    address:
+      street: "TODO"
+      postal_code: "TODO"
+      city: "TODO"
+      country: "TODO"
+    owner_role: role:ISMS-Manager
+    in_scope: true
+    zones:
+      - id: ZONE-001
+        name: "Reception and public area"
+        zone_class: public
+        controls:
+          - cctv
+          - visitor_escort
+        notes: ""
+      - id: ZONE-002
+        name: "Server and network room"
+        zone_class: restricted
+        controls:
+          - badge
+          - cctv
+          - env_monitoring
+          - fire_suppression
+          - power_redundancy
+          - cooling_redundancy
+          - intrusion_alarm
+        notes: ""
+    notes: "Illustrative example; replace with real facility data."

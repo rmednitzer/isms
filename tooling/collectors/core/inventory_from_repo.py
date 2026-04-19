@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-Inventory everything tracked in the repository that constitutes asset evidence.
+Inventory everything tracked in the repository that constitutes governance evidence.
 
-For A.5.9 Inventory of information and other associated assets, the repository
-itself can be enumerated: governance documents, SOPs, policies, risk register,
-SoA, evidence tasks. This attestation captures that enumeration.
+For A.5.37 Documented operating procedures, the repository itself literally
+IS the documented-procedures set: governance documents, SOPs, policies, risk
+register, SoA, evidence tasks. This attestation captures that enumeration as
+a point-in-time census. A.5.9 inventory-of-assets evidence is produced by
+inventory_from_register.py against the asset register (see DEC-2026-007).
 
 Copyright 2026 isms contributors
 SPDX-License-Identifier: Apache-2.0
@@ -40,9 +42,9 @@ def main() -> int:
 
     attestation = {
         "schema_version": 1,
-        "control_id": "A.5.9",
+        "control_id": "A.5.37",
         "attestation_type": "repo_inventory",
-        "evidence_task_id": "ET-CORE-001",
+        "evidence_task_id": "ET-CORE-007",
         "collected_at": now.isoformat(),
         "collected_by": "collectors/core/inventory_from_repo.py",
         "collection_method": "automated_test",

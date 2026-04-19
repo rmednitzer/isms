@@ -1,0 +1,24 @@
+schema_version: 1
+description: >
+  Supplier register. Supersedes the inline supply_chain.critical_suppliers
+  example previously in instance/config.yaml. SOP-008 reviews entries
+  against certifications, DPA status, and data residency.
+suppliers:
+  - id: SUP-001
+    name: "EXAMPLE: Cloud IaaS provider"
+    service_type: IaaS
+    criticality: high
+    classification_handled: confidential
+    data_residency: EU
+    certifications:
+      - ISO27001
+      - SOC2_TYPE_II
+    dpa_signed: true
+    dpa_date: "2026-01-15"
+    contract_ref: ""
+    last_review_date: null
+    next_review_date: null
+    owner_role: role:ISMS-Manager
+    in_scope: true
+    lifecycle_status: active
+    notes: "Illustrative example; replace with real suppliers."
