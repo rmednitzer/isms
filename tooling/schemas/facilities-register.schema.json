@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "facilities-register.schema.json",
+  "title": "Facilities register",
+  "type": "object",
+  "required": ["schema_version", "facilities"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "description": { "type": "string" },
+    "facilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "in_scope"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^FAC-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "type": {
+            "enum": [
+              "office",
+              "datacenter",
+              "colocation",
+              "home_office",
+              "warehouse",
+              "other"
+            ]
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": { "type": "string" },
+              "postal_code": { "type": "string" },
+              "city": { "type": "string" },
+              "country": { "type": "string" }
+            }
+          },
+          "owner_role": {
+            "type": "string",
+            "pattern": "^role:[A-Za-z0-9_-]+$"
+          },
+          "in_scope": { "type": "boolean" },
+          "zones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "zone_class"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "pattern": "^ZONE-\\d{3}$" },
+                "name": { "type": "string", "minLength": 1 },
+                "zone_class": {
+                  "enum": [
+                    "public",
+                    "semi_public",
+                    "controlled",
+                    "restricted"
+                  ]
+                },
+                "controls": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "badge",
+                      "biometric",
+                      "mantrap",
+                      "cctv",
+                      "env_monitoring",
+                      "fire_suppression",
+                      "power_redundancy",
+                      "cooling_redundancy",
+                      "network_redundancy",
+                      "intrusion_alarm",
+                      "visitor_escort",
+                      "clear_desk"
+                    ]
+                  }
+                },
+                "notes": { "type": "string" }
+              }
+            }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

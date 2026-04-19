@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "network-register.schema.json",
+  "title": "Network segments register",
+  "type": "object",
+  "required": ["schema_version", "segments"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "description": { "type": "string" },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "trust_level", "in_scope"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^NET-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "trust_level": {
+            "enum": [
+              "untrusted",
+              "dmz",
+              "trusted",
+              "management",
+              "air_gapped"
+            ]
+          },
+          "cidr": { "type": "string" },
+          "encryption_baseline": {
+            "enum": [
+              "none",
+              "tls_1_2_min",
+              "tls_1_3_min",
+              "ipsec",
+              "wireguard",
+              "mtls_required"
+            ]
+          },
+          "ingress_policy": {
+            "enum": ["deny_default", "allow_default", "n_a"]
+          },
+          "egress_policy": {
+            "enum": ["deny_default", "allow_default", "n_a"]
+          },
+          "peering": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^NET-\\d{3}$" }
+          },
+          "location_ref": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "pattern": "^FAC-\\d{3}$" }
+            ]
+          },
+          "owner_role": {
+            "type": "string",
+            "pattern": "^role:[A-Za-z0-9_-]+$"
+          },
+          "in_scope": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}
