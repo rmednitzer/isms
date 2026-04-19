@@ -12,9 +12,7 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import argparse
-import hashlib
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 from ruamel.yaml import YAML
