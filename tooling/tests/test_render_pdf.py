@@ -7,7 +7,7 @@ is exercised manually via `make pdf DOC=...` on developer machines.
 from __future__ import annotations
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -28,7 +28,7 @@ DOC_CONTROL = REPO_ROOT / "docs" / "document-control.md"
 POLICY_SAMPLE = REPO_ROOT / "template" / "governance" / "policy" / "P-000-information-security-policy.md"
 STANDARD_SAMPLE = REPO_ROOT / "template" / "governance" / "standards" / "STD-001-password-standard.md"
 
-FIXED_TIME = datetime(2026, 4, 19, 12, 0, 0, tzinfo=timezone.utc)
+FIXED_TIME = datetime(2026, 4, 19, 12, 0, 0, tzinfo=UTC)
 
 
 def test_parse_document_extracts_frontmatter_and_body() -> None:
