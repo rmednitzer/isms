@@ -126,15 +126,10 @@ providers:
 # =========================================================================
 
 supply_chain:
-  critical_suppliers: []        # populate after supplier risk assessment; see SOP-008
-  # Example entry:
-  # - id: SUP-001
-  #   name: "Example Cloud GmbH"
-  #   service_type: "IaaS"
-  #   data_residency: "EU"
-  #   iso27001_certified: true
-  #   dpa_signed: true
-  #   last_review_date: "2026-04-01"
+  register_path: instance/governance/supply-chain/register.yaml
+  # Supplier entries live in the register referenced above and conform to
+  # tooling/schemas/supplier-register.schema.json. See SOP-008 for the review
+  # procedure. The register is populated after supplier risk assessment.
 
 # =========================================================================
 # Operational parameters
