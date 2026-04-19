@@ -6,7 +6,7 @@ Every `doc_type` enum value declared in
 `tooling/schemas/frontmatter.schema.json` must have at least one artefact
 present under `template/` whose front-matter uses it. This guarantees that
 downstream deployments have a starting skeleton for every document kind
-the schema permits and that DOC-003 section 7 (section skeleton by
+the schema permits and that DOC-009 section 7 (section skeleton by
 document type) has a corresponding template.
 
 Exits 0 on success, 1 on missing coverage, 2 on infrastructure errors.
