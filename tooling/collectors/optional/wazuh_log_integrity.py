@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 import sys
 
+
 def main() -> int:
     print("Stub: wazuh_log_integrity collector. Implement per provider API and wire via instance/config.yaml.")
     return 0

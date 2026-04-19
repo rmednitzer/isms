@@ -62,7 +62,7 @@ def main() -> int:
         else:
             without_evidence.append(cid)
 
-    print(f"Control coverage report")
+    print("Control coverage report")
     print(f"Total controls: {total}")
     print(f"Applicable: {len(applicable)}")
     print(f"  with implementation statement: {len(with_impl)}")
