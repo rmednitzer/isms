@@ -38,6 +38,7 @@ validate:
 	$(PYTHON) tooling/validators/validate_calendar.py
 	$(PYTHON) tooling/validators/validate_bilingual.py
 	$(PYTHON) tooling/validators/validate_doc_type_coverage.py
+	$(PYTHON) tooling/validators/validate_registers.py
 
 currency-check:
 	$(PYTHON) tooling/collectors/core/evidence_age_report.py
