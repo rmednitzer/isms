@@ -1,7 +1,7 @@
 ---
 doc_id: TMPL-001
 doc_type: record
-title: CERT.at Fruehwarnung template (NISG 2026 Paragraph 32)
+title: CERT.at Fruehwarnung Vorlage (NISG 2026 Paragraph 32)
 revision: 1
 status: approved
 approved_date: 2026-04-19
