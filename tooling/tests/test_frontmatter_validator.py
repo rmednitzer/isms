@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import textwrap
 from pathlib import Path
 
@@ -10,6 +11,9 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "tooling" / "schemas" / "frontmatter.schema.json"
+
+sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
+from validate_frontmatter import extract_frontmatter  # noqa: E402
 
 
 @pytest.fixture
@@ -97,10 +101,6 @@ class TestFrontmatterExtraction:
     """Test the extract_frontmatter helper from the validator."""
 
     def test_extract_valid_frontmatter(self, tmp_path: Path) -> None:
-        import sys
-        sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
-        from validate_frontmatter import extract_frontmatter
-
         md = tmp_path / "test.md"
         md.write_text(textwrap.dedent("""\
             ---
@@ -114,10 +114,6 @@ class TestFrontmatterExtraction:
         assert result["doc_id"] == "P-001"
 
     def test_extract_no_frontmatter(self, tmp_path: Path) -> None:
-        import sys
-        sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
-        from validate_frontmatter import extract_frontmatter
-
         md = tmp_path / "test.md"
         md.write_text("# Just a heading\n\nNo front-matter here.\n")
         result = extract_frontmatter(md)
