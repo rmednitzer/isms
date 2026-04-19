@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 import sys
 
+
 def main() -> int:
     print("Stub: veeam_backup_attestation collector. Implement per provider API and wire via instance/config.yaml.")
     return 0
