@@ -1,4 +1,4 @@
-.PHONY: help bootstrap instantiate validate currency-check snapshot-fetch pack selbstdeklaration test clean
+.PHONY: help bootstrap instantiate validate currency-check snapshot-fetch pack selbstdeklaration pdf soa-pdf test clean
 
 PYTHON ?= .venv/bin/python
 VENV ?= .venv
@@ -14,6 +14,8 @@ help:
 	@echo "  snapshot-fetch     refresh law snapshots from RIS and EUR-Lex (network required)"
 	@echo "  pack AUDIT=<stg>   build audit bundle (stage-1 | stage-2 | surveillance-YYYY | selbstdeklaration)"
 	@echo "  selbstdeklaration  build NISG 2026 § 33 self-declaration package"
+	@echo "  pdf DOC=<path>     render a single governance markdown to PDF (WeasyPrint required)"
+	@echo "  soa-pdf            render the Statement of Applicability to PDF"
 	@echo "  test               run tooling unit tests"
 	@echo "  clean              remove generated artefacts (not source)"
 
@@ -35,6 +37,7 @@ validate:
 	$(PYTHON) tooling/validators/validate_law_references.py
 	$(PYTHON) tooling/validators/validate_calendar.py
 	$(PYTHON) tooling/validators/validate_bilingual.py
+	$(PYTHON) tooling/validators/validate_doc_type_coverage.py
 
 currency-check:
 	$(PYTHON) tooling/collectors/core/evidence_age_report.py
@@ -54,6 +57,16 @@ pack:
 
 selbstdeklaration:
 	$(PYTHON) tooling/packagers/build_selbstdeklaration.py
+
+pdf:
+	@if [ -z "$(DOC)" ]; then \
+		echo "DOC=<path/to/file.md> required"; \
+		exit 2; \
+	fi
+	$(PYTHON) tooling/packagers/render_pdf.py $(DOC) $(PDF_ARGS)
+
+soa-pdf:
+	$(PYTHON) tooling/packagers/build_soa_pdf.py $(PDF_ARGS)
 
 test:
 	$(PYTHON) -m pytest tooling/tests -v
