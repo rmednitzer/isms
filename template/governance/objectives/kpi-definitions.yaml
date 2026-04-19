@@ -1,0 +1,32 @@
+schema_version: 1
+kpis:
+  - id: KPI-001
+    title: ISO 27001 certification status
+    measure: binary (certified / not certified)
+    target: certified by {{classification.iso27001_target_cert_date}}
+    cadence: monthly
+  - id: KPI-010
+    title: Significant cybersecurity incidents per quarter
+    measure: count classified cybersecurity_significant
+    target: 0 with material customer impact
+    cadence: quarterly
+  - id: KPI-020
+    title: Evidence freshness
+    measure: percentage of evidence tasks within cadence
+    target: '>= 95%'
+    cadence: weekly
+  - id: KPI-030
+    title: Patch SLA
+    measure: percentage of critical vulnerabilities patched within 14 days
+    target: '>= 95%'
+    cadence: monthly
+  - id: KPI-040
+    title: Awareness completion
+    measure: percentage of personnel completing annual training
+    target: 100%
+    cadence: annual
+  - id: KPI-050
+    title: Restore-test success
+    measure: percentage of quarterly restore tests successful
+    target: 100%
+    cadence: quarterly

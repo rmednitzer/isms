@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "incident.schema.json",
+  "title": "Incident record",
+  "type": "object",
+  "required": [
+    "incident_id",
+    "detected_at",
+    "classification",
+    "status"
+  ],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "pattern": "^INC-\\d{4}-\\d{3}$"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "classification": {
+      "enum": [
+        "cybersecurity_significant",
+        "cybersecurity_minor",
+        "privacy_breach",
+        "operational",
+        "minor",
+        "false_positive"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "affected_assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "incident_commander": {
+      "type": "string"
+    },
+    "cert_at_fruehwarnung": {
+      "type": "object",
+      "properties": {
+        "submitted": {
+          "type": "boolean"
+        },
+        "submitted_at": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        },
+        "reference": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "cert_at_notification_72h": {
+      "type": "object",
+      "properties": {
+        "submitted": {
+          "type": "boolean"
+        },
+        "submitted_at": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        }
+      }
+    },
+    "cert_at_final_report": {
+      "type": "object",
+      "properties": {
+        "submitted": {
+          "type": "boolean"
+        },
+        "submitted_at": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        }
+      }
+    },
+    "gdpr_notification": {
+      "type": "object",
+      "properties": {
+        "applicable": {
+          "type": "boolean"
+        },
+        "submitted_to_dsb": {
+          "type": "boolean"
+        },
+        "submitted_at": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        }
+      }
+    },
+    "lessons_learned_ref": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "detected",
+        "triaged",
+        "contained",
+        "eradicated",
+        "recovered",
+        "closed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "law-source.schema.json",
+  "title": "Law source registry entry",
+  "type": "object",
+  "required": [
+    "id",
+    "jurisdiction",
+    "type",
+    "short_title",
+    "authoritative_url",
+    "check_frequency_days",
+    "responsible_role",
+    "copyright_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,4}\\.[A-Za-z0-9-]+$"
+    },
+    "jurisdiction": {
+      "enum": [
+        "at",
+        "eu",
+        "international",
+        "de",
+        "ch",
+        "li"
+      ]
+    },
+    "type": {
+      "enum": [
+        "federal_law",
+        "regulation",
+        "directive",
+        "implementing_regulation",
+        "ordinance",
+        "standard",
+        "guideline",
+        "scheme",
+        "code_of_practice"
+      ]
+    },
+    "short_title": {
+      "type": "string"
+    },
+    "long_title": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "string"
+    },
+    "authoritative_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ris_zero_document_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "api_endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "celex": {
+      "type": "string"
+    },
+    "fetch_method": {
+      "enum": [
+        "ris_api",
+        "eurlex_api",
+        "http_scrape",
+        "manual",
+        "rss_feed"
+      ]
+    },
+    "identifier_scheme": {
+      "type": "string"
+    },
+    "current_version": {
+      "type": "string"
+    },
+    "current_version_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "amendment": {
+      "type": "string"
+    },
+    "amendment_check_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "entry_into_force": {
+      "type": "string",
+      "format": "date"
+    },
+    "registration_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "selbstdeklaration_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "check_frequency_days": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 365
+    },
+    "check_frequency_days_steady": {
+      "type": "integer"
+    },
+    "check_frequency_window_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "check_frequency_window_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "responsible_role": {
+      "type": "string",
+      "pattern": "^role:"
+    },
+    "deputy_role": {
+      "type": "string",
+      "pattern": "^role:"
+    },
+    "copyright_status": {
+      "enum": [
+        "public_law_reproducible",
+        "copyrighted_no_redistribution",
+        "cc_licensed",
+        "proprietary_internal"
+      ]
+    },
+    "local_reference": {
+      "type": "string"
+    },
+    "tracking_mode": {
+      "enum": [
+        "full_text",
+        "metadata_only",
+        "delta_only"
+      ]
+    },
+    "in_scope_rationale": {
+      "type": "string"
+    }
+  }
+}

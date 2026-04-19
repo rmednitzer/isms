@@ -1,0 +1,58 @@
+schema_version: 1
+milestones:
+  - id: MS-2026-001
+    source_id: AT.NISG-2026
+    event: NISG 2026 entry into force
+    date: '2026-10-01'
+    confidence: certain
+    obligations_triggered:
+      - section 31 risk-management measures must be in place
+      - section 32 incident-reporting obligations become enforceable
+    artifacts_requiring_readiness:
+      - P-000
+      - P-005
+      - SOP-001
+      - TMPL-001
+    review_at: '2026-09-01'
+    responsible_role: role:ISMS-Manager
+  - id: MS-2026-002
+    source_id: AT.NISG-2026
+    event: NISG 2026 entity registration deadline
+    date: '2026-12-31'
+    confidence: certain
+    obligations_triggered:
+      - registration with Bundesamt fuer Cybersicherheit per section 34
+    artifacts_requiring_readiness:
+      - governance/context/scope-statement.md
+      - entity classification in config.yaml
+    review_at: '2026-11-15'
+    responsible_role: role:ISMS-Manager
+  - id: MS-2027-001
+    source_id: AT.NISG-2026
+    event: NISG 2026 Selbstdeklaration deadline
+    date: '2027-09-30'
+    confidence: certain
+    obligations_triggered:
+      - submit self-declaration per section 33 (or within 12 months of 
+        registration if later)
+    artifacts_requiring_readiness:
+      - Selbstdeklaration package (build_selbstdeklaration.py output)
+      - SoA approved
+      - risk register populated
+    review_at: '2027-06-01'
+    responsible_role: role:CISO
+  - id: MS-2026-003
+    source_id: ISO.27001-2022
+    event: ISO 27001 stage 2 audit target
+    date: '2026-09-30'
+    confidence: planned
+    obligations_triggered:
+      - certification-body engagement, audit execution
+    artifacts_requiring_readiness:
+      - all policies approved and QES-signed
+      - SoA revision approved
+      - full risk treatment cycle complete
+      - at least two internal audits complete
+      - at least one management review complete
+    review_at: '2026-07-01'
+    responsible_role: role:CISO

@@ -1,0 +1,80 @@
+schema_version: 1
+description: Evidence tasks binding controls to cadences, owners, and collection
+  methods.
+evidence_tasks:
+  - id: ET-CORE-001
+    control_ids:
+      - A.5.9
+    cadence_days: 7
+    mode: api
+    owner_role: ISMS-Manager
+    collector: tooling/collectors/core/inventory_from_repo.py
+    sop_ref: SOP-011
+  - id: ET-001
+    control_ids:
+      - A.8.13
+    cadence_days: 7
+    mode: manual
+    owner_role: SysAdmin
+    capture_method: backup_console_screenshot
+    sop_ref: SOP-301
+  - id: ET-002
+    control_ids:
+      - A.8.20
+      - A.8.22
+    cadence_days: 90
+    mode: manual
+    owner_role: SysAdmin
+    capture_method: firewall_rule_review_export
+    sop_ref: SOP-301
+  - id: ET-003
+    control_ids:
+      - A.7.2
+      - A.7.4
+    cadence_days: 30
+    mode: manual
+    owner_role: SysAdmin
+    capture_method: badge_system_export
+    sop_ref: SOP-301
+  - id: ET-004
+    control_ids:
+      - A.5.20
+      - A.5.22
+    cadence_days: 90
+    mode: manual
+    owner_role: ISMS-Manager
+    capture_method: supplier_certificate_review
+    sop_ref: SOP-008
+  - id: ET-050
+    control_ids:
+      - A.8.2
+      - A.5.18
+    cadence_days: 90
+    mode: api
+    owner_role: ISMS-Manager
+    collector: tooling/collectors/optional/keycloak_privileged_access.py
+    sop_ref: SOP-003
+  - id: ET-060
+    control_ids:
+      - A.8.15
+    cadence_days: 30
+    mode: api
+    owner_role: SysAdmin
+    collector: tooling/collectors/optional/wazuh_log_integrity.py
+    sop_ref: SOP-301
+  - id: ET-100
+    control_ids:
+      - A.8.8
+    cadence_days: 7
+    mode: api
+    owner_role: SysAdmin
+    collector: tooling/collectors/optional/openvas_vulnerability_state.py
+    sop_ref: SOP-009
+  - id: ET-200
+    control_ids:
+      - A.6.3
+    cadence_days: 365
+    mode: manual
+    owner_role: ISMS-Manager
+    capture_method: awareness_training_completion_export
+    sop_ref: SOP-012

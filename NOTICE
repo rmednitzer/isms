@@ -1,0 +1,36 @@
+isms
+
+Copyright 2026 isms contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.
+
+---
+
+This repository contains references to the following external legal sources
+whose texts are reproduced under their respective public-law regimes:
+
+- Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026),
+  BGBl. I Nr. 94/2025, published via Rechtsinformationssystem des Bundes
+  (https://www.ris.bka.gv.at). Public Austrian federal law, reproducible
+  with source citation.
+
+- Directive (EU) 2022/2555 (NIS2), CELEX 32022L2555; Commission
+  Implementing Regulation (EU) 2024/2690, CELEX 32024R2690; Regulation
+  (EU) 2016/679 (GDPR), CELEX 32016R0679. Public EU legal acts,
+  reproducible with source citation.
+
+- ISO/IEC 27001:2022 and ISO/IEC 27002:2022 are copyrighted by
+  ISO and IEC. Only control identifiers and titles are reproduced in this
+  repository as factual references. Full text must be obtained via a
+  licensed copy from ISO or an authorised national standards body
+  (Austrian Standards International for Austria).

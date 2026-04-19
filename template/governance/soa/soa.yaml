@@ -1,0 +1,1030 @@
+schema_version: 1
+revision: 1
+approved_date:
+approved_by:
+scope_reference: governance/context/scope-statement.md
+controls:
+  - id: A.5.1
+    title: Policies for information security
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.1.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.2
+    title: Information security roles and responsibilities
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.2.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.3
+    title: Segregation of duties
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.3.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.4
+    title: Management responsibilities
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.4.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.5
+    title: Contact with authorities
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.5.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.6
+    title: Contact with special interest groups
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.6.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.7
+    title: Threat intelligence
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.7.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.8
+    title: Information security in project management
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.8.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.9
+    title: Inventory of information and other associated assets
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.9.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.10
+    title: Acceptable use of information and other associated assets
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.10.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.11
+    title: Return of assets
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.11.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.12
+    title: Classification of information
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.12.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.13
+    title: Labelling of information
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.13.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.14
+    title: Information transfer
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.14.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.15
+    title: Access control
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.15.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.16
+    title: Identity management
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.16.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.17
+    title: Authentication information
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.17.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.18
+    title: Access rights
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.18.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.19
+    title: Information security in supplier relationships
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.19.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.20
+    title: Addressing information security within supplier agreements
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.20.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.21
+    title: Managing information security in the ICT supply chain
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.21.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.22
+    title: Monitoring, review and change management of supplier services
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.22.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.23
+    title: Information security for use of cloud services
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.23.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.24
+    title: Information security incident management planning and preparation
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.24.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.25
+    title: Assessment and decision on information security events
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.25.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.26
+    title: Response to information security incidents
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.26.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.27
+    title: Learning from information security incidents
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.27.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.28
+    title: Collection of evidence
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.28.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.29
+    title: Information security during disruption
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.29.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.30
+    title: ICT readiness for business continuity
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.30.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.31
+    title: Legal, statutory, regulatory and contractual requirements
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.31.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.32
+    title: Intellectual property rights
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.32.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.33
+    title: Protection of records
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.33.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.34
+    title: Privacy and protection of personal identifiable information
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.34.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.35
+    title: Independent review of information security
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.35.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.36
+    title: Compliance with policies, rules and standards for information 
+      security
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.36.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.5.37
+    title: Documented operating procedures
+    theme: organisational
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.5.37.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.1
+    title: Screening
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.1.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.2
+    title: Terms and conditions of employment
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.2.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.3
+    title: Information security awareness, education and training
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.3.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.4
+    title: Disciplinary process
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.4.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.5
+    title: Responsibilities after termination or change of employment
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.5.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.6
+    title: Confidentiality or non-disclosure agreements
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.6.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.7
+    title: Remote working
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.7.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.6.8
+    title: Information security event reporting
+    theme: people
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.6.8.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.1
+    title: Physical security perimeters
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.1.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.2
+    title: Physical entry
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.2.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.3
+    title: Securing offices, rooms and facilities
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.3.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.4
+    title: Physical security monitoring
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.4.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.5
+    title: Protecting against physical and environmental threats
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.5.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.6
+    title: Working in secure areas
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.6.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.7
+    title: Clear desk and clear screen
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.7.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.8
+    title: Equipment siting and protection
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.8.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.9
+    title: Security of assets off-premises
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.9.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.10
+    title: Storage media
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.10.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.11
+    title: Supporting utilities
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.11.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.12
+    title: Cabling security
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.12.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.13
+    title: Equipment maintenance
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.13.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.7.14
+    title: Secure disposal or re-use of equipment
+    theme: physical
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.7.14.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.1
+    title: User endpoint devices
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.1.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.2
+    title: Privileged access rights
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.2.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.3
+    title: Information access restriction
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.3.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.4
+    title: Access to source code
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.4.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.5
+    title: Secure authentication
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.5.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.6
+    title: Capacity management
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.6.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.7
+    title: Protection against malware
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.7.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.8
+    title: Management of technical vulnerabilities
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.8.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.9
+    title: Configuration management
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.9.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.10
+    title: Information deletion
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.10.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.11
+    title: Data masking
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.11.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.12
+    title: Data leakage prevention
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.12.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.13
+    title: Information backup
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.13.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.14
+    title: Redundancy of information processing facilities
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.14.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.15
+    title: Logging
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.15.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.16
+    title: Monitoring activities
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.16.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.17
+    title: Clock synchronisation
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.17.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.18
+    title: Use of privileged utility programs
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.18.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.19
+    title: Installation of software on operational systems
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.19.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.20
+    title: Networks security
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.20.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.21
+    title: Security of network services
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.21.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.22
+    title: Segregation of networks
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.22.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.23
+    title: Web filtering
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.23.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.24
+    title: Use of cryptography
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.24.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.25
+    title: Secure development life cycle
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.25.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.26
+    title: Application security requirements
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.26.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.27
+    title: Secure system architecture and engineering principles
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.27.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.28
+    title: Secure coding
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.28.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.29
+    title: Security testing in development and acceptance
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.29.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.30
+    title: Outsourced development
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.30.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.31
+    title: Separation of development, test and production environments
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.31.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.32
+    title: Change management
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.32.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.33
+    title: Test information
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.33.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:
+  - id: A.8.34
+    title: Protection of information systems during audit testing
+    theme: technological
+    applicable: yes
+    justification_ref:
+    exclusion_ref:
+    implementation_ref: controls/implementation/A.8.34.md
+    status: not_assessed
+    evidence_task_ids: []
+    owner: role:ISMS-Manager
+    last_review_date:

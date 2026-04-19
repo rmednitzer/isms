@@ -1,0 +1,7 @@
+schema_version: 1
+rto_rpo:
+  - service_id: SVC-001
+    service_name: TODO
+    rto_hours:
+    rpo_hours:
+    note: populate per service during DR planning

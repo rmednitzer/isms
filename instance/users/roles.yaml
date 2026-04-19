@@ -1,0 +1,60 @@
+schema_version: 1
+description: Role catalogue. Binds role definitions used in CODEOWNERS, 
+  .gitsigners, and front-matter owner fields.
+roles:
+  - id: Management
+    german_name: Leitungsorgan
+    accountability: Ultimate accountability for ISMS and NISG 2026 section 31 
+      compliance
+    can_sign_git: true
+    can_sign_qes: true
+    qes_scope:
+      - P-000
+      - management_review_minutes
+      - selbstdeklaration
+  - id: CISO
+    accountability: ISMS direction, risk acceptance at medium level, SoA 
+      approval
+    can_sign_git: true
+    can_sign_qes: true
+    qes_scope:
+      - SoA
+      - risk_treatment_plan
+      - CISO-owned policies
+  - id: ISMS-Manager
+    accountability: Day-to-day ISMS operation, policy and SOP approval, audit 
+      readiness
+    can_sign_git: true
+    can_sign_qes: true
+    qes_scope:
+      - procedural policies
+      - SOPs on elevation
+  - id: DPO
+    german_name: Datenschutzbeauftragte oder Datenschutzbeauftragter
+    accountability: GDPR compliance, DPIA review, data subject rights, P-012 
+      ownership
+    can_sign_git: true
+    can_sign_qes: true
+    qes_scope:
+      - P-012
+      - DPIAs
+  - id: SysAdmin
+    accountability: Technical implementation and operational evidence
+    can_sign_git: true
+    can_sign_qes: false
+  - id: InternalAuditor
+    accountability: Independent internal audit per ISO 19011; independent of 
+      audited function
+    can_sign_git: true
+    can_sign_qes: false
+  - id: Auditee
+    accountability: Providing evidence and responses during audit activities
+    can_sign_git: true
+    can_sign_qes: false
+  - id: ExternalAuditor
+    accountability: External audit (certification body or supervisory 
+      authority); read-only access
+    can_sign_git: false
+    can_sign_qes: false
+    note: External auditors do not commit; their reports arrive as QES-signed 
+      PDFs and are stored under instance/evidence/received/

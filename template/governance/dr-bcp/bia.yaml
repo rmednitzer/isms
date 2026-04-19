@@ -1,0 +1,13 @@
+schema_version: 1
+business_impact_analysis:
+  methodology: Identify critical business services, estimate MTPD and MBCO, 
+    derive RTO and RPO per service, map to dependencies (systems, people, 
+    suppliers, locations).
+  services:
+    - id: SVC-001
+      name: '{{scope.included_business_units}}'
+      mtpd_hours:
+      mbco:
+      rto_hours:
+      rpo_hours:
+      dependencies: []
