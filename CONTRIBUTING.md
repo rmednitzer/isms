@@ -27,11 +27,15 @@ Instance-specific content (the actual policies and evidence of a deploying organ
 
 ## Style
 
+The authoritative editorial style guide is `docs/style-guide.md` (DOC-009).
+Summary of the most-cited rules:
+
 - English for code, comments, and template content.
 - German for authority-facing templates where German is the authoritative language.
 - No em dashes and no double dashes; use comma, semicolon, period, parenthesis.
 - YYYY-MM-DD dates, 24h times.
 - Apache-2.0 header on new tooling files.
+- ISO/IEC Directives Part 2 verb convention: shall, should, may, shall not.
 
 ## Governance-artefact contributions
 

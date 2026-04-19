@@ -40,6 +40,10 @@ dev = [
     "mypy>=1.10",
     "pre-commit>=3.7",
 ]
+pdf = [
+    "markdown>=3.6",
+    "weasyprint>=62.0",
+]
 
 [project.urls]
 Repository = "https://github.com/OWNER/isms"
