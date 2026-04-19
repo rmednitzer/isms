@@ -46,6 +46,9 @@ controls:
   - id: Art.25
     title: Data protection by design and by default
     category: organisational
+  - id: Art.30
+    title: Records of processing activities
+    category: organisational
   - id: Art.32
     title: Security of processing (umbrella for Art.32(1)(a) through (d) and 
       Art.32(2) to (4))

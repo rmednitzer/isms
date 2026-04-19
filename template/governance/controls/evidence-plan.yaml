@@ -5,7 +5,63 @@ evidence_tasks:
   - id: ET-CORE-001
     control_ids:
       - A.5.9
-    cadence_days: 7
+    cadence_days: 90
+    mode: api
+    owner_role: ISMS-Manager
+    collector: tooling/collectors/core/inventory_from_register.py
+    sop_ref: SOP-011
+  - id: ET-CORE-002
+    control_ids:
+      - A.7.1
+      - A.7.2
+      - A.7.3
+      - A.7.4
+    cadence_days: 90
+    mode: manual
+    owner_role: ISMS-Manager
+    capture_method: facilities_register_review
+    sop_ref: SOP-011
+  - id: ET-CORE-003
+    control_ids:
+      - A.8.20
+      - A.8.21
+      - A.8.22
+    cadence_days: 90
+    mode: manual
+    owner_role: SysAdmin
+    capture_method: network_register_review
+    sop_ref: SOP-011
+  - id: ET-CORE-004
+    control_ids:
+      - A.5.19
+      - A.5.20
+      - A.5.22
+    cadence_days: 90
+    mode: manual
+    owner_role: ISMS-Manager
+    capture_method: supplier_register_review
+    sop_ref: SOP-008
+  - id: ET-CORE-005
+    control_ids:
+      - A.5.34
+    cadence_days: 180
+    mode: manual
+    owner_role: DPO
+    capture_method: data_inventory_review
+    sop_ref: SOP-011
+  - id: ET-CORE-006
+    control_ids:
+      - A.5.12
+      - A.5.13
+    cadence_days: 365
+    mode: manual
+    owner_role: ISMS-Manager
+    capture_method: classification_scheme_review
+    sop_ref: SOP-011
+  - id: ET-CORE-007
+    control_ids:
+      - A.5.37
+    cadence_days: 30
     mode: api
     owner_role: ISMS-Manager
     collector: tooling/collectors/core/inventory_from_repo.py
