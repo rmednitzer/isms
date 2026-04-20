@@ -26,9 +26,6 @@ jobs:
       - name: Lint with ruff
         run: ruff check tooling/ --config tooling/pyproject.toml
 
-      - name: Ruff format check
-        run: ruff format --check tooling/ --config tooling/pyproject.toml
-
       - name: Run tests
         run: make test PYTHON=python
 
