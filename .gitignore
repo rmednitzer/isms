@@ -13,7 +13,12 @@ venv/
 # Testing
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+
+# Type checkers
+.mypy_cache/
+.ruff_cache/
 
 # IDE
 .vscode/
@@ -26,5 +31,5 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# Generated artefacts
-*.egg-info/
+# Logs
+*.log
