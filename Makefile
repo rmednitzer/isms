@@ -1,3 +1,4 @@
+# Requires GNU Make (uses pattern substitution and static pattern rules).
 VALIDATORS := frontmatter crossrefs signatures supersession law_references calendar bilingual doc_type_coverage registers
 VALIDATE_TARGETS := $(VALIDATORS:%=validate-%)
 
