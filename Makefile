@@ -1,4 +1,8 @@
-.PHONY: help bootstrap instantiate validate currency-check snapshot-fetch pack selbstdeklaration pdf soa-pdf test clean
+# Requires GNU Make (uses pattern substitution and static pattern rules).
+VALIDATORS := frontmatter crossrefs signatures supersession law_references calendar bilingual doc_type_coverage registers
+VALIDATE_TARGETS := $(VALIDATORS:%=validate-%)
+
+.PHONY: help bootstrap instantiate validate $(VALIDATE_TARGETS) currency-check snapshot-fetch pack selbstdeklaration pdf soa-pdf test clean
 
 PYTHON ?= .venv/bin/python
 VENV ?= .venv
@@ -9,7 +13,7 @@ help:
 	@echo ""
 	@echo "  bootstrap          create .venv and install tooling"
 	@echo "  instantiate        render template/ into instance/ per instance/config.yaml"
-	@echo "  validate           run all offline validators (no network)"
+	@echo "  validate           run all offline validators (no network; pass -j for parallel)"
 	@echo "  currency-check     check snapshot ages and reference coverage"
 	@echo "  snapshot-fetch     refresh law snapshots from RIS and EUR-Lex (network required)"
 	@echo "  pack AUDIT=<stg>   build audit bundle (stage-1 | stage-2 | surveillance-YYYY | selbstdeklaration)"
@@ -29,16 +33,10 @@ bootstrap:
 instantiate:
 	$(PYTHON) tooling/instantiate.py --config instance/config.yaml
 
-validate:
-	$(PYTHON) tooling/validators/validate_frontmatter.py
-	$(PYTHON) tooling/validators/validate_crossrefs.py
-	$(PYTHON) tooling/validators/validate_signatures.py
-	$(PYTHON) tooling/validators/validate_supersession.py
-	$(PYTHON) tooling/validators/validate_law_references.py
-	$(PYTHON) tooling/validators/validate_calendar.py
-	$(PYTHON) tooling/validators/validate_bilingual.py
-	$(PYTHON) tooling/validators/validate_doc_type_coverage.py
-	$(PYTHON) tooling/validators/validate_registers.py
+validate: $(VALIDATE_TARGETS)
+
+$(VALIDATE_TARGETS): validate-%:
+	$(PYTHON) tooling/validators/validate_$*.py
 
 currency-check:
 	$(PYTHON) tooling/collectors/core/evidence_age_report.py

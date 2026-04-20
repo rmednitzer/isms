@@ -46,7 +46,7 @@ pdf = [
 ]
 
 [project.urls]
-Repository = "https://github.com/OWNER/isms"
+Repository = "https://github.com/rmednitzer/isms"
 
 [tool.setuptools]
 packages = []
