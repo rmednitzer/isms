@@ -20,33 +20,14 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: |
-          pip install ".[dev]"
+        run: pip install ".[dev]"
         working-directory: tooling
 
       - name: Lint with ruff
         run: ruff check tooling/ --config tooling/pyproject.toml
 
       - name: Run tests
-        run: python -m pytest tooling/tests -v --tb=short
+        run: make test PYTHON=python
 
-      - name: Validate frontmatter
-        run: python tooling/validators/validate_frontmatter.py
-
-      - name: Validate cross-references
-        run: python tooling/validators/validate_crossrefs.py
-
-      - name: Validate signatures
-        run: python tooling/validators/validate_signatures.py
-
-      - name: Validate supersession
-        run: python tooling/validators/validate_supersession.py
-
-      - name: Validate law references
-        run: python tooling/validators/validate_law_references.py
-
-      - name: Validate calendar
-        run: python tooling/validators/validate_calendar.py
-
-      - name: Validate bilingual
-        run: python tooling/validators/validate_bilingual.py
+      - name: Run validators
+        run: make validate PYTHON=python
