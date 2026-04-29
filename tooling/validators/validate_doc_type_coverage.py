@@ -17,18 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
-from ruamel.yaml import YAML
+from _common import REPO_ROOT, iter_markdown, parse_frontmatter
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "tooling" / "schemas" / "frontmatter.schema.json"
 TEMPLATE_ROOT = REPO_ROOT / "template"
-
-FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
-_yaml = YAML(typ="safe")
 
 
 def load_allowed_doc_types() -> list[str]:
@@ -45,15 +40,11 @@ def load_allowed_doc_types() -> list[str]:
 
 def collect_template_doc_types() -> dict[str, list[Path]]:
     found: dict[str, list[Path]] = {}
-    for md_path in TEMPLATE_ROOT.rglob("*.md"):
-        text = md_path.read_text(encoding="utf-8")
-        m = FRONTMATTER_RE.match(text)
-        if not m:
+    for md_path in iter_markdown([TEMPLATE_ROOT]):
+        fm = parse_frontmatter(md_path)
+        if fm is None:
             continue
-        data = _yaml.load(m.group(1)) or {}
-        if not isinstance(data, dict):
-            continue
-        doc_type = data.get("doc_type")
+        doc_type = fm.get("doc_type")
         if not isinstance(doc_type, str):
             continue
         found.setdefault(doc_type, []).append(md_path.relative_to(REPO_ROOT))
@@ -69,9 +60,8 @@ def main() -> int:
 
     for dt in allowed:
         examples = found.get(dt, [])
-        count = len(examples)
         first = examples[0] if examples else "MISSING"
-        print(f"  {dt:10s}  {count:4d}  {first}")
+        print(f"  {dt:10s}  {len(examples):4d}  {first}")
 
     if extra:
         print("\nTemplates declare doc_type values not in the schema:", file=sys.stderr)
@@ -79,10 +69,15 @@ def main() -> int:
             print(f"  {dt}: {found[dt][0]}", file=sys.stderr)
 
     if missing:
-        print("\nFAIL: no template found for doc_type(s): "
-              + ", ".join(missing), file=sys.stderr)
-        print("Add a template under template/ that declares the missing "
-              "doc_type, or remove the value from the schema.", file=sys.stderr)
+        print(
+            "\nFAIL: no template found for doc_type(s): " + ", ".join(missing),
+            file=sys.stderr,
+        )
+        print(
+            "Add a template under template/ that declares the missing "
+            "doc_type, or remove the value from the schema.",
+            file=sys.stderr,
+        )
         return 1
 
     if extra:

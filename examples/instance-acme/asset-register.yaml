@@ -1,0 +1,74 @@
+schema_version: 1
+description: >
+  Illustrative asset register for the fictitious entity Acme Widgets GmbH.
+  Conforms to tooling/schemas/asset-register.schema.json. Only assurance-
+  relevant fields are recorded; the operational source of truth lives in
+  the configuration management database referenced by operational_ref.
+assets:
+  - id: ASSET-0001
+    name: "Customer order database"
+    class: information
+    description: >-
+      Primary OLTP database holding customer accounts, orders, and shipping
+      addresses. Personal data (name, address, email) plus pseudonymised
+      payment tokens.
+    owner_role: role:CISO
+    custodian_role: role:SysAdmin
+    criticality: critical
+    classification: confidential
+    location_ref: FAC-001
+    zone_ref: ZONE-003
+    network_ref: NET-001
+    supplier_refs:
+      - SUP-001
+    data_refs:
+      - DATA-001
+    dependencies: []
+    in_scope: true
+    lifecycle_status: operational
+    operational_ref: "cmdb://hosts/db-prod-01"
+    notes: "Restore tested 2026-04-15 per backup attestation EVID-2026-04-15-001."
+
+  - id: ASSET-0002
+    name: "ERP application (self-hosted)"
+    class: software
+    description: >-
+      Order processing, invoicing, and procurement. Reads ASSET-0001 and
+      writes to ASSET-0003.
+    owner_role: role:CISO
+    custodian_role: role:SysAdmin
+    criticality: high
+    classification: confidential
+    location_ref: FAC-001
+    zone_ref: ZONE-003
+    network_ref: NET-001
+    supplier_refs: []
+    data_refs:
+      - DATA-001
+    dependencies:
+      - ASSET-0001
+    in_scope: true
+    lifecycle_status: operational
+    operational_ref: "cmdb://services/erp"
+    notes: ""
+
+  - id: ASSET-0003
+    name: "Backup target (S3-compatible object store)"
+    class: service
+    description: "Off-site backup target; bucket policies enforce immutability."
+    owner_role: role:SysAdmin
+    custodian_role: role:SysAdmin
+    criticality: high
+    classification: confidential
+    location_ref: FAC-001
+    zone_ref: ZONE-003
+    network_ref: NET-001
+    supplier_refs:
+      - SUP-002
+    data_refs:
+      - DATA-001
+    dependencies: []
+    in_scope: true
+    lifecycle_status: operational
+    operational_ref: "cmdb://services/backup-store"
+    notes: ""

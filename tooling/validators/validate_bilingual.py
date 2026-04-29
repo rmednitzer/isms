@@ -10,38 +10,28 @@ SPDX-License-Identifier: Apache-2.0
 """
 from __future__ import annotations
 
-import re
 import sys
-from pathlib import Path
 
-from ruamel.yaml import YAML
-
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
-yaml = YAML(typ="safe")
+from _common import (
+    FRONTMATTER_RE,  # noqa: F401  (re-exported for tests)
+    GOVERNANCE_SCAN_ROOTS,
+    iter_frontmatter,
+)
+from _common import (
+    _yaml as yaml,  # noqa: F401  (re-exported for tests)
+)
 
 
 def main() -> int:
     violations: list[str] = []
     checked = 0
-    for md in REPO_ROOT.rglob("*.md"):
-        if "/.venv/" in str(md) or "/__pycache__/" in str(md):
-            continue
-        text = md.read_text(encoding="utf-8")
-        m = FRONTMATTER_RE.match(text)
-        if not m:
-            continue
-        fm = yaml.load(m.group(1)) or {}
-        if not isinstance(fm, dict):
-            continue
+    for md, fm in iter_frontmatter(GOVERNANCE_SCAN_ROOTS):
         if not fm.get("bilingual"):
             continue
         checked += 1
-        # Expect companion file with alternate language suffix
         name = md.stem
         lang = fm.get("language", "en")
         other_lang = "de" if lang == "en" else "en"
-        # Strip trailing .xx if present, else use bare name
         if name.endswith(f".{lang}"):
             base = name[: -(len(lang) + 1)]
             companion = md.parent / f"{base}.{other_lang}.md"

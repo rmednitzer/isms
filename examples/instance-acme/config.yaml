@@ -1,0 +1,133 @@
+schema_version: 1
+
+# =========================================================================
+# ILLUSTRATIVE EXAMPLE. NOT FOR PRODUCTION USE.
+#
+# Fictitious organisation: Acme Widgets GmbH. Every value below is fabricated.
+# Read this file to understand how a populated instance/config.yaml looks.
+# Do not copy over instance/config.yaml without replacing every value.
+# =========================================================================
+
+entity:
+  legal_name: "Acme Widgets GmbH"
+  short_name: "Acme"
+  jurisdiction: at
+  legal_form: GmbH
+  register_number: "FN 123456a"
+  address:
+    street: "Beispielgasse 7"
+    postal_code: "1010"
+    city: "Vienna"
+    country: "Austria"
+  primary_language: en
+  authority_language: de
+  draft_date: "2026-04-29"
+
+# =========================================================================
+# Classification under applicable frameworks
+# =========================================================================
+
+classification:
+  nisg2026_category: "wichtige-einrichtung"
+  nisg2026_sectors: "manufacture of computer, electronic and optical products (Annex I sector 8)"
+  nisg2026_registration_id: null  # populated after Bundesamt registration
+  gdpr_role: controller
+  iso27001_target_cert_date: "2027-03-31"
+  dora_applicable: false
+
+# =========================================================================
+# ISMS scope
+# =========================================================================
+
+scope:
+  statement_summary: >-
+    The design, manufacture, and online sale of consumer widgets, including
+    the supporting IT services (ERP, e-commerce platform, identity, and
+    backups), all personnel of Acme Widgets GmbH, and the Vienna head office.
+  included_locations: "Vienna head office (Beispielgasse 7), Linz fulfilment warehouse"
+  included_business_units: "Engineering, Operations, Customer Service, Finance"
+  excluded_items: "Acme Widgets US Inc. (separate ISMS); experimental research division (out of scope per management decision 2026-02-12)"
+
+# =========================================================================
+# Role holders
+# =========================================================================
+
+roles:
+  management:
+    person_id: "person:mgmt-eva"
+  ciso:
+    person_id: "person:ciso-marko"
+    deputy_person_id: "person:isms-mgr-jana"
+  isms_manager:
+    person_id: "person:isms-mgr-jana"
+  dpo:
+    person_id: "person:dpo-leon"
+  sysadmin:
+    person_id: "person:sysadmin-paul"
+  internal_auditor:
+    person_id: "person:auditor-irmgard"
+
+# =========================================================================
+# Provider and integration bindings
+# =========================================================================
+
+providers:
+  qts_provider:
+    name: "a-trust"
+    contract_active: true
+    endpoint_env: "ATRUST_SIGNATUR_BOX_URL"
+    credential_env: "ATRUST_CLIENT_CERT"
+
+  itsm:
+    name: "github"
+    endpoint_env: "GITHUB_API_URL"
+
+  backup:
+    name: "veeam"
+    restore_test_cadence_days: 90
+
+  identity:
+    name: "keycloak"
+    mfa_mandatory: true
+    mfa_method: "webauthn"
+
+  endpoint:
+    name: "crowdstrike"
+
+  monitoring:
+    name: "wazuh"
+    siem_retention_days: 365
+
+  vuln_management:
+    name: "openvas"
+    scan_cadence_days: 7
+
+# =========================================================================
+# Supply chain
+# =========================================================================
+
+supply_chain:
+  register_path: instance/governance/supply-chain/register.yaml
+
+# =========================================================================
+# Operational parameters
+# =========================================================================
+
+operational:
+  timezone: "Europe/Vienna"
+  business_hours: "08:00-18:00 Mon-Fri"
+  incident_response_on_call: "24x7"
+  evidence_retention_years: 7
+  log_retention_days: 365
+  classification_default: internal
+
+# =========================================================================
+# Feature flags
+# =========================================================================
+
+feature_flags:
+  use_qes: true
+  use_cyber_trust_austria: false
+  bilingual_enforcement: true
+  multi_entity: false
+  interim_signature_permitted: true
