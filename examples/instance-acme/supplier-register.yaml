@@ -1,0 +1,41 @@
+schema_version: 1
+description: >
+  Illustrative supplier register for Acme Widgets GmbH. Two suppliers shown:
+  one critical IaaS provider, one QTSP for QES signing.
+suppliers:
+  - id: SUP-001
+    name: "Beispiel Cloud Hosting GmbH"
+    service_type: IaaS
+    criticality: critical
+    classification_handled: confidential
+    data_residency: AT
+    certifications:
+      - ISO27001
+      - SOC2_TYPE_II
+    dpa_signed: true
+    dpa_date: "2026-01-15"
+    contract_ref: "contracts/2026-cloud-hosting-master.pdf"
+    last_review_date: "2026-03-01"
+    next_review_date: "2027-03-01"
+    owner_role: role:CISO
+    in_scope: true
+    lifecycle_status: active
+    notes: "Annual review per SOP-008. SLA 99.9% with 4h RTO target."
+
+  - id: SUP-002
+    name: "A-Trust GmbH"
+    service_type: qtsp
+    criticality: high
+    classification_handled: confidential
+    data_residency: AT
+    certifications:
+      - ISO27001
+    dpa_signed: true
+    dpa_date: "2025-11-30"
+    contract_ref: "contracts/2025-a-trust-qts.pdf"
+    last_review_date: "2026-02-10"
+    next_review_date: "2027-02-10"
+    owner_role: role:CISO
+    in_scope: true
+    lifecycle_status: active
+    notes: "QTSP for PAdES-LTV signatures per SOP-201."

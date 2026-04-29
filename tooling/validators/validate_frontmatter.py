@@ -14,77 +14,50 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
+from _common import (
+    GOVERNANCE_SCAN_ROOTS,
+    REPO_ROOT,
+    iter_markdown,
+    parse_frontmatter,
+)
 from jsonschema import Draft202012Validator, FormatChecker
-from ruamel.yaml import YAML
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "tooling" / "schemas" / "frontmatter.schema.json"
-
-SCAN_ROOTS = [
-    REPO_ROOT / "docs",
-    REPO_ROOT / "template" / "governance",
-    REPO_ROOT / "template" / "operations",
-    REPO_ROOT / "instance" / "governance",
-    REPO_ROOT / "instance" / "operations",
-]
-
-FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
-yaml = YAML(typ="safe")
-
-
-def _normalise(value):
-    """Serialise date and datetime to ISO strings so JSON Schema format=date/date-time matches."""
-    import datetime as _dt
-    if isinstance(value, _dt.datetime):
-        return value.isoformat()
-    if isinstance(value, _dt.date):
-        return value.isoformat()
-    if isinstance(value, dict):
-        return {k: _normalise(v) for k, v in value.items()}
-    if isinstance(value, list):
-        return [_normalise(v) for v in value]
-    return value
 
 
 def extract_frontmatter(path: Path) -> dict | None:
-    text = path.read_text(encoding="utf-8")
-    m = FRONTMATTER_RE.match(text)
-    if not m:
-        return None
-    data = yaml.load(m.group(1))
-    return _normalise(data) if data is not None else None
+    """Return normalised front-matter for a markdown file, or None.
+
+    Kept as a module-level function for backwards compatibility with tests.
+    """
+    return parse_frontmatter(path, normalise=True)
 
 
 def validate_file(path: Path, validator: Draft202012Validator) -> list[str]:
     fm = extract_frontmatter(path)
     if fm is None:
         return [f"{path}: missing front-matter"]
-    errors = list(validator.iter_errors(fm))
-    if not errors:
-        return []
-    return [f"{path}: {e.message} (at {'/'.join(str(p) for p in e.absolute_path)})" for e in errors]
+    return [
+        f"{path}: {e.message} (at {'/'.join(str(p) for p in e.absolute_path)})"
+        for e in validator.iter_errors(fm)
+    ]
 
 
 def main() -> int:
     if not SCHEMA_PATH.is_file():
         print(f"ERROR: schema not found: {SCHEMA_PATH}", file=sys.stderr)
         return 2
-    with SCHEMA_PATH.open("r") as f:
-        schema = json.load(f)
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
 
     errors: list[str] = []
     count = 0
-    for root in SCAN_ROOTS:
-        if not root.is_dir():
-            continue
-        for md in root.rglob("*.md"):
-            count += 1
-            errors.extend(validate_file(md, validator))
+    for md in iter_markdown(GOVERNANCE_SCAN_ROOTS):
+        count += 1
+        errors.extend(validate_file(md, validator))
 
     print(f"Validated front-matter on {count} markdown files.")
     if errors:

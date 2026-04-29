@@ -1,0 +1,66 @@
+schema_version: 1
+description: >
+  Illustrative facilities register for the fictitious entity Acme Widgets GmbH.
+  Conforms to tooling/schemas/facilities-register.schema.json. Use as a
+  reference when populating instance/governance/assets/facilities.yaml.
+facilities:
+  - id: FAC-001
+    name: "Vienna head office"
+    type: office
+    address:
+      street: "Beispielgasse 7"
+      postal_code: "1010"
+      city: "Vienna"
+      country: "Austria"
+    owner_role: role:Facilities-Manager
+    in_scope: true
+    zones:
+      - id: ZONE-001
+        name: "Reception"
+        zone_class: semi_public
+        controls:
+          - badge
+          - cctv
+          - visitor_escort
+        notes: "Visitor sign-in; physical separation from controlled zone."
+      - id: ZONE-002
+        name: "Engineering floor"
+        zone_class: controlled
+        controls:
+          - badge
+          - cctv
+          - clear_desk
+          - intrusion_alarm
+        notes: "Clear-desk policy enforced per P-008 section 4."
+      - id: ZONE-003
+        name: "Server room"
+        zone_class: restricted
+        controls:
+          - badge
+          - biometric
+          - mantrap
+          - cctv
+          - env_monitoring
+          - fire_suppression
+          - power_redundancy
+          - cooling_redundancy
+        notes: "Two-person rule for after-hours access; logged via Keycloak."
+
+  - id: FAC-002
+    name: "Linz fulfilment warehouse"
+    type: warehouse
+    address:
+      street: "Industriestrasse 22"
+      postal_code: "4030"
+      city: "Linz"
+      country: "Austria"
+    owner_role: role:Facilities-Manager
+    in_scope: true
+    zones:
+      - id: ZONE-004
+        name: "Picking and packing"
+        zone_class: controlled
+        controls:
+          - badge
+          - cctv
+          - intrusion_alarm
