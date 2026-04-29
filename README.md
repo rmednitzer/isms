@@ -58,6 +58,7 @@ Git-signed commits attest integrity and authorship within the ISMS. They are not
 | I want to... | Start at |
 |---|---|
 | understand how this repo operates | `docs/operating-contract.md` |
+| see what a populated deployment looks like | `examples/instance-acme/` |
 | deploy this template for an organisation | `instance/config.yaml` and `tooling/instantiate.py` |
 | write a new policy or SOP | `docs/document-control.md`, then copy from `template/governance/` |
 | track a new law | `framework-refs/sources/registry.yaml` and SOP-101 |

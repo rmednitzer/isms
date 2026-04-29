@@ -18,10 +18,10 @@ import json
 import sys
 from pathlib import Path
 
+from _common import REPO_ROOT
 from jsonschema import Draft202012Validator, FormatChecker
 from ruamel.yaml import YAML
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMAS_DIR = REPO_ROOT / "tooling" / "schemas"
 
 REGISTERS: dict[str, dict] = {

@@ -1,0 +1,30 @@
+schema_version: 1
+description: >
+  Illustrative network register for Acme Widgets GmbH. The asset register
+  references segments by ID (NET-xxx). Reference only.
+segments:
+  - id: NET-001
+    name: "Production VLAN (Vienna server room)"
+    description: "Primary production VLAN serving ERP and database hosts."
+    trust_level: trusted
+    cidr: "10.10.0.0/16"
+    encryption_baseline: tls_1_3_min
+    ingress_policy: deny_default
+    egress_policy: deny_default
+    location_ref: FAC-001
+    owner_role: role:SysAdmin
+    in_scope: true
+    peering: []
+  - id: NET-002
+    name: "Office wired LAN (Vienna)"
+    description: "Engineering and operations workstations."
+    trust_level: trusted
+    cidr: "10.20.0.0/16"
+    encryption_baseline: tls_1_2_min
+    ingress_policy: deny_default
+    egress_policy: deny_default
+    location_ref: FAC-001
+    owner_role: role:SysAdmin
+    in_scope: true
+    peering:
+      - NET-001

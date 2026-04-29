@@ -1,0 +1,68 @@
+schema_version: 1
+methodology_ref: risk/methodology.md
+risks:
+  - id: RSK-0001
+    title: "Customer database compromise via web application vulnerability"
+    description: >-
+      A SQL injection or authentication-bypass flaw in the e-commerce
+      application could let an unauthenticated attacker retrieve order data
+      including personal data.
+    asset_refs:
+      - ASSET-0001
+      - ASSET-0002
+    threat: "External attacker exploiting web application vulnerability"
+    vulnerability: "Application code accepting unsanitised input"
+    likelihood: possible
+    impact: severe
+    inherent_rating: "high"
+    residual_rating: "medium"
+    treatment: mitigate
+    control_refs:
+      - "iso27002:A.8.28"
+      - "iso27002:A.8.25"
+      - "iso27002:A.8.16"
+    owner: role:CISO
+    review_date: "2026-10-01"
+    status: treating
+
+  - id: RSK-0002
+    title: "Backup unavailability during ransomware incident"
+    description: >-
+      Inability to restore from backups within RTO if production credentials
+      are also valid against the backup target, allowing simultaneous
+      compromise.
+    asset_refs:
+      - ASSET-0003
+    threat: "Ransomware operator with elevated access"
+    vulnerability: "Shared identity between production and backup planes"
+    likelihood: unlikely
+    impact: severe
+    inherent_rating: "high"
+    residual_rating: "low"
+    treatment: mitigate
+    control_refs:
+      - "iso27002:A.8.13"
+      - "iso27002:A.5.30"
+    owner: role:CISO
+    review_date: "2026-10-01"
+    status: treated
+
+  - id: RSK-0003
+    title: "Loss of QES signing capability disrupts authority filings"
+    description: >-
+      Inability to obtain qualified signatures within statutory windows for
+      NIS2 incident notification or NISG 2026 Selbstdeklaration.
+    asset_refs: []
+    threat: "QTSP outage or contract lapse"
+    vulnerability: "Single QTSP relationship, no fallback procedure"
+    likelihood: rare
+    impact: major
+    inherent_rating: "medium"
+    residual_rating: "low"
+    treatment: mitigate
+    control_refs:
+      - "iso27002:A.5.30"
+      - "eidas:Art.32"
+    owner: role:CISO
+    review_date: "2027-01-15"
+    status: assessed
