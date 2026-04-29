@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import sys
 
-from _common import REPO_ROOT, iter_frontmatter
+from _common import GOVERNANCE_SCAN_ROOTS, REPO_ROOT, iter_frontmatter
 
 SIGNED_DOC_TYPES = {"policy", "plan"}
 
@@ -23,14 +23,14 @@ SIGNED_DOC_TYPES = {"policy", "plan"}
 def main() -> int:
     violations: list[str] = []
     checked = 0
-    for md, fm in iter_frontmatter([REPO_ROOT]):
-        checked += 1
+    for md, fm in iter_frontmatter(GOVERNANCE_SCAN_ROOTS):
         if fm.get("status") != "approved":
             continue
-        sig_ref = fm.get("signature_ref")
-        interim = fm.get("interim_signature", False)
         if fm.get("doc_type") not in SIGNED_DOC_TYPES:
             continue
+        checked += 1
+        sig_ref = fm.get("signature_ref")
+        interim = fm.get("interim_signature", False)
         if not sig_ref and not interim:
             violations.append(
                 f"{md}: approved policy/plan without signature_ref and without interim_signature=true"
@@ -38,7 +38,7 @@ def main() -> int:
         elif sig_ref and not (REPO_ROOT / sig_ref).exists():
             violations.append(f"{md}: signature_ref path does not exist: {sig_ref}")
 
-    print(f"Checked signature references across {checked} approved artefacts.")
+    print(f"Checked signature references across {checked} approved policy/plan artefacts.")
     if violations:
         print(f"{len(violations)} violations:")
         for v in violations:
