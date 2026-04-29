@@ -11,15 +11,16 @@ from __future__ import annotations
 import json
 import sys
 from datetime import date
-from pathlib import Path
 
+from _common import REPO_ROOT
 from jsonschema import Draft202012Validator
 from ruamel.yaml import YAML
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 CAL = REPO_ROOT / "framework-refs" / "calendar" / "regulatory-calendar.yaml"
 SCHEMA = REPO_ROOT / "tooling" / "schemas" / "regulatory-calendar.schema.json"
 yaml = YAML(typ="safe")
+
+PAST_DEADLINE_THRESHOLD_DAYS = 30
 
 
 def main() -> int:
@@ -31,8 +32,7 @@ def main() -> int:
         return 2
     with CAL.open("r") as f:
         data = yaml.load(f)
-    with SCHEMA.open("r") as f:
-        schema = json.load(f)
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
     errors = list(validator.iter_errors(data))
     if errors:
@@ -43,7 +43,7 @@ def main() -> int:
 
     today = date.today()
     ms_list = data.get("milestones", []) if isinstance(data, dict) else []
-    count_past_30d = 0
+    count_past = 0
     for ms in ms_list:
         d = ms.get("date")
         if isinstance(d, date):
@@ -51,11 +51,14 @@ def main() -> int:
         else:
             try:
                 ms_date = date.fromisoformat(str(d))
-            except Exception:
+            except ValueError:
                 continue
-        if ms_date < today and (today - ms_date).days > 30:
-            count_past_30d += 1
-    print(f"Calendar valid. {len(ms_list)} milestones; {count_past_30d} past deadlines older than 30d.")
+        if ms_date < today and (today - ms_date).days > PAST_DEADLINE_THRESHOLD_DAYS:
+            count_past += 1
+    print(
+        f"Calendar valid. {len(ms_list)} milestones; "
+        f"{count_past} past deadlines older than {PAST_DEADLINE_THRESHOLD_DAYS}d."
+    )
     return 0
 
 

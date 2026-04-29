@@ -1,0 +1,52 @@
+schema_version: 1
+description: >
+  Illustrative data inventory (GDPR Art. 30 record of processing activities)
+  for Acme Widgets GmbH. One processing activity shown.
+processing_activities:
+  - id: DATA-001
+    name: "Customer order processing"
+    description: >-
+      Acme processes customer personal data to fulfil orders, deliver goods,
+      issue invoices, and respond to customer service requests.
+    controller_role: controller
+    categories_of_data_subjects:
+      - "customers"
+      - "prospective customers"
+    categories_of_data:
+      - "name"
+      - "delivery and billing address"
+      - "email address"
+      - "telephone number"
+      - "order history"
+    purposes:
+      - "order fulfilment"
+      - "invoicing"
+      - "customer service"
+    lawful_basis: contract
+    retention_period: "Order data: 10 years (UGB s.190); marketing flag: until withdrawal"
+    recipients:
+      - ref_type: supplier
+        ref: SUP-001
+        description: "Database hosting provider"
+      - ref_type: external_free_text
+        ref: "Logistics partner (DE)"
+        description: "Parcel delivery; DPA in place"
+    cross_border_transfers: []
+    classification: confidential
+    asset_refs:
+      - ASSET-0001
+      - ASSET-0002
+    security_measures:
+      - encryption_at_rest
+      - encryption_in_transit
+      - access_control
+      - mfa_required
+      - audit_logging
+      - backup_encrypted
+      - network_segmentation
+    owner_role: role:DPO
+    dpia_required: false
+    dpia_ref: null
+    in_scope: true
+    lifecycle_status: operational
+    notes: "DPIA not required (no high risk per Art. 35); reviewed 2026-04."

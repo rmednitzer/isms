@@ -14,24 +14,21 @@ SPDX-License-Identifier: Apache-2.0
 """
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
+from _common import (
+    FRONTMATTER_RE,  # noqa: F401  (re-exported for backwards compatibility with tests)
+    GOVERNANCE_SCAN_ROOTS,
+    REPO_ROOT,
+    iter_markdown,
+    parse_frontmatter,
+)
 from ruamel.yaml import YAML
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 CONTROLS_DIR = REPO_ROOT / "template" / "governance" / "controls"
+SCAN_ROOTS = GOVERNANCE_SCAN_ROOTS
 
-SCAN_ROOTS = [
-    REPO_ROOT / "docs",
-    REPO_ROOT / "template" / "governance",
-    REPO_ROOT / "template" / "operations",
-    REPO_ROOT / "instance" / "governance",
-    REPO_ROOT / "instance" / "operations",
-]
-
-FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 yaml = YAML(typ="safe")
 
 # Prefixes that are considered valid even without full catalogue verification.
@@ -45,13 +42,12 @@ def load_control_ids_from_yaml(path: Path, id_field: str = "id") -> set[str]:
         return set()
     with path.open("r") as f:
         data = yaml.load(f)
-    if not data:
+    if not data or not isinstance(data, dict):
         return set()
     ids: set[str] = set()
-    if isinstance(data, dict) and "controls" in data:
-        for c in data["controls"]:
-            if isinstance(c, dict) and id_field in c:
-                ids.add(str(c[id_field]))
+    for c in data.get("controls", []) or []:
+        if isinstance(c, dict) and id_field in c:
+            ids.add(str(c[id_field]))
     return ids
 
 
@@ -71,11 +67,10 @@ def build_catalogue() -> dict[str, set[str]]:
 
 
 def extract_refs(path: Path) -> list[str]:
-    text = path.read_text(encoding="utf-8")
-    m = FRONTMATTER_RE.match(text)
-    if not m:
+    """Return the framework_refs declared in a file's front-matter (or [])."""
+    fm = parse_frontmatter(path)
+    if fm is None:
         return []
-    fm = yaml.load(m.group(1)) or {}
     return fm.get("framework_refs", []) or []
 
 
@@ -89,16 +84,8 @@ REGISTER_REF_FIELDS = {
 }
 
 
-def extract_register_refs(path: Path) -> dict[str, list[str]]:
-    """Extract register references from frontmatter.
-
-    Returns a mapping of field name to list of referenced IDs.
-    """
-    text = path.read_text(encoding="utf-8")
-    m = FRONTMATTER_RE.match(text)
-    if not m:
-        return {}
-    fm = yaml.load(m.group(1)) or {}
+def extract_register_refs_from_fm(fm: dict) -> dict[str, list[str]]:
+    """Pull declared register references from an already-parsed front-matter dict."""
     out: dict[str, list[str]] = {}
     for field in REGISTER_REF_FIELDS:
         v = fm.get(field)
@@ -111,9 +98,16 @@ def extract_register_refs(path: Path) -> dict[str, list[str]]:
     return out
 
 
+def extract_register_refs(path: Path) -> dict[str, list[str]]:
+    """Backwards-compatible wrapper that parses front-matter from a path."""
+    fm = parse_frontmatter(path)
+    if fm is None:
+        return {}
+    return extract_register_refs_from_fm(fm)
+
+
 def build_register_id_sets() -> dict[str, set[str]]:
     """Load register IDs once for crossref resolution."""
-    # Import lazily to avoid coupling when the registers validator runs separately.
     sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
     try:
         from validate_registers import REGISTERS, load_ids
@@ -127,55 +121,65 @@ def build_register_id_sets() -> dict[str, set[str]]:
     return {name: load_ids(spec) for name, spec in REGISTERS.items()}
 
 
+def _check_framework_ref(md: Path, ref: str, cat: dict[str, set[str]]) -> str | None:
+    if ":" not in ref:
+        return f"{md}: ref '{ref}' missing prefix"
+    prefix, ident = ref.split(":", 1)
+    if prefix not in cat:
+        return f"{md}: unknown framework prefix '{prefix}' in ref '{ref}'"
+    if prefix in STRUCTURAL_PREFIXES:
+        return None
+    if not cat[prefix]:
+        # Catalogue not yet populated; defer until populated.
+        return None
+    if ident not in cat[prefix]:
+        return f"{md}: unknown control '{ref}' (not found in catalogue)"
+    return None
+
+
+def _check_register_refs(
+    md: Path,
+    refs: dict[str, list[str]],
+    register_ids: dict[str, set[str]],
+) -> list[str]:
+    out: list[str] = []
+    for field, ids in refs.items():
+        prefix, target_register = REGISTER_REF_FIELDS[field]
+        for rid in ids:
+            if not rid.startswith(prefix):
+                out.append(
+                    f"{md}: {field} value '{rid}' does not match expected prefix '{prefix}'"
+                )
+                continue
+            if rid not in register_ids.get(target_register, set()):
+                out.append(
+                    f"{md}: {field} reference '{rid}' not found in {target_register} register"
+                )
+    return out
+
+
 def main() -> int:
     if not CONTROLS_DIR.is_dir():
         print(f"WARNING: controls directory missing: {CONTROLS_DIR}")
         print("Cross-reference validation will be limited.")
     cat = build_catalogue()
+    register_ids = build_register_id_sets()
 
     violations: list[str] = []
     count = 0
-    for root in SCAN_ROOTS:
-        if not root.is_dir():
+    for md in iter_markdown(SCAN_ROOTS):
+        count += 1
+        fm = parse_frontmatter(md)
+        if fm is None:
             continue
-        for md in root.rglob("*.md"):
-            count += 1
-            for ref in extract_refs(md):
-                if ":" not in ref:
-                    violations.append(f"{md}: ref '{ref}' missing prefix")
-                    continue
-                prefix, ident = ref.split(":", 1)
-                if prefix not in cat:
-                    violations.append(f"{md}: unknown framework prefix '{prefix}' in ref '{ref}'")
-                    continue
-                if prefix in STRUCTURAL_PREFIXES:
-                    # Accept any identifier; these are structural references.
-                    continue
-                if not cat[prefix]:
-                    # Catalogue not yet populated; defer until populated.
-                    continue
-                if ident not in cat[prefix]:
-                    violations.append(f"{md}: unknown control '{ref}' (not found in catalogue)")
-
-    register_ids = build_register_id_sets()
-    if register_ids:
-        for root in SCAN_ROOTS:
-            if not root.is_dir():
-                continue
-            for md in root.rglob("*.md"):
-                refs = extract_register_refs(md)
-                for field, ids in refs.items():
-                    prefix, target_register = REGISTER_REF_FIELDS[field]
-                    for rid in ids:
-                        if not rid.startswith(prefix):
-                            violations.append(
-                                f"{md}: {field} value '{rid}' does not match expected prefix '{prefix}'"
-                            )
-                            continue
-                        if rid not in register_ids.get(target_register, set()):
-                            violations.append(
-                                f"{md}: {field} reference '{rid}' not found in {target_register} register"
-                            )
+        for ref in fm.get("framework_refs", []) or []:
+            err = _check_framework_ref(md, ref, cat)
+            if err:
+                violations.append(err)
+        if register_ids:
+            violations.extend(
+                _check_register_refs(md, extract_register_refs_from_fm(fm), register_ids)
+            )
 
     print(f"Checked framework_refs across {count} files.")
     if violations:
