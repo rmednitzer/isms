@@ -14,7 +14,7 @@ import sys
 
 from _common import (
     FRONTMATTER_RE,  # noqa: F401  (re-exported for tests)
-    REPO_ROOT,
+    GOVERNANCE_SCAN_ROOTS,
     iter_frontmatter,
 )
 from _common import (
@@ -25,7 +25,7 @@ from _common import (
 def main() -> int:
     violations: list[str] = []
     checked = 0
-    for md, fm in iter_frontmatter([REPO_ROOT]):
+    for md, fm in iter_frontmatter(GOVERNANCE_SCAN_ROOTS):
         if not fm.get("bilingual"):
             continue
         checked += 1
