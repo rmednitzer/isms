@@ -49,7 +49,7 @@ Before acting on any task, verify:
 
 ## Workflows you can drive
 
-Concrete procedures Claude executes end to end. Commits still require authorisation per Hard Rule 1.
+Concrete procedures Claude executes end to end. Running these is permitted; committing or pushing the resulting changes still requires explicit human authorisation per the Mandate, in addition to the signing-configuration check in Hard Rule 1.
 
 ### Instantiation
 
@@ -89,7 +89,7 @@ If a validator fails, do not silence it. Report, propose root-cause fix, hand ba
 
 ### Law snapshot fetch
 
-`make snapshot-fetch` requires network. Diff against existing snapshots. If material changes are detected, propose an impact assessment under `framework-refs/impact-assessments/`. Creating one needs explicit human confirmation (see below).
+`make snapshot-fetch` requires network. The fetcher writes new dated files under `framework-refs/snapshots/`; existing snapshot files are immutable and are never overwritten or edited (any apparent modification of an existing snapshot is a defect, stop). Diff against existing snapshots after fetch. If material changes are detected, propose an impact assessment under `framework-refs/impact-assessments/`; creating or closing one needs explicit human confirmation (see below).
 
 ### Audit pack
 
