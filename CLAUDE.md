@@ -22,7 +22,8 @@ Two-layer design plus shared infrastructure. Read `docs/operating-contract.md` (
 | `docs/` | repo-level operating rules (DOC-001 through DOC-009) | governed |
 | `tooling/` | schemas, validators, collectors, signers, packagers, renderer | tested; touched via PR with `make test` |
 | `.github/` | CI, CODEOWNERS, dependabot | control-of-controls |
-| `.gitsigners` | git signing key registry | control-of-controls |
+
+`.gitsigners` (the git signing key registry per DOC-002 § 1.1) is referenced by Hard Rule 5 and the signature policy; the file is created when signing keys are first registered and may not yet exist in a skeleton clone.
 
 The repo is standalone per DOC-004: no runtime dependency on external skill stacks, MCP servers, or cloud GRC platforms. `make validate` and `make pack` complete offline.
 
@@ -32,7 +33,7 @@ Before acting on any task, verify:
 
 1. The current branch is not `main`. The `no-commit-to-branch` pre-commit hook blocks direct commits there; branch protection rejects direct pushes.
 2. `git config commit.gpgsign` is true and a signing key is registered (GPG or SSH-sig). If not, stop and ask the human to configure it.
-3. `.venv` exists, or `make bootstrap` has been run. The Makefile defaults `PYTHON` to `.venv/bin/python`; override with `PYTHON=python` only in CI contexts.
+3. `.venv` exists, or `make bootstrap` has been run. The Makefile defaults `PYTHON` to `.venv/bin/python`; pass `PYTHON=python` to use the system Python instead (CI does this; local clones without `.venv` may too, provided dependencies are installed).
 4. The task does not fall under "Workflows that require explicit human confirmation" without a fresh confirmation in the conversation.
 5. GNU Make is available (the Makefile uses GNU pattern substitution and static pattern rules; BSD make will not work).
 
@@ -183,7 +184,7 @@ DOC-009 (`docs/style-guide.md`) is authoritative. Quick reference:
 Per DOC-004:
 
 - Validators, core collectors, packagers, and the renderer run against committed files only. No network calls.
-- Network operations are confined to `tooling/collectors/optional/` and invoked via explicit targets (`make snapshot-fetch`, scheduled `currency-check.yaml`).
+- Network operations are confined to `tooling/collectors/optional/` and invoked via explicit targets (`make snapshot-fetch`, plus the scheduled currency-check workflow described in DOC-004 § 3 if and when added under `.github/workflows/`).
 - The optional `isms-mcp` overlay (DEC-2026-008) is read-only, lives outside this repository, and is never imported by, required by, or invoked from `tooling/`, `Makefile`, or `.github/workflows/`.
 - An auditor's clone plus `make bootstrap` reproduces all evidence without external dependency. Treat that property as the contract.
 
