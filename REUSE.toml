@@ -3,23 +3,15 @@ SPDX-PackageName = "isms"
 SPDX-PackageSupplier = "Roman Mednitzer"
 SPDX-PackageDownloadLocation = "https://github.com/rmednitzer/isms"
 
-# Default licence and copyright for repository content. This file follows the
-# REUSE 3.3 specification (https://reuse.software/spec/). Per-file SPDX headers
-# may override these defaults; see LIMITATIONS.md L6 for the retrofit status.
-#
-# The Apache-2.0 default is scoped to framework paths only. Instance-specific
-# content under instance/ is confidential to the deploying organisation
-# regardless of the framework licence; see docs/document-control.md and the
-# explicit override block below. See LIMITATIONS.md L9 for the scope-correction
-# rationale.
+# Default licence and copyright. The aggregate default applies Apache-2.0
+# to the framework layer (template/, tooling/, docs/, framework-refs/,
+# examples/, and root scaffolding). The 'instance/**' override below
+# carves instance content out as LicenseRef-Confidential, in line with
+# the template-vs-instance boundary policy in docs/document-control.md.
+# Per-file SPDX headers may further refine this; see LIMITATIONS.md L6.
 
 [[annotations]]
-path = [
-  "template/**", "tooling/**", "docs/**", "framework-refs/**",
-  "examples/**", "*.md", "*.toml", "*.yaml", "*.yml", "*.cff",
-  ".github/**", "Makefile", "LICENSE", "NOTICE",
-  "LICENSES/Apache-2.0.txt", "LICENSES/CC-BY-4.0.txt"
-]
+path = "**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
 SPDX-License-Identifier = "Apache-2.0"
