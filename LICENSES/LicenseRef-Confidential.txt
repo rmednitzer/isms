@@ -1,0 +1,40 @@
+LicenseRef-Confidential
+=======================
+
+This is a custom REUSE 3.3 LicenseRef identifier, not a public licence.
+It marks repository content as confidential to the deploying organisation.
+
+
+Applicability
+-------------
+
+Files annotated with `SPDX-License-Identifier: LicenseRef-Confidential`
+are not covered by the framework's Apache-2.0 licence and are not
+intended for public distribution or reuse. In this repository, the
+identifier is applied to `instance/**` per `REUSE.toml`.
+
+
+Relationship to the framework licence
+-------------------------------------
+
+The framework layer of this repository (`template/`, `tooling/`,
+`docs/`, `framework-refs/`, `examples/`, and root scaffolding) is
+licensed under the Apache License, Version 2.0; see `LICENSE` and
+`LICENSES/Apache-2.0.txt`.
+
+The instance layer (`instance/**`) is operational, organisation-
+specific content. Its licensing and disclosure terms are set by the
+deploying organisation, not by this repository's framework licence.
+See `docs/document-control.md` for the template-vs-instance boundary
+policy and the operating expectations.
+
+
+Purpose of this file
+--------------------
+
+This file exists solely to satisfy the REUSE 3.3 specification
+requirement that every SPDX licence identifier referenced in
+`REUSE.toml` corresponds to a text file under `LICENSES/`. It is not a
+licence grant. It does not establish any rights for downstream users of
+`instance/` content. The deploying organisation's own policies and any
+contractual confidentiality terms govern instance content.

@@ -1,0 +1,41 @@
+version = 1
+SPDX-PackageName = "isms"
+SPDX-PackageSupplier = "Roman Mednitzer"
+SPDX-PackageDownloadLocation = "https://github.com/rmednitzer/isms"
+
+# Default licence and copyright. The aggregate default applies Apache-2.0
+# to the framework layer (template/, tooling/, docs/, framework-refs/,
+# examples/, and root scaffolding). The 'instance/**' override below
+# carves instance content out as LicenseRef-Confidential, in line with
+# the template-vs-instance boundary policy in docs/document-control.md.
+# Per-file SPDX headers may further refine this; see LIMITATIONS.md L6.
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "instance/**"
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) deploying organisation (confidential)"
+SPDX-License-Identifier = "LicenseRef-Confidential"
+
+[[annotations]]
+path = ["LICENSE", "NOTICE"]
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CLAUDE.md"
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CODE_OF_CONDUCT.md"
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) 2020 The Contributor Covenant"
+SPDX-License-Identifier = "CC-BY-4.0"
