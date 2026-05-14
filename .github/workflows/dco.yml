@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0
+name: DCO sign-off
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  dco:
+    name: DCO check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR commits
+        id: pr_commits
+        uses: tim-actions/get-pr-commits@v1.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check DCO sign-off
+        uses: tim-actions/dco@v1.1.0
+        with:
+          commits: ${{ steps.pr_commits.outputs.commits }}
