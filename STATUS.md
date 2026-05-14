@@ -8,6 +8,11 @@ Maturity taxonomy per `CLAUDE.md`:
 - **planned**: structure exists, content not authored
 - **draft**: content exists, not validated against external-reader gate
 - **stable**: passed external-reader gate, within review cadence
+- **n/a (canonical text)**: file reproduces verbatim upstream text
+  (e.g. an OSI-approved licence text, the Contributor Covenant) where
+  the project-side maturity taxonomy does not apply; correctness is
+  governed by faithful reproduction of the canonical source, not by
+  draft/stable progression.
 
 The repository README declares the overall state as `Skeleton. Content
 population proceeds per docs/certification-timeline.md`. The maturity
@@ -26,8 +31,8 @@ framework licence.
 
 | Section | Path | Status | Last reviewed |
 |---|---|---|---|
-| Governance templates (policies, SOPs) | `template/governance/` | planned/draft | 2026-05-14 |
-| Operations templates (records, evidence schemas) | `template/operations/` | planned/draft | 2026-05-14 |
+| Governance templates (structure) | `template/governance/` | planned | 2026-05-14 |
+| Operations templates (structure) | `template/operations/` | planned | 2026-05-14 |
 
 ## Framework references
 
@@ -62,7 +67,7 @@ framework licence.
 
 | Section | Path | Status | Last reviewed |
 |---|---|---|---|
-| Worked example instance | `examples/instance-acme/` | planned/draft | 2026-05-14 |
+| Worked example instance (structure) | `examples/instance-acme/` | planned | 2026-05-14 |
 
 ## Instance layer (confidential)
 
@@ -73,22 +78,28 @@ content is operational and confidential to the deploying organisation.
 
 ## Repository scaffolding
 
+Files marked `n/a (canonical text)` reproduce upstream canonical text
+(an OSI-approved licence text or the Contributor Covenant). The
+correctness criterion for those files is faithful reproduction of the
+canonical source, not project-side draft/stable maturity.
+
 | Document | Status | Last reviewed |
 |---|---|---|
 | `README.md` | draft | 2026-05-14 |
 | `CLAUDE.md` | stable | 2026-05-14 |
 | `CONTRIBUTING.md` | draft | 2026-05-14 |
 | `SECURITY.md` | draft | 2026-05-14 |
-| `CODE_OF_CONDUCT.md` | draft | 2026-05-14 |
+| `CODE_OF_CONDUCT.md` | n/a (canonical text) | 2026-05-14 |
 | `GOVERNANCE.md` | draft | 2026-05-14 |
 | `LIMITATIONS.md` | draft | 2026-05-14 |
 | `EXTERNAL-READER-PROTOCOL.md` | draft | 2026-05-14 |
 | `STATUS.md` | draft | 2026-05-14 |
 | `CHANGELOG.md` | draft | 2026-05-14 |
-| `NOTICE` | stable | 2026-05-14 |
-| `LICENSE` | stable | 2026-05-14 |
+| `NOTICE` | n/a (canonical text) | 2026-05-14 |
+| `LICENSE` | n/a (canonical text) | 2026-05-14 |
 | `REUSE.toml` | draft | 2026-05-14 |
-| `LICENSES/Apache-2.0.txt` | stable | 2026-05-14 |
+| `LICENSES/Apache-2.0.txt` | n/a (canonical text) | 2026-05-14 |
+| `LICENSES/CC-BY-4.0.txt` | n/a (canonical text) | 2026-05-14 |
 | `.github/workflows/ci.yml` | draft | 2026-05-14 |
 | `.github/workflows/scorecard.yml` | draft | 2026-05-14 |
 | `.github/workflows/dco.yml` | draft | 2026-05-14 |

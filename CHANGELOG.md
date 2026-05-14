@@ -17,6 +17,9 @@ deploying organisation's instance, not here.
   the aggregate level. Per-file SPDX retrofit deferred (see
   `LIMITATIONS.md` L6). Note: only framework content is in scope;
   `instance/` is confidential.
+- `LICENSES/CC-BY-4.0.txt` (Creative Commons Attribution 4.0
+  International) covering the Contributor Covenant 2.1 text in
+  `CODE_OF_CONDUCT.md`.
 - `STATUS.md` recording document maturity per template / tooling /
   framework-refs / docs section, with the instance layer explicitly
   declared out of scope for public maturity declarations.
@@ -36,11 +39,36 @@ deploying organisation's instance, not here.
 
 ### Changed
 
-- None in this entry beyond additions.
+- `REUSE.toml` scope corrected: the Apache-2.0 default now applies only
+  to framework paths (`template/`, `tooling/`, `docs/`, `framework-refs/`,
+  `examples/`, root scaffolding, `.github/`, `LICENSES/`). `instance/**`
+  is marked `LicenseRef-Confidential` via an explicit override block per
+  `docs/document-control.md`. A CC-BY-4.0 override is added for
+  `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1 text).
+- `.github/workflows/dco.yml` is now `workflow_dispatch` only pending a
+  follow-up PR that replays the bootstrap commits with matching
+  Signed-off-by emails; tracked as `LIMITATIONS.md` L8.
+- `NOTICE` now includes an explicit maintainer contact line
+  (`Roman Mednitzer <r.mednitzer@outlook.com>`).
+- `STATUS.md` taxonomy extended with `n/a (canonical text)` for files
+  that reproduce upstream canonical text (LICENSE, NOTICE,
+  `LICENSES/*.txt`, `CODE_OF_CONDUCT.md`); ambiguous combined
+  `planned/draft` cells split into a single status per row.
+- `CODE_OF_CONDUCT.md` Enforcement section now points to the direct
+  maintainer email (`r.mednitzer@outlook.com`) instead of referencing
+  `SECURITY.md` / `NOTICE`.
+- `GOVERNANCE.md` security commitment aligned with `SECURITY.md`
+  (acknowledge and coordinate per 90-day disclosure window) instead of
+  the prior fixed 7-day SLA; maintainer contact line now uses the
+  direct email; CODEOWNERS-as-owner phrasing softened (the repository
+  does not currently carry a `.github/CODEOWNERS` file).
+- `LIMITATIONS.md` L8 (DCO workflow deferral) and L9 (REUSE scope
+  correction; `instance/` is `LicenseRef-Confidential`) added.
 
 ### Notes
 
 This addition imports governance discipline from the `platform-blueprint`
 repository's May 2026 open-source-foundation audit cycle. It does not touch
 content under `docs/`, `template/`, `instance/`, `framework-refs/`, or
-`tooling/`. `NOTICE` was already present and is preserved.
+`tooling/`. `NOTICE` was already present and is preserved (now extended
+with the maintainer contact line).

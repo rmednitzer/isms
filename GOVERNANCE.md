@@ -9,8 +9,9 @@ not, so external contributors can calibrate expectations.
 
 ## Maintainer authority
 
-The repository has one maintainer, named in `NOTICE`. The maintainer holds
-final authority on:
+The repository has one maintainer: Roman Mednitzer
+<r.mednitzer@outlook.com> (maintainer contact in NOTICE). The maintainer
+holds final authority on:
 
 - merging pull requests into `main`;
 - approval of changes to `CLAUDE.md`, `docs/operating-contract.md`, and
@@ -23,6 +24,11 @@ final authority on:
 - approval of branch-protection changes and CI workflow changes;
 - coordination of the external-reader cadence per
   `EXTERNAL-READER-PROTOCOL.md`.
+
+This repository does not currently carry a `.github/CODEOWNERS` file;
+maintainer authority above is asserted by this document, not by
+CODEOWNERS-based review enforcement. Adding CODEOWNERS is a follow-up
+item when a second maintainer joins.
 
 The maintainer does not have authority over content under `instance/`. That
 content is operational and belongs to the deploying organisation. The
@@ -62,25 +68,29 @@ External contributors are welcome under the discipline encoded in
 
 ## Escalation
 
-Disputes that cannot be resolved in issues escalate to email to the
-maintainer at the address in `NOTICE`. There is no committee, no board,
-no foundation.
+Disputes that cannot be resolved in issues escalate to email to
+Roman Mednitzer <r.mednitzer@outlook.com> (maintainer contact in NOTICE).
+There is no committee, no board, no foundation.
 
 ## Code of conduct
 
 The Contributor Covenant 2.1 governs project-space behaviour. See
-`CODE_OF_CONDUCT.md`. The maintainer is the enforcement contact.
+`CODE_OF_CONDUCT.md`. The maintainer is the enforcement contact:
+Roman Mednitzer <r.mednitzer@outlook.com>.
 
 ## Security policy
 
 `SECURITY.md` governs security-relevant disclosure. The maintainer is the
-recipient.
+recipient: Roman Mednitzer <r.mednitzer@outlook.com> (maintainer contact
+in NOTICE).
 
 ## Sustainability commitments
 
 At the current scale the maintainer commits to:
 
-- responding to security disclosures within 7 calendar days;
+- acknowledging security disclosures and coordinating per `SECURITY.md`
+  (90 days to fix before public disclosure, or shorter where active
+  exploitation is observed);
 - recording material changes in `CHANGELOG.md`;
 - preserving the operating contract's discipline.
 
@@ -95,9 +105,10 @@ The maintainer does not commit to:
 Framework content (template/, tooling/, docs/, framework-refs/, examples/)
 is licensed under the Apache License 2.0. Instance content under
 `instance/` is confidential to the deploying organisation regardless of
-the framework licence. By contributing you certify under the Developer
-Certificate of Origin and license your contribution under the same
-Apache-2.0 terms.
+the framework licence. The Contributor Covenant 2.1 text in
+`CODE_OF_CONDUCT.md` is licensed under CC-BY-4.0 per the upstream
+attribution. By contributing you certify under the Developer Certificate
+of Origin and license your contribution under the same Apache-2.0 terms.
 
 ## Updating this document
 

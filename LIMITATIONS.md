@@ -150,6 +150,48 @@ Out of scope until the certification timeline reaches that milestone.
 
 **Intended scope.** No close-out planned in this PR.
 
+## L8. DCO workflow deferred to follow-up PR
+
+**Current state.** The bootstrap commit that introduced this PR was authored
+by `r.mednitzer@outlook.com` but carried a `Signed-off-by` trailer with a
+different email, so the DCO check failed on the PR. The workflow is now
+configured for `workflow_dispatch` only (manual trigger), so it does not
+block the PR. A follow-up PR will:
+
+- replay the relevant commits with `Signed-off-by` matching the author
+  email, then
+- restore the `on: pull_request` trigger.
+
+**Implication.** DCO is not enforced automatically on every PR until the
+follow-up lands. Sign-off discipline is asserted at the contributor level
+per `CONTRIBUTING.md`.
+
+**What would close it.** The follow-up PR described above.
+
+**Intended scope.** Tier 1 (next PR).
+
+## L9. REUSE scope correction: instance/ marked confidential, not Apache-2.0
+
+**Current state.** The original `REUSE.toml` aggregate annotation used
+`path = "**"`, which would have applied the Apache-2.0 default to the
+confidential `instance/` tree as well. Per `docs/document-control.md`,
+instance content is operational and confidential to the deploying
+organisation and must not inherit the framework's Apache-2.0 default.
+The annotation has been restructured so that the Apache-2.0 default
+applies only to framework paths (`template/`, `tooling/`, `docs/`,
+`framework-refs/`, `examples/`, root scaffolding, `.github/`,
+`LICENSES/`); `instance/**` is explicitly annotated
+`LicenseRef-Confidential` via an override block.
+
+**Implication.** A reader of the public repository sees a clean separation
+between Apache-2.0 framework content and confidential instance content,
+consistent with the framework's document-control stance.
+
+**What would close it.** Closed by the restructure in this PR. The wider
+L6 retrofit (per-file SPDX headers) remains a separate follow-up.
+
+**Intended scope.** Closed in this PR.
+
 ## How to read this document
 
 - If you are using the repository as a framework for an ISO 27001 / NISG

@@ -7,16 +7,28 @@ SPDX-PackageDownloadLocation = "https://github.com/rmednitzer/isms"
 # REUSE 3.3 specification (https://reuse.software/spec/). Per-file SPDX headers
 # may override these defaults; see LIMITATIONS.md L6 for the retrofit status.
 #
-# Note: the Apache-2.0 licence on this repository covers the framework
-# (template/, tooling/, docs/, framework-refs/). Instance-specific content
-# under instance/ is confidential to the deploying organisation regardless of
-# the framework licence; see docs/document-control.md.
+# The Apache-2.0 default is scoped to framework paths only. Instance-specific
+# content under instance/ is confidential to the deploying organisation
+# regardless of the framework licence; see docs/document-control.md and the
+# explicit override block below. See LIMITATIONS.md L9 for the scope-correction
+# rationale.
 
 [[annotations]]
-path = "**"
+path = [
+  "template/**", "tooling/**", "docs/**", "framework-refs/**",
+  "examples/**", "*.md", "*.toml", "*.yaml", "*.yml", "*.cff",
+  ".github/**", "Makefile", "LICENSE", "NOTICE",
+  "LICENSES/Apache-2.0.txt", "LICENSES/CC-BY-4.0.txt"
+]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
 SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "instance/**"
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) deploying organisation (confidential)"
+SPDX-License-Identifier = "LicenseRef-Confidential"
 
 [[annotations]]
 path = ["LICENSE", "NOTICE"]
@@ -29,3 +41,9 @@ path = "CLAUDE.md"
 precedence = "override"
 SPDX-FileCopyrightText = "Copyright (c) Roman Mednitzer and contributors"
 SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CODE_OF_CONDUCT.md"
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) 2020 The Contributor Covenant"
+SPDX-License-Identifier = "CC-BY-4.0"
