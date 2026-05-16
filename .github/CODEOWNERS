@@ -8,6 +8,13 @@
 #
 # Control-of-controls paths (CLAUDE.md Hard Rule 5, DOC-005, DOC-002) require
 # maintainer review on every change.
+#
+# At single-maintainer scale the per-path entries below resolve to the same
+# owner as the `*` wildcard and add no extra enforcement today. They are
+# retained deliberately: they enumerate the exact Hard-Rule-5 surface and are
+# the anchor where co-owners get added when the owner set widens (a second
+# maintainer joins). Removing them would decouple CODEOWNERS from the
+# governance model. They are intentionally redundant, not dead config.
 
 # Framework, tooling, repo-level docs, and CI default to the maintainer.
 *                                           @rmednitzer

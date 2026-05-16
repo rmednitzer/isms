@@ -2,10 +2,12 @@
 """
 Validate signature references and signed-commit policy hints.
 
-- For every artefact with status=approved and signature_ref set, verify that the
-  referenced file exists.
-- Do not perform cryptographic verification here; this is a path-existence check.
-  Actual signature cryptographic verification is done at commit time via git
+- For every artefact with status=approved and signature_ref set, structurally
+  verify the reference (Hard Rule 3: no fabricated signature_ref): the path
+  must be repo-relative, resolve inside instance/evidence/signatures/, and
+  point at a regular, non-empty file whose first bytes are the %PDF magic.
+- This is a structural check, not cryptographic verification. PAdES/QES
+  signature validity is verified separately at commit time via git signing
   configuration and by tooling/signers/verify_qes.py for QES artefacts.
 
 Copyright 2026 isms contributors
@@ -38,7 +40,8 @@ def check_signature_ref(sig_ref: str) -> str | None:
     if not target.is_file():
         return f"signature_ref path does not exist or is not a regular file: {sig_ref}"
     try:
-        header = target.read_bytes()[:5]
+        with target.open("rb") as fh:
+            header = fh.read(5)
     except OSError as exc:
         return f"signature_ref unreadable ({exc}): {sig_ref}"
     if not header:

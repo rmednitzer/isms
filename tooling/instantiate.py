@@ -52,7 +52,9 @@ def load_config(config_path: Path) -> dict:
         raise RenderError(f"config file not found: {config_path}")
     with config_path.open("r", encoding="utf-8") as f:
         data = yaml.load(f)
-    return data if isinstance(data, dict) else {}
+    if not isinstance(data, dict):
+        raise RenderError(f"config root must be a mapping, got {type(data).__name__}")
+    return data
 
 
 def resolve_dotted(data: dict, key: str) -> object:
