@@ -13,7 +13,7 @@ import sys
 from datetime import date
 
 from _common import REPO_ROOT
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from ruamel.yaml import YAML
 
 CAL = REPO_ROOT / "framework-refs" / "calendar" / "regulatory-calendar.yaml"
@@ -33,7 +33,7 @@ def main() -> int:
     with CAL.open("r") as f:
         data = yaml.load(f)
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
-    validator = Draft202012Validator(schema)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors = list(validator.iter_errors(data))
     if errors:
         print("Calendar schema violations:")
@@ -44,6 +44,7 @@ def main() -> int:
     today = date.today()
     ms_list = data.get("milestones", []) if isinstance(data, dict) else []
     count_past = 0
+    bad_dates: list[str] = []
     for ms in ms_list:
         d = ms.get("date")
         if isinstance(d, date):
@@ -52,9 +53,15 @@ def main() -> int:
             try:
                 ms_date = date.fromisoformat(str(d))
             except ValueError:
+                bad_dates.append(f"{ms.get('id', '<no id>')}: unparseable date {d!r}")
                 continue
         if ms_date < today and (today - ms_date).days > PAST_DEADLINE_THRESHOLD_DAYS:
             count_past += 1
+    if bad_dates:
+        print(f"Calendar date violations ({len(bad_dates)}):")
+        for b in bad_dates:
+            print(f"  {b}")
+        return 1
     print(
         f"Calendar valid. {len(ms_list)} milestones; "
         f"{count_past} past deadlines older than {PAST_DEADLINE_THRESHOLD_DAYS}d."

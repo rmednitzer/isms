@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-Validate supersession chains: every revision > 1 references a previous revision
-that exists, and at most one revision per doc_id has status != superseded.
+Validate supersession chains.
+
+Enforced (failure): at most one revision per doc_id has status not in
+{superseded, retired}.
+
+Advisory (NOTE only, not a failure): a revision > 1 whose immediate
+predecessor is absent in-tree. This is deliberately not fatal because an
+editorial-only predecessor may legitimately have been pruned (DOC-001 § 6);
+the merge reviewer is responsible for confirming the chain in that case.
 
 Copyright 2026 isms contributors
 SPDX-License-Identifier: Apache-2.0
@@ -24,7 +31,7 @@ def main() -> int:
         doc_id = fm.get("doc_id")
         rev = fm.get("revision")
         status = fm.get("status")
-        if doc_id and isinstance(rev, int):
+        if doc_id and isinstance(rev, int) and not isinstance(rev, bool):
             revisions[doc_id].append((rev, status or "", md))
 
     violations: list[str] = []

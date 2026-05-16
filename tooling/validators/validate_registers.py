@@ -66,10 +66,12 @@ yaml = YAML(typ="safe")
 
 
 def resolve_register_path(spec: dict) -> Path | None:
-    if spec["instance"].is_file():
-        return spec["instance"]
-    if spec["template"].is_file():
-        return spec["template"]
+    instance: Path = spec["instance"]
+    template: Path = spec["template"]
+    if instance.is_file():
+        return instance
+    if template.is_file():
+        return template
     return None
 
 
@@ -88,12 +90,27 @@ def load_ids(spec: dict) -> set[str]:
     for entry in data.get(spec["collection_key"], []) or []:
         if isinstance(entry, dict) and "id" in entry:
             ids.add(str(entry["id"]))
-    # Facilities also contain zones with their own IDs; surface those.
-    if spec["id_prefix"] == "FAC-":
-        for fac in data.get("facilities", []) or []:
-            for zone in (fac.get("zones") or []):
-                if isinstance(zone, dict) and "id" in zone:
-                    ids.add(str(zone["id"]))
+    return ids
+
+
+def load_zone_ids() -> set[str]:
+    """Zone IDs live inside the facilities register but are a distinct namespace.
+
+    Kept separate from FAC- IDs so a ``zone_ref`` cannot resolve against a
+    facility ID (and vice versa for ``location_ref``).
+    """
+    spec = REGISTERS["facilities"]
+    path = resolve_register_path(spec)
+    if path is None:
+        return set()
+    data = load_register(path)
+    ids: set[str] = set()
+    for fac in data.get("facilities", []) or []:
+        if not isinstance(fac, dict):
+            continue
+        for zone in fac.get("zones") or []:
+            if isinstance(zone, dict) and "id" in zone:
+                ids.add(str(zone["id"]))
     return ids
 
 
@@ -126,6 +143,12 @@ def validate_schema(name: str, spec: dict) -> list[str]:
 def validate_crossrefs(all_ids: dict[str, set[str]]) -> list[str]:
     errors: list[str] = []
 
+    # Zones are a distinct namespace from FAC- facility IDs. Callers that build
+    # all_ids from REGISTERS alone won't have a "zones" key; derive it here.
+    zone_ids = all_ids.get("zones")
+    if zone_ids is None:
+        zone_ids = load_zone_ids()
+
     # Asset register references
     assets_spec = REGISTERS["assets"]
     path = resolve_register_path(assets_spec)
@@ -137,9 +160,8 @@ def validate_crossrefs(all_ids: dict[str, set[str]]) -> list[str]:
             if loc and loc not in all_ids["facilities"]:
                 errors.append(f"asset {aid}: location_ref {loc} not found in facilities register")
             zone = a.get("zone_ref")
-            if zone and zone not in all_ids["facilities"]:
-                # Zones share the facilities namespace in our resolution set.
-                errors.append(f"asset {aid}: zone_ref {zone} not found in facilities register")
+            if zone and zone not in zone_ids:
+                errors.append(f"asset {aid}: zone_ref {zone} not found in facility zones")
             net = a.get("network_ref")
             if net and net not in all_ids["networks"]:
                 errors.append(f"asset {aid}: network_ref {net} not found in networks register")
@@ -198,6 +220,7 @@ def main() -> int:
         return 1
 
     all_ids = {name: load_ids(spec) for name, spec in REGISTERS.items()}
+    all_ids["zones"] = load_zone_ids()
     print("Register entries loaded:")
     for name, ids in all_ids.items():
         print(f"  {name}: {len(ids)} IDs")

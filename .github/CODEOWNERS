@@ -1,0 +1,37 @@
+# Code owners for the isms repository.
+#
+# Single-maintainer scale (GOVERNANCE.md "Maintainer authority"). The
+# maintainer owns the framework and all control-of-controls paths. Instance
+# content (instance/, except the control-of-controls files listed below) is
+# operational and owned by the deploying organisation, so it is intentionally
+# left without a global owner here.
+#
+# Control-of-controls paths (CLAUDE.md Hard Rule 5, DOC-005, DOC-002) require
+# maintainer review on every change.
+#
+# At single-maintainer scale the per-path entries below resolve to the same
+# owner as the `*` wildcard and add no extra enforcement today. They are
+# retained deliberately: they enumerate the exact Hard-Rule-5 surface and are
+# the anchor where co-owners get added when the owner set widens (a second
+# maintainer joins). Removing them would decouple CODEOWNERS from the
+# governance model. They are intentionally redundant, not dead config.
+
+# Framework, tooling, repo-level docs, and CI default to the maintainer.
+*                                           @rmednitzer
+
+# Control-of-controls: signing registry, CI, ownership, schemas, validators.
+/.gitsigners                                @rmednitzer
+/.github/                                   @rmednitzer
+/.github/CODEOWNERS                         @rmednitzer
+/.github/workflows/                         @rmednitzer
+/tooling/schemas/                           @rmednitzer
+/tooling/validators/                        @rmednitzer
+
+# Framework authority surfaces (GOVERNANCE.md, DOC-001, SOP-101..103).
+/framework-refs/sources/registry.yaml       @rmednitzer
+/framework-refs/calendar/                   @rmednitzer
+/template/                                  @rmednitzer
+
+# Instance control-of-controls (roles and separation of duties only).
+/instance/users/roles.yaml                  @rmednitzer
+/instance/users/separation-of-duties.yaml   @rmednitzer

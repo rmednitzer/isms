@@ -50,9 +50,9 @@ framework licence.
 | Validators | `tooling/validators/` | draft | 2026-05-14 |
 | Collectors | `tooling/collectors/` | draft | 2026-05-14 |
 | Signers | `tooling/signers/` | draft | 2026-05-14 |
-| Packager (audit pack) | `tooling/packager/` | draft | 2026-05-14 |
+| Packager (audit pack) | `tooling/packagers/` | draft | 2026-05-14 |
 | Instantiator | `tooling/instantiate.py` | draft | 2026-05-14 |
-| Renderer | `tooling/renderer/` | draft | 2026-05-14 |
+| Renderer | `tooling/packagers/render_pdf.py` | draft | 2026-05-14 |
 
 ## Operating documentation
 

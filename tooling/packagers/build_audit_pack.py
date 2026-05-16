@@ -19,7 +19,7 @@ from __future__ import annotations
 import argparse
 import shutil
 import sys
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -31,7 +31,7 @@ def main() -> int:
     parser.add_argument("--audit", required=True, help="stage-1 | stage-2 | surveillance-YYYY | recertification-YYYY")
     args = parser.parse_args()
 
-    stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     out = DIST / f"{args.audit}-{stamp}"
     out.mkdir(parents=True, exist_ok=True)
 
@@ -40,10 +40,15 @@ def main() -> int:
 
     # Governance (instance-rendered if available, else template)
     for sub in ["governance", "operations", "users"]:
-        src = REPO_ROOT / "instance" / sub
-        if not src.is_dir():
-            src = REPO_ROOT / "template" / sub if (REPO_ROOT / "template" / sub).is_dir() else None
-        if src:
+        inst = REPO_ROOT / "instance" / sub
+        tmpl = REPO_ROOT / "template" / sub
+        if inst.is_dir():
+            src: Path | None = inst
+        elif tmpl.is_dir():
+            src = tmpl
+        else:
+            src = None
+        if src is not None:
             shutil.copytree(src, out / sub, dirs_exist_ok=True)
 
     # Evidence (recent; scope decision is manual per audit type)
@@ -64,7 +69,7 @@ def main() -> int:
     readme = out / "README.md"
     readme.write_text(f"""# Audit pack: {args.audit}
 
-Built: {datetime.now().isoformat()}
+Built: {datetime.now(UTC).isoformat()}
 Audit type: {args.audit}
 
 ## Structure

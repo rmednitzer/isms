@@ -2,7 +2,7 @@
 
 ## Reporting
 
-Security concerns about this repository template (tooling bugs, schema flaws, validator bypass) should be reported by opening a private security advisory via GitHub's Security tab, or by contacting the maintainer listed in `.github/CODEOWNERS`.
+Security concerns about this repository template (tooling bugs, schema flaws, validator bypass) should be reported by opening a private security advisory via GitHub's Security tab, or by contacting the maintainer listed in `NOTICE` (Roman Mednitzer, `r.mednitzer@outlook.com`).
 
 Please allow 90 days for vulnerabilities to be fixed before public disclosure, or coordinate a shorter timeline with the maintainer if active exploitation is observed.
 

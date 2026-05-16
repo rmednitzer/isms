@@ -77,7 +77,7 @@ def extract_refs(path: Path) -> list[str]:
 REGISTER_REF_FIELDS = {
     "asset_refs": ("ASSET-", "assets"),
     "location_ref": ("FAC-", "facilities"),
-    "zone_ref": ("ZONE-", "facilities"),
+    "zone_ref": ("ZONE-", "zones"),
     "network_ref": ("NET-", "networks"),
     "supplier_refs": ("SUP-", "suppliers"),
     "data_refs": ("DATA-", "data"),
@@ -110,7 +110,7 @@ def build_register_id_sets() -> dict[str, set[str]]:
     """Load register IDs once for crossref resolution."""
     sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
     try:
-        from validate_registers import REGISTERS, load_ids
+        from validate_registers import REGISTERS, load_ids, load_zone_ids
     except Exception as exc:
         print(
             f"WARNING: could not import validate_registers ({exc!r}); "
@@ -118,7 +118,9 @@ def build_register_id_sets() -> dict[str, set[str]]:
             file=sys.stderr,
         )
         return {}
-    return {name: load_ids(spec) for name, spec in REGISTERS.items()}
+    sets = {name: load_ids(spec) for name, spec in REGISTERS.items()}
+    sets["zones"] = load_zone_ids()
+    return sets
 
 
 def _check_framework_ref(md: Path, ref: str, cat: dict[str, set[str]]) -> str | None:

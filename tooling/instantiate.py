@@ -28,8 +28,17 @@ yaml.preserve_quotes = True
 yaml.indent(mapping=2, sequence=4, offset=2)
 
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([A-Za-z0-9_.]+)\s*\}\}")
+# Matches a single innermost {{#if}}...{{/if}} block: neither the then-body nor
+# the else-body may contain a nested control token. render_ifs applies this in a
+# fixpoint loop so blocks collapse innermost-first and arbitrary nesting depth
+# resolves correctly. A naive non-greedy `.*?` would mispair an outer {{#if}}
+# with an inner {{/if}} and silently corrupt nested governance text.
+_NO_CONTROL = r"(?:(?!\{\{#if|\{\{/if\}\}|\{\{else\}\}).)*?"
 IF_BLOCK_RE = re.compile(
-    r"\{\{#if\s+([A-Za-z0-9_.]+)\s*\}\}(.*?)(?:\{\{else\}\}(.*?))?\{\{/if\}\}",
+    r"\{\{#if\s+([A-Za-z0-9_.]+)\s*\}\}"
+    rf"({_NO_CONTROL})"
+    rf"(?:\{{\{{else\}}\}}({_NO_CONTROL}))?"
+    r"\{\{/if\}\}",
     re.DOTALL,
 )
 
@@ -42,12 +51,15 @@ def load_config(config_path: Path) -> dict:
     if not config_path.is_file():
         raise RenderError(f"config file not found: {config_path}")
     with config_path.open("r", encoding="utf-8") as f:
-        return yaml.load(f)
+        data = yaml.load(f)
+    if not isinstance(data, dict):
+        raise RenderError(f"config root must be a mapping, got {type(data).__name__}")
+    return data
 
 
-def resolve_dotted(data: dict, key: str):
+def resolve_dotted(data: dict, key: str) -> object:
     """Resolve 'a.b.c' against nested dicts. Returns None if missing."""
-    cur = data
+    cur: object = data
     for part in key.split("."):
         if not isinstance(cur, dict):
             return None
@@ -60,7 +72,7 @@ def resolve_dotted(data: dict, key: str):
 def render_ifs(text: str, cfg: dict) -> str:
     """Resolve {{#if key}}...{{else}}...{{/if}} blocks against config."""
 
-    def replacer(m: re.Match) -> str:
+    def replacer(m: re.Match[str]) -> str:
         key = m.group(1)
         then_body = m.group(2) or ""
         else_body = m.group(3) or ""
@@ -79,7 +91,7 @@ def render_placeholders(text: str, cfg: dict, file_path: Path) -> tuple[str, lis
     """Replace {{key.path}} placeholders. Returns (rendered_text, unresolved_list)."""
     unresolved: list[str] = []
 
-    def replacer(m: re.Match) -> str:
+    def replacer(m: re.Match[str]) -> str:
         key = m.group(1)
         val = resolve_dotted(cfg, key)
         if val is None:
@@ -112,9 +124,6 @@ def render_tree(cfg: dict, dry_run: bool = False) -> tuple[int, list[tuple[Path,
             continue
         rel = src.relative_to(TEMPLATE_DIR)
         dst = INSTANCE_DIR / rel
-        if dst.exists() and src.suffix == ".md" and (INSTANCE_DIR / rel).is_file():
-            # Preserve instance-customised files: skip if the instance has diverged.
-            pass
 
         if src.suffix in {".md", ".yaml", ".yml"} and src.name not in RAW_COPY_FILES:
             text = src.read_text(encoding="utf-8")

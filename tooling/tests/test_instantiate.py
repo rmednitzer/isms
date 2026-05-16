@@ -68,6 +68,24 @@ class TestRenderIfs:
         result = render_ifs("before {{#if x}}mid{{/if}} after", cfg)
         assert result == "before mid after"
 
+    NESTED = "{{#if a}}A{{#if b}}B{{else}}NB{{/if}}Z{{else}}OUT{{/if}}"
+
+    def test_nested_if_both_true(self) -> None:
+        assert render_ifs(self.NESTED, {"a": True, "b": True}) == "ABZ"
+
+    def test_nested_if_inner_false(self) -> None:
+        assert render_ifs(self.NESTED, {"a": True, "b": False}) == "ANBZ"
+
+    def test_nested_if_outer_false(self) -> None:
+        assert render_ifs(self.NESTED, {"a": False}) == "OUT"
+
+    def test_nested_if_three_deep(self) -> None:
+        tmpl = "{{#if a}}{{#if b}}{{#if c}}deep{{/if}}{{/if}}{{/if}}"
+        assert render_ifs(tmpl, {"a": 1, "b": 1, "c": 1}) == "deep"
+
+    def test_sequential_ifs_not_conflated(self) -> None:
+        assert render_ifs("{{#if a}}X{{/if}}{{#if c}}Y{{/if}}", {"a": True, "c": True}) == "XY"
+
 
 class TestRenderPlaceholders:
     def test_simple(self) -> None:

@@ -19,7 +19,7 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import sys
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -27,7 +27,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 def main() -> int:
     print("Building NISG 2026 § 33 Selbstdeklaration package.")
-    stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     out = REPO_ROOT / "dist-selbstdeklaration" / f"selbstdeklaration-{stamp}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "README.md").write_text("# Selbstdeklaration package\n\nStub; implement per SOP-102 and Impl Reg 2024/2690 Annex.\n")

@@ -17,6 +17,7 @@ from datetime import date, datetime
 
 from _common import REPO_ROOT
 from ruamel.yaml import YAML
+from ruamel.yaml.error import YAMLError
 
 REGISTRY = REPO_ROOT / "framework-refs" / "sources" / "registry.yaml"
 SNAPSHOTS_ROOT = REPO_ROOT / "framework-refs" / "snapshots"
@@ -48,7 +49,8 @@ def build_snapshot_index() -> dict[str, date]:
         try:
             with meta.open("r") as f:
                 data = yaml.load(f)
-        except Exception:
+        except (OSError, YAMLError) as exc:
+            print(f"WARNING: unreadable snapshot meta {meta}: {exc}", file=sys.stderr)
             continue
         if not isinstance(data, dict):
             continue

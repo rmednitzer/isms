@@ -52,6 +52,7 @@ class TestSupersessionParsing:
         for name in ("p001v1.md", "p001v2.md"):
             md = tmp_path / name
             m = FRONTMATTER_RE.match(md.read_text())
+            assert m is not None
             fm = yaml.load(m.group(1))
             docs[name] = fm
         active = [d for d in docs.values() if d["status"] not in ("superseded", "retired")]
