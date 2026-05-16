@@ -25,10 +25,10 @@ holds final authority on:
 - coordination of the external-reader cadence per
   `EXTERNAL-READER-PROTOCOL.md`.
 
-This repository does not currently carry a `.github/CODEOWNERS` file;
-maintainer authority above is asserted by this document, not by
-CODEOWNERS-based review enforcement. Adding CODEOWNERS is a follow-up
-item when a second maintainer joins.
+Maintainer authority above is enforced by `.github/CODEOWNERS` (every
+control-of-controls path requires maintainer review) in addition to being
+asserted by this document. At single-maintainer scale the maintainer is the
+sole code owner; the owner set widens when a second maintainer joins.
 
 The maintainer does not have authority over content under `instance/`. That
 content is operational and belongs to the deploying organisation. The

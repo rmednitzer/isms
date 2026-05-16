@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 from __future__ import annotations
 
+import json
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -27,17 +28,24 @@ def latest_attestation_date(task_id: str) -> date | None:
     latest: date | None = None
     for att in EVIDENCE_ROOT.rglob("*.json"):
         try:
-            import json
             with att.open("r") as f:
                 data = json.load(f)
-            if data.get("evidence_task_id") != task_id:
-                continue
-            collected = data.get("collected_at", "")
-            d = datetime.fromisoformat(collected.replace("Z", "+00:00")).date()
-            if latest is None or d > latest:
-                latest = d
-        except Exception:
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"WARNING: unreadable attestation {att}: {exc}", file=sys.stderr)
             continue
+        if not isinstance(data, dict) or data.get("evidence_task_id") != task_id:
+            continue
+        collected = data.get("collected_at", "")
+        try:
+            d = datetime.fromisoformat(str(collected).replace("Z", "+00:00")).date()
+        except ValueError:
+            print(
+                f"WARNING: attestation {att} has unparseable collected_at {collected!r}",
+                file=sys.stderr,
+            )
+            continue
+        if latest is None or d > latest:
+            latest = d
     return latest
 
 

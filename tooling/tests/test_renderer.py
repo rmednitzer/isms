@@ -19,7 +19,7 @@ def test_placeholder_substitution() -> None:
 
 
 def test_missing_placeholder_reported() -> None:
-    cfg = {}
+    cfg: dict[str, object] = {}
     text = "Hello {{entity.short_name}}."
     out, missing = render_placeholders(text, cfg, Path("test"))
     assert "{{entity.short_name}}" in out

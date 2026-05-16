@@ -92,11 +92,12 @@ def markdown_to_html(md_text: str) -> str:
     try:
         import markdown  # type: ignore
 
-        return markdown.markdown(
+        html = markdown.markdown(
             md_text,
             extensions=["tables", "fenced_code", "sane_lists", "toc"],
             output_format="html5",
         )
+        return str(html)
     except ImportError:
         return _minimal_markdown(md_text)
 
