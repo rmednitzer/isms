@@ -83,10 +83,10 @@ def _write_snapshot(source: dict) -> None:
     supersedes = _latest_meta(target_dir, meta_file)
     if supersedes is not None:
         meta["supersedes"] = supersedes
-    if source.get("current_version_date"):
-        meta["version_date"] = str(source["current_version_date"])
-    if source.get("entry_into_force"):
-        meta["entry_into_force"] = str(source["entry_into_force"])
+    field_mapping = {"current_version_date": "version_date", "entry_into_force": "entry_into_force"}
+    for source_field, meta_field in field_mapping.items():
+        if source.get(source_field):
+            meta[meta_field] = str(source[source_field])
     if source.get("celex"):
         meta["celex"] = str(source["celex"])
 
