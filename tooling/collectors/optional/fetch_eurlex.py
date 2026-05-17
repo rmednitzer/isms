@@ -31,11 +31,14 @@ def _safe_version(source: dict, fetched_tag: str) -> str:
     return cleaned.strip("-") or fetched_tag
 
 
-def _latest_meta(path: Path) -> str | None:
+def _latest_meta(path: Path, current_meta: Path) -> str | None:
     metas = sorted(path.glob("*.meta.yaml"))
     if not metas:
         return None
-    return str(metas[-1].relative_to(REPO_ROOT))
+    for meta in reversed(metas):
+        if meta != current_meta:
+            return str(meta.relative_to(REPO_ROOT))
+    return None
 
 
 def _write_snapshot(source: dict) -> None:
@@ -45,7 +48,7 @@ def _write_snapshot(source: dict) -> None:
         raise RuntimeError(f"{source_id}: missing authoritative_url")
 
     now = datetime.now(UTC)
-    fetched_at = now.isoformat().replace("+00:00", "Z")
+    fetched_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
     fetched_tag = now.strftime("%Y%m%dT%H%M%SZ")
     version = _safe_version(source, fetched_tag)
 
@@ -76,8 +79,10 @@ def _write_snapshot(source: dict) -> None:
                 "sha256": digest,
             }
         },
-        "supersedes": _latest_meta(target_dir),
     }
+    supersedes = _latest_meta(target_dir, meta_file)
+    if supersedes is not None:
+        meta["supersedes"] = supersedes
     if source.get("current_version_date"):
         meta["version_date"] = str(source["current_version_date"])
     if source.get("entry_into_force"):

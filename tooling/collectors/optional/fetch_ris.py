@@ -33,11 +33,14 @@ def _safe_version(source: dict, fetched_tag: str) -> str:
     return cleaned.strip("-") or fetched_tag
 
 
-def _latest_meta(path: Path) -> str | None:
+def _latest_meta(path: Path, current_meta: Path) -> str | None:
     metas = sorted(path.glob("*.meta.yaml"))
     if not metas:
         return None
-    return str(metas[-1].relative_to(REPO_ROOT))
+    for meta in reversed(metas):
+        if meta != current_meta:
+            return str(meta.relative_to(REPO_ROOT))
+    return None
 
 
 def _write_snapshot(source: dict) -> None:
@@ -47,7 +50,7 @@ def _write_snapshot(source: dict) -> None:
         raise RuntimeError(f"{source_id}: missing authoritative_url")
 
     now = datetime.now(UTC)
-    fetched_at = now.isoformat().replace("+00:00", "Z")
+    fetched_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
     fetched_tag = now.strftime("%Y%m%dT%H%M%SZ")
     version = _safe_version(source, fetched_tag)
 
@@ -78,13 +81,15 @@ def _write_snapshot(source: dict) -> None:
                 "sha256": digest,
             }
         },
-        "supersedes": _latest_meta(target_dir),
     }
-    for opt in ("current_version_date", "entry_into_force"):
-        if source.get(opt):
-            meta[{"current_version_date": "version_date", "entry_into_force": "entry_into_force"}[opt]] = str(
-                source[opt]
-            )
+    supersedes = _latest_meta(target_dir, meta_file)
+    if supersedes is not None:
+        meta["supersedes"] = supersedes
+
+    field_mapping = {"current_version_date": "version_date", "entry_into_force": "entry_into_force"}
+    for source_field, meta_field in field_mapping.items():
+        if source.get(source_field):
+            meta[meta_field] = str(source[source_field])
 
     with meta_file.open("w", encoding="utf-8") as f:
         yaml.dump(meta, f)
