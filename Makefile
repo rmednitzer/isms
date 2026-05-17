@@ -26,7 +26,7 @@ help:
 bootstrap:
 	python3 -m venv $(VENV)
 	$(PYTHON) -m pip install --upgrade pip
-	$(PYTHON) -m pip install -e tooling/
+	$(PYTHON) -m pip install -e "tooling/[dev]"
 	@test -x $(VENV)/bin/pre-commit && $(VENV)/bin/pre-commit install || true
 	@echo "bootstrap complete. activate with: source $(VENV)/bin/activate"
 
