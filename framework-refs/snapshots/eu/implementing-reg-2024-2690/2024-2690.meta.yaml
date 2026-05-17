@@ -1,0 +1,12 @@
+source_id: EU.ImplReg-2024-2690
+fetched_at: '2026-05-17T18:02:19.721015Z'
+fetch_method: eurlex_api
+source_url: https://eur-lex.europa.eu/eli/reg_impl/2024/2690
+version_identifier: 2024-2690
+artifact_files:
+  html:
+    path: framework-refs/snapshots/eu/implementing-reg-2024-2690/2024-2690.html
+    sha256: 73d4b2509d7368db03cff2144824be59c75b128c0acca8b5c9a5d3db0d6cbd09
+supersedes:
+version_date: '2024-10-17'
+celex: 32024R2690

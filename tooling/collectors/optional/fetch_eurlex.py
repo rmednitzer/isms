@@ -10,14 +10,84 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import argparse
+import hashlib
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
 
+import requests
 from ruamel.yaml import YAML
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 REGISTRY = REPO_ROOT / "framework-refs" / "sources" / "registry.yaml"
 yaml = YAML(typ="rt")
+
+
+def _safe_version(source: dict, fetched_tag: str) -> str:
+    raw = source.get("current_version") or source.get("celex") or fetched_tag
+    cleaned = "".join(ch if ch.isalnum() or ch in {"-", "_", "."} else "-" for ch in str(raw))
+    while "--" in cleaned:
+        cleaned = cleaned.replace("--", "-")
+    return cleaned.strip("-") or fetched_tag
+
+
+def _latest_meta(path: Path) -> str | None:
+    metas = sorted(path.glob("*.meta.yaml"))
+    if not metas:
+        return None
+    return str(metas[-1].relative_to(REPO_ROOT))
+
+
+def _write_snapshot(source: dict) -> None:
+    source_id = source.get("id", "unknown")
+    url = source.get("authoritative_url")
+    if not url:
+        raise RuntimeError(f"{source_id}: missing authoritative_url")
+
+    now = datetime.now(UTC)
+    fetched_at = now.isoformat().replace("+00:00", "Z")
+    fetched_tag = now.strftime("%Y%m%dT%H%M%SZ")
+    version = _safe_version(source, fetched_tag)
+
+    target_dir = REPO_ROOT / str(source.get("local_reference", "")).strip("/")
+    target_dir.mkdir(parents=True, exist_ok=True)
+    html_file = target_dir / f"{version}.html"
+    meta_file = target_dir / f"{version}.meta.yaml"
+
+    response = requests.get(
+        str(url),
+        timeout=60,
+        headers={"User-Agent": "isms-snapshot-fetcher/1.0", "Accept": "text/html,application/xhtml+xml"},
+    )
+    response.raise_for_status()
+    body = response.text
+    html_file.write_text(body, encoding="utf-8")
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+    meta = {
+        "source_id": source_id,
+        "fetched_at": fetched_at,
+        "fetch_method": source.get("fetch_method", "eurlex_api"),
+        "source_url": str(url),
+        "version_identifier": version,
+        "artifact_files": {
+            "html": {
+                "path": str(html_file.relative_to(REPO_ROOT)),
+                "sha256": digest,
+            }
+        },
+        "supersedes": _latest_meta(target_dir),
+    }
+    if source.get("current_version_date"):
+        meta["version_date"] = str(source["current_version_date"])
+    if source.get("entry_into_force"):
+        meta["entry_into_force"] = str(source["entry_into_force"])
+    if source.get("celex"):
+        meta["celex"] = str(source["celex"])
+
+    with meta_file.open("w", encoding="utf-8") as f:
+        yaml.dump(meta, f)
+    print(f"Fetched {source_id} -> {html_file.relative_to(REPO_ROOT)}")
 
 
 def main() -> int:
@@ -36,19 +106,27 @@ def main() -> int:
     if args.source_id:
         eu_sources = [s for s in eu_sources if s.get("id") == args.source_id]
 
-    print(f"Would fetch {len(eu_sources)} EUR-Lex sources:")
-    for s in eu_sources:
+    selected = [s for s in eu_sources if s.get("tracking_mode") == "full_text"]
+    print(f"Configured EUR-Lex sources: {len(eu_sources)}")
+    if not selected:
+        print("No EUR-Lex full_text sources configured; nothing to fetch.")
+        return 0
+    print(f"Fetching {len(selected)} EUR-Lex full_text sources:")
+    for s in selected:
         print(f"  {s.get('id')}: CELEX {s.get('celex')}, {s.get('authoritative_url')}")
 
-    # TODO: implement EUR-Lex REST API fetching. Options:
-    # - SPARQL endpoint: https://publications.europa.eu/webapi/rdf/sparql
-    # - Cellar: https://publications.europa.eu/resource/celex/<CELEX>
-    # - HTML fetch with language preference header (de-AT, en)
-    # For each source, fetch latest consolidated version by CELEX; write XML and
-    # normalised markdown to framework-refs/snapshots/eu/<source>/ with meta yaml.
-    print()
-    print("NOTE: EUR-Lex binding not yet implemented. Skeleton ready for extension.")
-    return 0
+    if args.dry_run:
+        return 0
+
+    failures = 0
+    for source in selected:
+        try:
+            _write_snapshot(source)
+        except Exception as exc:
+            failures += 1
+            print(f"ERROR: failed to fetch {source.get('id')}: {exc}", file=sys.stderr)
+
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":
