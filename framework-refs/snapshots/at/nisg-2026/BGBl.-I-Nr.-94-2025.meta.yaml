@@ -1,0 +1,11 @@
+source_id: AT.NISG-2026
+fetched_at: '2026-05-17T18:03:39Z'
+fetch_method: ris_api
+source_url: https://www.ris.bka.gv.at/eli/bgbl/I/2025/94
+version_identifier: BGBl.-I-Nr.-94-2025
+artifact_files:
+  html:
+    path: framework-refs/snapshots/at/nisg-2026/BGBl.-I-Nr.-94-2025.html
+    sha256: 872da4f7cb5fbc0948ad53b68767a22d30dff6501b50fc4905bbfd9d2066514a
+version_date: '2025-12-23'
+entry_into_force: '2026-10-01'
