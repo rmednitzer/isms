@@ -155,3 +155,19 @@ def test_cli_html_only_writes_output(tmp_path: Path, capsys: pytest.CaptureFixtu
     body = out.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in body
     assert "P-000" in body
+
+
+def test_markdown_to_html_escapes_raw_html() -> None:
+    html = markdown_to_html('<img src="http://127.0.0.1/leak">\n')
+    assert "<img" not in html
+    assert "&lt;img" in html
+
+
+def test_url_fetcher_blocks_external_and_out_of_repo_file() -> None:
+    from render_pdf import _make_url_fetcher
+
+    fetcher = _make_url_fetcher(REPO_ROOT)
+    with pytest.raises(RenderError):
+        fetcher("http://example.com/x.css")
+    with pytest.raises(RenderError):
+        fetcher("file:///etc/passwd")

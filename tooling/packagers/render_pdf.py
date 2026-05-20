@@ -39,6 +39,7 @@ import sys
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 from jinja2 import ChainableUndefined, Environment, FileSystemLoader, select_autoescape
 from ruamel.yaml import YAML
@@ -82,24 +83,12 @@ def parse_document(path: Path) -> ParsedDoc:
 
 
 def markdown_to_html(md_text: str) -> str:
-    """Convert markdown body to HTML.
+    """Convert markdown body to HTML with raw HTML disabled.
 
-    Prefers the `markdown` library (optional dep); falls back to a minimal
-    converter that handles the subset used by the ISMS templates: ATX
-    headings, paragraphs, unordered and ordered lists, GFM tables, fenced
-    code blocks, inline code, bold, italic, and links.
+    Uses the repository's minimal converter to preserve the no-network
+    trust boundary by escaping embedded HTML from untrusted markdown.
     """
-    try:
-        import markdown  # type: ignore
-
-        html = markdown.markdown(
-            md_text,
-            extensions=["tables", "fenced_code", "sane_lists", "toc"],
-            output_format="html5",
-        )
-        return str(html)
-    except ImportError:
-        return _minimal_markdown(md_text)
+    return _minimal_markdown(md_text)
 
 
 def _escape_html(s: str, *, quote: bool = False) -> str:
@@ -322,6 +311,27 @@ def render_html(
     )
 
 
+
+def _make_url_fetcher(base_dir: Path):
+    def _url_fetcher(url: str, timeout: int = 10, ssl_context=None):
+        parsed = urlparse(url)
+        scheme = parsed.scheme.lower()
+        if scheme in ("http", "https", "ftp"):
+            raise RenderError(f"external resource loading is blocked: {url}")
+        if scheme == "file":
+            target = Path(parsed.path).resolve()
+            if not target.is_relative_to(base_dir.resolve()):
+                raise RenderError(f"file resource outside repository is blocked: {url}")
+        elif scheme not in ("", "data"):
+            raise RenderError(f"unsupported resource scheme is blocked: {url}")
+
+        from weasyprint import default_url_fetcher  # type: ignore
+
+        return default_url_fetcher(url, timeout=timeout, ssl_context=ssl_context)
+
+    return _url_fetcher
+
+
 def render_pdf(html: str, out_path: Path) -> None:
     try:
         from weasyprint import HTML  # type: ignore
@@ -330,7 +340,11 @@ def render_pdf(html: str, out_path: Path) -> None:
             "WeasyPrint is not installed. Install the PDF extras with "
             "`pip install -e tooling/[pdf]` (or use --html-only to emit HTML)."
         ) from exc
-    HTML(string=html, base_url=str(REPO_ROOT)).write_pdf(str(out_path))
+    HTML(
+        string=html,
+        base_url=str(REPO_ROOT),
+        url_fetcher=_make_url_fetcher(REPO_ROOT),
+    ).write_pdf(str(out_path))
 
 
 def load_entity_legal_name(config_path: Path | None) -> str | None:
