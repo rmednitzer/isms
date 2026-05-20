@@ -26,6 +26,17 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DIST = REPO_ROOT / "dist-audit-pack"
 
 
+def copytree_without_symlinks(src: Path, dst: Path, *, ignore=None) -> None:
+    if src.is_symlink():
+        raise RuntimeError(f"Refusing to package symlinked source directory: {src}")
+
+    for entry in src.rglob("*"):
+        if entry.is_symlink():
+            raise RuntimeError(f"Refusing to package symlink in audit pack source tree: {entry}")
+
+    shutil.copytree(src, dst, dirs_exist_ok=True, ignore=ignore)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--audit", required=True, help="stage-1 | stage-2 | surveillance-YYYY | recertification-YYYY")
@@ -49,22 +60,26 @@ def main() -> int:
         else:
             src = None
         if src is not None:
-            shutil.copytree(src, out / sub, dirs_exist_ok=True)
+            copytree_without_symlinks(src, out / sub)
 
     # Evidence (recent; scope decision is manual per audit type)
     ev_src = REPO_ROOT / "instance" / "evidence"
     if ev_src.is_dir():
-        shutil.copytree(ev_src, out / "evidence", dirs_exist_ok=True)
+        copytree_without_symlinks(ev_src, out / "evidence")
 
     # Framework refs (law snapshots that the ISMS maps to)
     fr_src = REPO_ROOT / "framework-refs"
     if fr_src.is_dir():
-        shutil.copytree(fr_src, out / "framework-refs", dirs_exist_ok=True, ignore=shutil.ignore_patterns("*.xml", "*.tar.gz"))
+        copytree_without_symlinks(
+            fr_src,
+            out / "framework-refs",
+            ignore=shutil.ignore_patterns("*.xml", "*.tar.gz"),
+        )
 
     # Decisions
     dec_src = REPO_ROOT / "docs" / "decisions"
     if dec_src.is_dir():
-        shutil.copytree(dec_src, out / "decisions", dirs_exist_ok=True)
+        copytree_without_symlinks(dec_src, out / "decisions")
 
     readme = out / "README.md"
     readme.write_text(f"""# Audit pack: {args.audit}
