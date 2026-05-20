@@ -36,10 +36,10 @@ import argparse
 import html as _html
 import re
 import sys
-from urllib.parse import urlparse
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 from jinja2 import ChainableUndefined, Environment, FileSystemLoader, select_autoescape
 from ruamel.yaml import YAML
