@@ -1,7 +1,7 @@
 # Changelog
 
 > **Status**: draft
-> **Last reviewed**: 2026-05-14
+> **Last reviewed**: 2026-05-25
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This repository is documentation and tooling rather than a versioned product;
@@ -39,6 +39,7 @@ deploying organisation's instance, not here.
 
 ### Changed
 
+- 2026-05-25: executed full repository validation sweep (`make validate test`) in a fresh `.venv`; all validators and 102 tooling tests passed without failures.
 - `REUSE.toml` scope corrected: the Apache-2.0 default now applies only
   to framework paths (`template/`, `tooling/`, `docs/`, `framework-refs/`,
   `examples/`, root scaffolding, `.github/`, `LICENSES/`). `instance/**`
