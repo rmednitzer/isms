@@ -1,7 +1,7 @@
 # Document status
 
 > **Status**: draft
-> **Last reviewed**: 2026-05-14
+> **Last reviewed**: 2026-05-25
 
 Maturity taxonomy per `CLAUDE.md`:
 
