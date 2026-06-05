@@ -106,7 +106,7 @@ canonical source, not project-side draft/stable maturity.
 | `.github/workflows/reuse.yml` | draft | 2026-05-14 |
 | `.github/pull_request_template.md` | draft | 2026-05-14 |
 | `.github/ISSUE_TEMPLATE/*` | draft | 2026-05-14 |
-| `.github/dependabot.yml` | draft | 2026-05-14 |
+| `renovate.json5` | draft | 2026-06-04 |
 
 ## Updating this document
 

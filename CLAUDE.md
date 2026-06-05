@@ -21,7 +21,7 @@ Two-layer design plus shared infrastructure. Read `docs/operating-contract.md` (
 | `framework-refs/` | law snapshots, registry, calendar, deltas | authoritative; deltas only via SOP-101, SOP-102, SOP-103 |
 | `docs/` | repo-level operating rules (DOC-001 through DOC-009) | governed |
 | `tooling/` | schemas, validators, collectors, signers, packagers, renderer | tested; touched via PR with `make test` |
-| `.github/` | CI, CODEOWNERS, dependabot | control-of-controls |
+| `.github/` | CI, CODEOWNERS | control-of-controls |
 
 `.gitsigners` (the git signing key registry per DOC-002 § 1.1) is referenced by Hard Rule 5 and the signature policy; the file is created when signing keys are first registered and may not yet exist in a skeleton clone.
 
