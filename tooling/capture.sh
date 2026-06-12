@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Human-captured evidence wrapper.
 # Guides an operator through capturing manual evidence for an evidence task,
-# stages the attestation YAML, and prints next steps (review, sign, commit).
+# writes the attestation YAML, and prints next steps (review, sign, commit).
 #
 # Usage: bash tooling/capture.sh <ET-NNN> [optional attachment paths...]
 #
@@ -23,6 +23,14 @@ fi
 
 ET="$1"
 shift
+
+# Evidence task ids are short identifiers. Reject anything that could traverse
+# the evidence tree before ET is used to build ATT_PATH.
+if [[ ! "${ET}" =~ ^[A-Za-z0-9._-]+$ ]]; then
+    echo "ERROR: invalid evidence task id '${ET}'; expected pattern [A-Za-z0-9._-]+" >&2
+    exit 2
+fi
+
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 YEAR="$(date -u +%Y)"
 MONTH="$(date -u +%m)"
@@ -46,12 +54,22 @@ if [[ ! "${CONTROL_ID}" =~ ^[A-Za-z0-9._-]+$ ]]; then
     exit 2
 fi
 
+# Reject capture methods outside the manual set this helper produces, so the
+# attestation cannot violate the collection_method enum in attestation.schema.json.
+case "${METHOD}" in
+    manual_screenshot|manual_export|manual_observation) ;;
+    *)
+        echo "ERROR: invalid capture method '${METHOD}'; expected one of: manual_screenshot, manual_export, manual_observation" >&2
+        exit 2
+        ;;
+esac
+
 OUT_DIR="${REPO_ROOT}/instance/evidence/${YEAR}/${MONTH}/${DAY}/control-${CONTROL_ID}"
 mkdir -p "${OUT_DIR}"
 ATT_PATH="${OUT_DIR}/${ET}-${STAMP}.yaml"
 
-COLLECTED_BY="person:$(git config user.name 2>/dev/null | tr -d ' ' | tr '[:upper:]' '[:lower:]' || true)"
-COLLECTED_BY="${COLLECTED_BY:-person:unknown}"
+COLLECTED_NAME="$(git config user.name 2>/dev/null | tr -d ' ' | tr '[:upper:]' '[:lower:]' || true)"
+COLLECTED_BY="person:${COLLECTED_NAME:-unknown}"
 
 ET="${ET}" \
 CONTROL_ID="${CONTROL_ID}" \
@@ -108,6 +126,6 @@ with att_path.open("w", encoding="utf-8") as fh:
 PY
 
 echo ""
-echo "Attestation staged: ${ATT_PATH}"
+echo "Attestation written: ${ATT_PATH}"
 echo "Review, then sign with: python tooling/signers/sign_gpg.py ${ATT_PATH}"
 echo "Then commit."
