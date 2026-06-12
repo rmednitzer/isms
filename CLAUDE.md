@@ -33,7 +33,7 @@ Before acting on any task, verify:
 
 1. The current branch is not `main`. The `no-commit-to-branch` pre-commit hook blocks direct commits there; branch protection rejects direct pushes.
 2. `git config commit.gpgsign` is true and a signing key is registered (GPG or SSH-sig). If not, stop and ask the human to configure it.
-3. `.venv` exists, or `make bootstrap` has been run. The Makefile defaults `PYTHON` to `.venv/bin/python`; pass `PYTHON=python` to use the system Python instead (CI does this; local clones without `.venv` may too, provided dependencies are installed).
+3. `.venv` exists, or `make bootstrap` has been run. `make bootstrap` requires Python 3.12 or newer (per `tooling/pyproject.toml`); on older interpreters the editable install fails with `requires a different Python`. The Makefile defaults `PYTHON` to `.venv/bin/python`; pass `PYTHON=python` to use the system Python instead (CI does this; local clones without `.venv` may too, provided dependencies are installed).
 4. The task does not fall under "Workflows that require explicit human confirmation" without a fresh confirmation in the conversation.
 5. GNU Make is available (the Makefile uses GNU pattern substitution and static pattern rules; BSD make will not work).
 
