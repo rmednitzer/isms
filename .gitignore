@@ -6,6 +6,9 @@ dist/
 build/
 .eggs/
 
+# Packager output (audit packs copy confidential instance/evidence; never commit)
+dist-audit-pack/
+
 # Virtual environment
 .venv/
 venv/
