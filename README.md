@@ -70,6 +70,10 @@ Git-signed commits attest integrity and authorship within the ISMS. They are not
 
 ## Quickstart
 
+Requires Python 3.12 or newer (per `tooling/pyproject.toml`) and GNU Make. The
+tooling installs into a local `.venv`; activate it (or prefix commands with
+`.venv/bin/`) before running the bare `python` step below.
+
 ```bash
 make bootstrap                # install tooling into .venv
 # Edit instance/config.yaml for your organisation
