@@ -131,7 +131,23 @@ def run_collector(
     try:
         resp = requests.get(endpoint, timeout=60, headers=headers)
         resp.raise_for_status()
-    except Exception as exc:
+    except Exception as exc:  # record the failed attempt; do not fabricate evidence
+        # A failed collection must still leave an evidence record that the pull
+        # was attempted (asymmetric silence would hide a broken collector).
+        att = build_attestation(
+            control_id=control_id,
+            attestation_type=attestation_type,
+            collected_by=collector_path,
+            collection_method="automated_test",
+            source_system=name,
+            source_endpoint=endpoint,
+            observations={
+                "status": "collection_failed",
+                "reason": str(exc),
+                "provider_category": category,
+            },
+        )
+        print(json.dumps(att, indent=2))
         print(f"ERROR: {name} pull from {endpoint} failed: {exc}", file=sys.stderr)
         return 1
 

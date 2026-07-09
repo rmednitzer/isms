@@ -39,7 +39,7 @@ This repository operates without runtime dependency on external services, skill 
 Network-dependent operations are confined to `tooling/collectors/optional/` and are invoked only via explicit targets:
 
 - `make snapshot-fetch`: fetches law snapshots from RIS and EUR-Lex.
-- Scheduled CI workflow `currency-check.yaml`: runs snapshot-fetch and delta detection weekly.
+- Planned (not yet implemented): a scheduled CI workflow to run snapshot-fetch and delta detection weekly. Currency checks run today via `make currency-check` / `make validate-strict`.
 - Provider-specific collectors (Veeam, Keycloak, Wazuh, etc.): opt-in per instance, configured via `instance/config.yaml`.
 
 Optional collectors failing due to network or credential issues must not break any required validation or packaging target.
@@ -57,7 +57,7 @@ Audit evidence must be reproducible. A future auditor must be able to clone the 
 
 ## 6. Verification
 
-CI workflow `validate.yaml` runs on a fresh GitHub-hosted runner. If it passes there, standalone operation is verified.
+CI workflow `.github/workflows/ci.yml` (running `make validate`) runs on a fresh GitHub-hosted runner. If it passes there, standalone operation is verified.
 
 ## 7. Revision history
 

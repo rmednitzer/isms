@@ -28,6 +28,11 @@ DIST = REPO_ROOT / "dist-audit-pack"
 
 
 AUDIT_ARG_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]*$")
+PLACEHOLDER_RE = re.compile(r"\{\{.*?\}\}")
+# Audit types that must not ship draft/placeholder content. A stage-1 (readiness)
+# pack may legitimately show a work-in-progress program; a stage-2, surveillance,
+# or recertification pack is a certification deliverable and must be complete.
+CERTIFICATION_AUDITS = ("stage-2", "surveillance", "recertification")
 
 
 def copytree_without_symlinks(src: Path, dst: Path, *, ignore=None) -> None:
@@ -109,28 +114,59 @@ def main() -> int:
 
     # Evidence (recent; scope decision is manual per audit type)
     ev_src = REPO_ROOT / "instance" / "evidence"
-    if ev_src.is_dir():
+    if has_content(ev_src):
         copytree_without_symlinks(ev_src, out / "evidence")
+    else:
+        warnings.append(
+            "evidence/: no attestations, manifests, or signed PDFs present; "
+            "the pack ships no evidence."
+        )
 
     # Framework refs (law snapshots that the ISMS maps to)
     fr_src = REPO_ROOT / "framework-refs"
-    if fr_src.is_dir():
+    if has_content(fr_src):
         copytree_without_symlinks(
             fr_src,
             out / "framework-refs",
             ignore=shutil.ignore_patterns("*.xml", "*.tar.gz"),
         )
+    else:
+        warnings.append("framework-refs/: no content; section omitted from pack.")
 
     # Decisions
     dec_src = REPO_ROOT / "docs" / "decisions"
-    if dec_src.is_dir():
+    if has_content(dec_src):
         copytree_without_symlinks(dec_src, out / "decisions")
+    else:
+        warnings.append("decisions/: no content; section omitted from pack.")
+
+    # Scan the packaged tree for unresolved {{placeholder}} tokens: a pack full
+    # of template placeholders is scaffolding, not an auditor deliverable.
+    placeholder_files = sorted(
+        str(p.relative_to(out))
+        for p in out.rglob("*")
+        if p.is_file() and p.suffix in {".md", ".yaml", ".yml"} and PLACEHOLDER_RE.search(
+            p.read_text(encoding="utf-8", errors="replace")
+        )
+    )
+    if placeholder_files:
+        warnings.append(
+            f"{len(placeholder_files)} packaged files contain unresolved "
+            "{{placeholder}} tokens (run 'make instantiate' first)."
+        )
+
+    banner = ""
+    if warnings:
+        banner = "\n## ⚠ Readiness warnings\n\nThis pack was built with the following gaps:\n\n"
+        banner += "".join(f"- {w}\n" for w in warnings)
+        banner += "\nThis indicates a pre-instantiation or draft-stage program.\n"
 
     readme = out / "README.md"
     readme.write_text(f"""# Audit pack: {args.audit}
 
 Built: {datetime.now(UTC).isoformat()}
 Audit type: {args.audit}
+{banner}
 
 ## Structure
 
@@ -160,6 +196,16 @@ QES-signed PDFs under evidence/signatures/; verify via EU DSS.
             print(f"  - {w}", file=sys.stderr)
 
     print(f"Audit pack built at {out}")
+
+    # Certification-grade packs must not ship draft/placeholder/empty content.
+    if args.audit.startswith(CERTIFICATION_AUDITS) and warnings:
+        print(
+            f"\nERROR: refusing to certify a '{args.audit}' pack with readiness "
+            "warnings (see above). Build a 'stage-1' readiness pack, or complete "
+            "instantiation, evidence, and SoA assessment first.",
+            file=sys.stderr,
+        )
+        return 1
     return 0
 
 

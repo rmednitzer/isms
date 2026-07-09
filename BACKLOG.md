@@ -11,6 +11,11 @@ section.
 Items resolved in this pass (not backlog): S-001, S-002 (security), Q-001
 (test coverage), Q-002 (documentation). See `audit/03-final-report.md`.
 
+Resolved subsequently: S-007 (`--audit` argument validation) is fixed in
+`build_audit_pack.py` (`AUDIT_ARG_PATTERN`, rejects path-escape with exit 2)
+with parametrized tests in `test_build_audit_pack.py`. S-004 (untested
+symlink-refusal) now has a regression test in `test_tooling_fixes.py`.
+
 ## Security
 
 ### S-006 Add dependency-vulnerability scanning to CI
@@ -23,14 +28,6 @@ Items resolved in this pass (not backlog): S-001, S-002 (security), Q-001
   runs against a pinned set.
 - Authorisation: changing `.github/workflows/` is control-of-controls and needs
   explicit, separate human authorisation.
-
-### S-007 Validate `--audit` argument in build_audit_pack
-- Severity: low. Effort: S. Owner: maintainer.
-- Rationale: `--audit` is concatenated into the output path unvalidated
-  (`build_audit_pack.py:46`); `../` would escape `dist-audit-pack/`.
-- Approach: validate against `^[A-Za-z0-9-]+$` or an allowlist of stages; reject
-  otherwise. Add a unit test.
-- Dependencies: none.
 
 ### S-004 Close TOCTOU window in audit-pack symlink rejection
 - Severity: low. Effort: M. Owner: maintainer.

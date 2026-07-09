@@ -192,6 +192,25 @@ L6 retrofit (per-file SPDX headers) remains a separate follow-up.
 
 **Intended scope.** Closed in this PR.
 
+## L10. Selbstdeklaration and management-review packagers are partially implemented
+
+**Current state.** `make selbstdeklaration` (`build_selbstdeklaration.py`) scaffolds
+an output directory with a placeholder README; it does not yet assemble the NISG
+2026 § 33 self-declaration content from the SoA, risk register, and evidence.
+`build_management_review.py` assembles the ISO/IEC 27001 clause 9.3.2 input pack
+from committed data but leaves interested-party feedback, nonconformity trends,
+and internal-issue inputs as review-time placeholders (no such registers exist yet).
+
+**Implication.** A user must not treat `make selbstdeklaration` as producing a
+submittable filing; it produces a scaffold. The statutory § 33 deadline is
+2027-09-30 (see the regulatory calendar).
+
+**What would close it.** Implement `build_selbstdeklaration.py` to render the § 33
+declaration from committed governance and evidence, and add the missing
+management-review input registers (nonconformities, interested-party feedback).
+
+**Intended scope.** Focused follow-up; not addressed in this PR.
+
 ## How to read this document
 
 - If you are using the repository as a framework for an ISO 27001 / NISG
