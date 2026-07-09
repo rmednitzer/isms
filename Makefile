@@ -1,8 +1,8 @@
 # Requires GNU Make (uses pattern substitution and static pattern rules).
-VALIDATORS := frontmatter crossrefs signatures supersession law_references calendar bilingual doc_type_coverage registers
+VALIDATORS := frontmatter crossrefs signatures supersession law_references calendar bilingual doc_type_coverage registers soa no_todo
 VALIDATE_TARGETS := $(VALIDATORS:%=validate-%)
 
-.PHONY: help bootstrap instantiate validate $(VALIDATE_TARGETS) currency-check snapshot-fetch pack selbstdeklaration pdf soa-pdf test clean
+.PHONY: help bootstrap instantiate validate validate-strict $(VALIDATE_TARGETS) currency-check snapshot-fetch pack selbstdeklaration pdf soa-pdf test clean
 
 PYTHON ?= .venv/bin/python
 VENV ?= .venv
@@ -14,6 +14,7 @@ help:
 	@echo "  bootstrap          create .venv and install tooling"
 	@echo "  instantiate        render template/ into instance/ per instance/config.yaml"
 	@echo "  validate           run all offline validators (no network; pass -j for parallel)"
+	@echo "  validate-strict    validate + fail on law snapshots stale beyond cadence"
 	@echo "  currency-check     check snapshot ages and reference coverage"
 	@echo "  snapshot-fetch     refresh law snapshots from RIS and EUR-Lex (network required)"
 	@echo "  pack AUDIT=<stg>   build audit bundle (stage-1 | stage-2 | surveillance-YYYY | selbstdeklaration)"
@@ -31,12 +32,18 @@ bootstrap:
 	@echo "bootstrap complete. activate with: source $(VENV)/bin/activate"
 
 instantiate:
-	$(PYTHON) tooling/instantiate.py --config instance/config.yaml
+	$(PYTHON) tooling/instantiate.py --config instance/config.yaml --strict
 
 validate: $(VALIDATE_TARGETS)
 
 $(VALIDATE_TARGETS): validate-%:
 	$(PYTHON) tooling/validators/validate_$*.py
+
+# Currency-strict gate: fails on snapshots stale beyond their cadence. Not part
+# of the default `validate` (staleness is operational, not a code defect), but
+# suitable for a scheduled/CI currency job once law snapshots are current.
+validate-strict: validate
+	$(PYTHON) tooling/validators/validate_law_references.py --strict
 
 currency-check:
 	$(PYTHON) tooling/collectors/core/evidence_age_report.py

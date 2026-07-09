@@ -66,7 +66,7 @@ Git-signed commits attest integrity and authorship within the ISMS. They are not
 | track a new law | `framework-refs/sources/registry.yaml` and SOP-101 |
 | log an incident | `instance/operations/incidents/` AND the pre-filled Frühwarnung template |
 | prepare for audit | `make pack AUDIT=<stage>` |
-| submit NISG 2026 Selbstdeklaration | `make selbstdeklaration` |
+| submit NISG 2026 Selbstdeklaration | `make selbstdeklaration` (scaffolds the package; content authoring not yet implemented, see LIMITATIONS L10) |
 
 ## Quickstart
 

@@ -28,7 +28,7 @@ A.8.21 Security of network services (theme: technological).
 
 ## Implementation
 
-Security mechanisms, service levels, and requirements of network services are identified, implemented, and monitored, per P-011.
+Security mechanisms, service levels, and requirements of network services are identified, implemented, and monitored, per P-013.
 
 ## Evidence
 

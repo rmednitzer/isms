@@ -3,7 +3,9 @@
 > **Status**: draft
 > **Last reviewed**: 2026-05-25
 
-Maturity taxonomy per `CLAUDE.md`:
+Maturity taxonomy (defined in this document; the governance-artefact status
+lifecycle `draft -> under_review -> approved -> superseded/retired` in `CLAUDE.md`
+and DOC-001 is a distinct concept):
 
 - **planned**: structure exists, content not authored
 - **draft**: content exists, not validated against external-reader gate
@@ -31,7 +33,7 @@ framework licence.
 
 | Section | Path | Status | Last reviewed |
 |---|---|---|---|
-| Governance templates (structure) | `template/governance/` | planned | 2026-05-14 |
+| Governance templates (policies, controls, SoA) | `template/governance/` | draft | 2026-07-09 |
 | Operations templates (structure) | `template/operations/` | planned | 2026-05-14 |
 
 ## Framework references

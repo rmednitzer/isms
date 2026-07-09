@@ -91,10 +91,10 @@ def test_main_prefers_instance_when_populated(monkeypatch, tmp_path) -> None:
     (repo / "instance" / "governance" / "real.md").write_text("instance governance", encoding="utf-8")
     monkeypatch.setattr(bap, "REPO_ROOT", repo)
     monkeypatch.setattr(bap, "DIST", repo / "dist-audit-pack")
-    monkeypatch.setattr(sys, "argv", ["build_audit_pack.py", "--audit", "stage-2"])
+    monkeypatch.setattr(sys, "argv", ["build_audit_pack.py", "--audit", "stage-1"])
 
     assert bap.main() == 0
-    out = next((repo / "dist-audit-pack").glob("stage-2-*"))
+    out = next((repo / "dist-audit-pack").glob("stage-1-*"))
     assert (out / "governance" / "real.md").read_text(encoding="utf-8") == "instance governance"
     # instance/governance had content, so template governance.md is not present.
     assert not (out / "governance" / "governance.md").exists()

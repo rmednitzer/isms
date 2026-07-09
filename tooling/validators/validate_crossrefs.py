@@ -14,6 +14,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from _common import (
     FRONTMATTER_RE,  # noqa: F401  (re-exported for backwards compatibility with tests)
     GOVERNANCE_SCAN_ROOTS,
     REPO_ROOT,
+    emptiness_guard,
     iter_markdown,
     parse_frontmatter,
 )
@@ -33,8 +35,13 @@ yaml = YAML(typ="safe")
 
 # Prefixes that are considered valid even without full catalogue verification.
 # Useful for frameworks where we only hold structural references (eidas articles,
-# ISO clause numbers below the Annex A level).
-STRUCTURAL_PREFIXES = {"iso27001", "eidas", "nis2"}
+# ISO management-system clause numbers below the Annex A level).
+STRUCTURAL_PREFIXES = {"eidas", "nis2"}
+
+# An iso27001 ref of the form A.x.y is an Annex A control and is verifiable
+# against the catalogue; a bare clause number (e.g. 5.2, 6.1.2) is a
+# management-system clause and remains structural-only.
+ANNEX_A_RE = re.compile(r"^A\.\d")
 
 
 def load_control_ids_from_yaml(path: Path, id_field: str = "id") -> set[str]:
@@ -129,6 +136,12 @@ def _check_framework_ref(md: Path, ref: str, cat: dict[str, set[str]]) -> str | 
     prefix, ident = ref.split(":", 1)
     if prefix not in cat:
         return f"{md}: unknown framework prefix '{prefix}' in ref '{ref}'"
+    if prefix == "iso27001":
+        # Annex A control refs validate against the merged catalogue; ISO
+        # management-system clause refs (e.g. 5.2, 6.1.2) are structural.
+        if ANNEX_A_RE.match(ident) and cat["iso27001"] and ident not in cat["iso27001"]:
+            return f"{md}: unknown Annex A control '{ref}' (not found in catalogue)"
+        return None
     if prefix in STRUCTURAL_PREFIXES:
         return None
     if not cat[prefix]:
@@ -184,6 +197,9 @@ def main() -> int:
             )
 
     print(f"Checked framework_refs across {count} files.")
+    guard = emptiness_guard(count, "governance markdown files")
+    if guard is not None:
+        return guard
     if violations:
         print(f"{len(violations)} violations:")
         for v in violations:

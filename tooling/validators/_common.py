@@ -10,7 +10,9 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import datetime as _dt
+import os
 import re
+import sys
 from collections.abc import Iterable, Iterator
 from pathlib import Path
 
@@ -96,3 +98,22 @@ def iter_frontmatter(roots: Iterable[Path]) -> Iterator[tuple[Path, dict]]:
         fm = parse_frontmatter(md)
         if fm is not None:
             yield md, fm
+
+
+def emptiness_guard(count: int, what: str) -> int | None:
+    """Fail closed when a validator checked zero items.
+
+    A validator that iterates over misconfigured or missing scan roots yields
+    nothing and would otherwise print "all valid" and exit 0, hiding the fact
+    that it checked nothing. Zero governance artefacts is never legitimate in
+    this repository, so treat it as an infrastructure error (exit 2). Set
+    ``ISMS_ALLOW_EMPTY=1`` to override for a genuinely empty tree.
+    """
+    if count == 0 and os.environ.get("ISMS_ALLOW_EMPTY") != "1":
+        print(
+            f"ERROR: validator checked 0 {what}; scan roots misconfigured or "
+            "missing (set ISMS_ALLOW_EMPTY=1 to allow an intentionally empty tree).",
+            file=sys.stderr,
+        )
+        return 2
+    return None

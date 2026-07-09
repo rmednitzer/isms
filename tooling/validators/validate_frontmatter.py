@@ -20,6 +20,7 @@ from pathlib import Path
 from _common import (
     GOVERNANCE_SCAN_ROOTS,
     REPO_ROOT,
+    emptiness_guard,
     iter_markdown,
     parse_frontmatter,
 )
@@ -60,6 +61,9 @@ def main() -> int:
         errors.extend(validate_file(md, validator))
 
     print(f"Validated front-matter on {count} markdown files.")
+    guard = emptiness_guard(count, "governance markdown files")
+    if guard is not None:
+        return guard
     if errors:
         print(f"{len(errors)} violations:")
         for e in errors:

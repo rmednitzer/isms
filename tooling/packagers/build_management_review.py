@@ -32,13 +32,25 @@ yaml = YAML(typ="safe")
 
 PERIOD_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]*$")
 
+
+def _default_period() -> str:
+    """Current calendar quarter label, e.g. 2026-Q3 (not month-based %m)."""
+    now = datetime.now(UTC)
+    return f"{now.year}-Q{(now.month - 1) // 3 + 1}"
+
 TODO = "_No committed records found; to be completed at the review._"
 
 
 def _prefer(repo_root: Path, relative: str) -> Path:
-    """Prefer the instance-rendered artefact, else the template."""
+    """Prefer the instance-rendered artefact, but only when it has real content.
+
+    An empty or stub instance file must not shadow a populated template file
+    (the same failure class fixed in build_audit_pack).
+    """
     inst = repo_root / "instance" / relative
-    return inst if inst.exists() else repo_root / "template" / relative
+    if inst.is_file() and inst.stat().st_size > 0:
+        return inst
+    return repo_root / "template" / relative
 
 
 def _load_yaml(path: Path) -> dict:
@@ -247,7 +259,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--period",
-        default=datetime.now(UTC).strftime("%Y-Q%m"),
+        default=_default_period(),
         help="review period label, e.g. 2026-H1 or 2026-Q3 (chars [A-Za-z0-9-])",
     )
     parser.add_argument("--dry-run", action="store_true", help="print to stdout, do not write a file")

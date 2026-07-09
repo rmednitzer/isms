@@ -19,7 +19,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from _common import FRONTMATTER_RE, REPO_ROOT, iter_frontmatter  # noqa: F401
+from _common import FRONTMATTER_RE, REPO_ROOT, emptiness_guard, iter_frontmatter  # noqa: F401
 from _common import _yaml as yaml  # noqa: F401  (re-exported for tests)
 
 SCAN_ROOTS = [REPO_ROOT / "docs", REPO_ROOT / "template", REPO_ROOT / "instance"]
@@ -27,7 +27,9 @@ SCAN_ROOTS = [REPO_ROOT / "docs", REPO_ROOT / "template", REPO_ROOT / "instance"
 
 def main() -> int:
     revisions: dict[str, list[tuple[int, str, Path]]] = defaultdict(list)
+    seen = 0
     for md, fm in iter_frontmatter(SCAN_ROOTS):
+        seen += 1
         doc_id = fm.get("doc_id")
         rev = fm.get("revision")
         status = fm.get("status")
@@ -51,6 +53,9 @@ def main() -> int:
         f"Checked supersession across {sum(len(v) for v in revisions.values())} "
         f"revisions of {len(revisions)} documents."
     )
+    guard = emptiness_guard(seen, "governance markdown files")
+    if guard is not None:
+        return guard
     if violations:
         print(f"{len(violations)} violations:")
         for v in violations:

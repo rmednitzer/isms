@@ -1,7 +1,7 @@
 ---
 doc_id: REC-2026-534
 doc_type: record
-title: "Implementation statement for A.5.34 Privacy and protection of personal identifiable information"
+title: "Implementation statement for A.5.34 Privacy and protection of personally identifiable information (PII)"
 revision: 1
 status: draft
 approved_date: null
@@ -16,7 +16,7 @@ framework_refs:
 signature_ref: null
 ---
 
-# Implementation statement for A.5.34 Privacy and protection of personal identifiable information
+# Implementation statement for A.5.34 Privacy and protection of personally identifiable information (PII)
 
 **REC-2026-534 Revision 1 (DRAFT)**
 
@@ -24,7 +24,7 @@ signature_ref: null
 
 ## Control
 
-A.5.34 Privacy and protection of personal identifiable information (theme: organisational).
+A.5.34 Privacy and protection of personally identifiable information (PII) (theme: organisational).
 
 ## Implementation
 

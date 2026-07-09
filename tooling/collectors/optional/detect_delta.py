@@ -84,12 +84,26 @@ def _artifact_for(meta_path: Path, meta: dict) -> Path | None:
     return None
 
 
+def _order_key(pair: tuple[Path, dict]) -> tuple[str, str, str]:
+    """Deterministic ordering: fetched_at, then version_date, then filename.
+
+    Keeping each component in its own tuple slot avoids the earlier bug where an
+    ISO timestamp was compared lexically against a filename (so a meta with no
+    fetched_at could beat a real 2099 timestamp). A missing fetched_at sorts as
+    empty (oldest), and ties break on version_date then name rather than at random.
+    """
+    _, meta = pair
+    return (
+        str(meta.get("fetched_at") or ""),
+        str(meta.get("version_date") or ""),
+        pair[0].name,
+    )
+
+
 def latest_two(source_dir: Path) -> list[tuple[Path, dict]]:
     """The two newest (meta_path, meta) pairs in a source dir, newest first."""
-    metas = sorted(source_dir.glob("*.meta.yaml"))
-    pairs = [(m, _load_meta(m)) for m in metas]
-    # Order by fetched_at when present, else by filename; newest last -> reverse.
-    pairs.sort(key=lambda mp: str(mp[1].get("fetched_at") or mp[0].name))
+    pairs = [(m, _load_meta(m)) for m in source_dir.glob("*.meta.yaml")]
+    pairs.sort(key=_order_key)
     return list(reversed(pairs))[:2]
 
 

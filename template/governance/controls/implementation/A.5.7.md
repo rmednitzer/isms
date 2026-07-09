@@ -28,11 +28,11 @@ A.5.7 Threat intelligence (theme: organisational).
 
 ## Implementation
 
-Threat intelligence relevant to the organisation is collected, analysed, and fed into risk assessment and monitoring, per P-011.
+Threat intelligence relevant to the organisation is collected, analysed, and fed into risk assessment and monitoring, per P-013.
 
 ## Evidence
 
-No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-301 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 

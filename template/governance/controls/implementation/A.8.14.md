@@ -32,7 +32,7 @@ Information processing facilities are implemented with redundancy sufficient to 
 
 ## Evidence
 
-No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-301 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 

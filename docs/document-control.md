@@ -124,7 +124,7 @@ Superseded and retired files remain in the repository indefinitely. Git history 
 
 ## 10. Validation
 
-`tooling/validators/validate_frontmatter.py` enforces this specification on every in-scope markdown file. Runs in pre-commit and in `.github/workflows/validate.yaml`. Violation blocks commit.
+`tooling/validators/validate_frontmatter.py` enforces this specification on every in-scope markdown file. Runs in pre-commit and in `.github/workflows/ci.yml` (make validate). Violation blocks commit.
 
 Editorial conventions (register, section structure by `doc_type`, formatting) are governed by `docs/style-guide.md` (DOC-009). PDF presentation is governed by `tooling/packagers/render_pdf.py` and its Jinja template under `tooling/packagers/templates/pdf/`, which regenerates a cover page from the front-matter and preserves the in-body visible header as the internal preview form.
 
