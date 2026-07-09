@@ -8,6 +8,7 @@ build/
 
 # Packager output (audit packs copy confidential instance/evidence; never commit)
 dist-audit-pack/
+dist-management-review/
 
 # Virtual environment
 .venv/
