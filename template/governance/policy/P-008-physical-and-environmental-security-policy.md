@@ -44,14 +44,36 @@ Physical security perimeters, equipment, clear desk, secure disposal.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Physical access to information and information processing facilities shall be controlled,
+and equipment shall be protected against physical and environmental threats (A.7.1).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Security perimeters and entry controls shall protect areas containing information assets
+  (A.7.1, A.7.2).
+- Offices, rooms, and facilities shall be secured, and protection against physical and
+  environmental threats provided (A.7.3, A.7.5).
+- Working in secure areas, clear desk, and clear screen shall be enforced (A.7.6, A.7.7).
+- Equipment shall be sited, protected, and maintained, and supported by adequate utilities
+  and cabling security (A.7.8, A.7.11, A.7.12, A.7.13).
+- Assets off-premises shall be protected, and storage media and equipment securely
+  disposed of or reused (A.7.9, A.7.10, A.7.14).
+
+### 3.3 Prohibitions
+
+- Unauthorised persons shall not enter secure areas unescorted.
+- Media shall not be disposed of without secure sanitisation (A.7.14).
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager maintains the facilities register and physical controls; facility
+  owners operate them.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005 with an expiry date.
 
 ## 4. Roles and responsibilities
 

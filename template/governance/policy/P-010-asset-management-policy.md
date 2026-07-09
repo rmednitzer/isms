@@ -38,14 +38,34 @@ Inventory, ownership, classification, labelling, handling, return of assets.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Information and other associated assets within the ISMS scope shall be identified, owned,
+classified, and handled according to their value and sensitivity (A.5.9).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- An inventory of information and associated assets shall be maintained with assigned
+  owners (A.5.9).
+- Acceptable use and return of assets shall be defined (A.5.10, A.5.11).
+- Information shall be classified, labelled, and handled per its classification
+  (A.5.12, A.5.13).
+- Media shall be managed and protected throughout its lifecycle (A.7.10).
+- Assets taken off-premises shall be protected (A.7.9).
+
+### 3.3 Prohibitions
+
+- Assets shall not be introduced to the ISMS scope without an assigned owner and
+  classification.
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager maintains the asset register; asset owners are accountable for
+  classification and handling.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005.
 
 ## 4. Roles and responsibilities
 

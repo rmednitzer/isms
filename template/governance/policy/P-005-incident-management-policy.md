@@ -36,14 +36,41 @@ Incident management lifecycle; NIS2 incident reporting obligations.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Information security events shall be reported, assessed, and responded to through a
+defined incident-management process that limits harm and meets the incident-reporting
+obligations under NISG 2026 § 32 (A.5.24).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Incident management responsibilities and procedures shall be established and maintained
+  (A.5.24; procedure SOP-001).
+- Events shall be assessed and classified to decide whether they are incidents (A.5.25).
+- Incidents shall be responded to and evidence collected per the procedures
+  (A.5.26, A.5.28).
+- Reportable incidents shall be notified to CERT.at and the Bundesamt within the NIS2
+  windows: Frühwarnung within 24 hours, notification within 72 hours, final report within
+  one month.
+- Lessons learned shall be used to reduce the likelihood and impact of future incidents
+  (A.5.27).
+
+### 3.3 Prohibitions
+
+- Incident evidence shall not be altered or deleted; handling shall preserve chain of
+  custody.
+- Authority notifications shall not be submitted by automated tooling; the accountable
+  human submits them per the operating contract.
+
+### 3.4 Responsibilities
+
+- role:CISO leads incident response; role:ISMS-Manager coordinates reporting;
+  role:Management approves external notifications.
+
+### 3.5 Exceptions
+
+There are no exceptions to statutory reporting obligations. Procedural deviations shall
+be recorded in the incident record.
 
 ## 4. Roles and responsibilities
 

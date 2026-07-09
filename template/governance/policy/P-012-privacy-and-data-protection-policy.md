@@ -35,14 +35,42 @@ Privacy obligations: lawful basis, data minimisation, DPIA, data subject rights,
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Personal data shall be processed lawfully, fairly, and transparently, and protected by
+appropriate technical and organisational measures, in accordance with the GDPR and the
+Austrian DSG (GDPR Art. 5, Art. 24; A.5.34).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Processing activities shall have a documented lawful basis and shall be recorded in the
+  Article 30 records of processing (`governance/data/inventory.yaml`).
+- Data protection by design and by default shall be applied to new processing and systems
+  (GDPR Art. 25).
+- Data minimisation, purpose limitation, accuracy, and storage limitation shall be
+  observed (GDPR Art. 5).
+- A data protection impact assessment shall be performed where processing is likely to
+  result in high risk (GDPR Art. 35).
+- Security of processing shall be ensured through measures proportionate to risk
+  (GDPR Art. 32), and data subject rights shall be supported.
+- Personal data breaches shall be handled through P-005 and notified to the
+  Datenschutzbehörde within 72 hours where required (GDPR Art. 33).
+
+### 3.3 Prohibitions
+
+- Personal data shall not be processed without a lawful basis or beyond the stated purpose.
+- Personal data shall not be transferred to a third country without an adequate transfer
+  mechanism.
+
+### 3.4 Responsibilities
+
+- role:DPO oversees data protection compliance; process owners maintain records of
+  processing; role:CISO ensures security of processing.
+
+### 3.5 Exceptions
+
+There are no exceptions to statutory data-protection obligations. Processing-specific risk
+decisions shall be recorded via a DPIA and risk acceptance per SOP-005.
 
 ## 4. Roles and responsibilities
 

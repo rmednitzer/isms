@@ -36,14 +36,35 @@ Information security in supplier relationships; supply-chain obligations per NIS
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Information security risks arising from supplier and service-provider relationships shall
+be identified, agreed, and managed throughout the relationship lifecycle, including
+supply-chain obligations under NIS2 / NISG 2026 § 31 (A.5.19).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Security requirements shall be agreed with suppliers before access is granted and
+  documented in contracts or data-processing agreements (A.5.20).
+- Risks in the ICT supply chain shall be assessed and managed (A.5.21).
+- Supplier service delivery shall be monitored and reviewed, and changes managed against
+  agreed requirements (A.5.22).
+- Security requirements for cloud services shall be defined before adoption (A.5.23).
+- Suppliers shall be recorded in the supplier register with criticality and review dates.
+
+### 3.3 Prohibitions
+
+- Suppliers shall not be granted access to information or systems before security
+  requirements are agreed.
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager maintains the supplier register and review cadence; asset and service
+  owners sponsor supplier relationships.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005 with an expiry date.
 
 ## 4. Roles and responsibilities
 

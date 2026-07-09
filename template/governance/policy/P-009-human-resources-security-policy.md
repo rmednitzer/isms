@@ -38,14 +38,36 @@ Screening, terms of employment, awareness, disciplinary, termination.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Personnel and contractors shall understand and fulfil their information security
+responsibilities before, during, and on termination or change of employment (A.6.1).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Background verification shall be performed proportionate to role and legal constraints
+  (A.6.1).
+- Terms and conditions of employment shall state information security responsibilities
+  (A.6.2).
+- Security awareness, education, and training shall be provided and refreshed (A.6.3).
+- A disciplinary process shall address violations (A.6.4).
+- Responsibilities that remain valid after termination or change shall be defined and
+  enforced, and a confidentiality regime maintained (A.6.5, A.6.6).
+- Remote working and event-reporting responsibilities shall be defined (A.6.7, A.6.8).
+
+### 3.3 Prohibitions
+
+- Access shall not be granted before terms of employment and required screening are
+  complete.
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager defines HR-security requirements; HR and line management operate
+  screening, onboarding, and offboarding.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005.
 
 ## 4. Roles and responsibilities
 

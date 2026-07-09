@@ -33,14 +33,34 @@ Logging, monitoring, clock synchronisation for security events.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Security-relevant events shall be logged, protected, and monitored to detect anomalous
+activity and support investigation (A.8.15).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Logs recording user activities, exceptions, faults, and security events shall be
+  produced, retained, and protected against tampering (A.8.15).
+- Networks, systems, and applications shall be monitored for anomalous behaviour and
+  appropriate action taken (A.8.16).
+- Clocks shall be synchronised to an approved time source to support correlation (A.8.17).
+- Log retention shall meet the configured retention period and applicable legal
+  requirements.
+
+### 3.3 Prohibitions
+
+- Logs shall not be modified or deleted before the end of their retention period.
+- Logging of security events shall not be disabled on in-scope systems.
+
+### 3.4 Responsibilities
+
+- role:CISO defines monitoring requirements; role:SysAdmin operates logging, monitoring,
+  and time synchronisation.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005 with a remediation date.
 
 ## 4. Roles and responsibilities
 
