@@ -73,7 +73,7 @@ def _artifact_for(meta_path: Path, meta: dict) -> Path | None:
     for kind in ("html", "text", "pdf"):
         rel = (files.get(kind) or {}).get("path")
         if rel:
-            candidate = REPO_ROOT / rel
+            candidate: Path = REPO_ROOT / rel
             if candidate.is_file():
                 return candidate
     stem = meta_path.name[: -len(".meta.yaml")]
