@@ -358,15 +358,33 @@ def load_entity_legal_name(config_path: Path | None) -> str | None:
     return None
 
 
+def _safe_component(value: object, fallback: str) -> str:
+    """Reduce a front-matter value to a filesystem-safe path component.
+
+    Front-matter is attacker-influenced (a document may be rendered before it
+    passes validate_frontmatter), so a doc_id like ``../../etc/x`` must not be
+    able to steer the output path. Anything outside [A-Za-z0-9._-] is replaced,
+    and leading dots are stripped so the component cannot become ``..``.
+    """
+    text = re.sub(r"[^A-Za-z0-9._-]", "_", str(value))
+    text = text.lstrip(".") or fallback
+    return text
+
+
 def default_output_path(
     doc: ParsedDoc, *, suffix: str, generated_at: datetime | None = None
 ) -> Path:
     fm = doc.front_matter
-    doc_id = fm.get("doc_id", doc.source_path.stem)
-    rev = fm.get("revision", 1)
+    doc_id = _safe_component(fm.get("doc_id", doc.source_path.stem), doc.source_path.stem)
+    rev = _safe_component(fm.get("revision", 1), "1")
     stamp = (generated_at or datetime.now(UTC)).astimezone(UTC)
-    date_part = fm.get("approved_date") or stamp.strftime("%Y-%m-%d")
-    return DIST_DIR / f"{doc_id}-R{rev}-{date_part}{suffix}"
+    date_part = _safe_component(
+        fm.get("approved_date") or stamp.strftime("%Y-%m-%d"), stamp.strftime("%Y-%m-%d")
+    )
+    out = (DIST_DIR / f"{doc_id}-R{rev}-{date_part}{suffix}").resolve()
+    if out.parent != DIST_DIR.resolve():
+        raise RenderError(f"refusing to write outside {DIST_DIR}: {out}")
+    return out
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -20,6 +20,9 @@ from pathlib import Path
 import requests
 from ruamel.yaml import YAML
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _snapshot_paths import resolve_snapshot_dir
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 REGISTRY = REPO_ROOT / "framework-refs" / "sources" / "registry.yaml"
 yaml = YAML(typ="rt")
@@ -54,7 +57,7 @@ def _write_snapshot(source: dict) -> None:
     fetched_tag = now.strftime("%Y%m%dT%H%M%SZ")
     version = _safe_version(source, fetched_tag)
 
-    target_dir = REPO_ROOT / str(source.get("local_reference", "")).strip("/")
+    target_dir = resolve_snapshot_dir(REPO_ROOT, source.get("local_reference"))
     target_dir.mkdir(parents=True, exist_ok=True)
     html_file = target_dir / f"{version}.html"
     meta_file = target_dir / f"{version}.meta.yaml"

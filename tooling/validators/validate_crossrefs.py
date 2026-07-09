@@ -21,6 +21,7 @@ from _common import (
     FRONTMATTER_RE,  # noqa: F401  (re-exported for backwards compatibility with tests)
     GOVERNANCE_SCAN_ROOTS,
     REPO_ROOT,
+    emptiness_guard,
     iter_markdown,
     parse_frontmatter,
 )
@@ -184,6 +185,9 @@ def main() -> int:
             )
 
     print(f"Checked framework_refs across {count} files.")
+    guard = emptiness_guard(count, "governance markdown files")
+    if guard is not None:
+        return guard
     if violations:
         print(f"{len(violations)} violations:")
         for v in violations:

@@ -23,6 +23,18 @@ yaml = YAML(typ="safe")
 PAST_DEADLINE_THRESHOLD_DAYS = 30
 
 
+def _is_closed(ms: dict) -> bool:
+    """A milestone is closed once its obligations are discharged.
+
+    The regulatory-calendar schema allows extra properties, so closure is
+    recorded on the milestone itself: either ``status: closed`` or a
+    ``closure_ref`` pointing at the record that discharges the obligation.
+    """
+    if str(ms.get("status", "")).lower() in {"closed", "discharged", "superseded"}:
+        return True
+    return bool(ms.get("closure_ref"))
+
+
 def main() -> int:
     if not CAL.is_file():
         print(f"NOTE: calendar not found at {CAL}; skipping.")
@@ -43,7 +55,7 @@ def main() -> int:
 
     today = date.today()
     ms_list = data.get("milestones", []) if isinstance(data, dict) else []
-    count_past = 0
+    overdue: list[str] = []
     bad_dates: list[str] = []
     for ms in ms_list:
         d = ms.get("date")
@@ -56,16 +68,26 @@ def main() -> int:
                 bad_dates.append(f"{ms.get('id', '<no id>')}: unparseable date {d!r}")
                 continue
         if ms_date < today and (today - ms_date).days > PAST_DEADLINE_THRESHOLD_DAYS:
-            count_past += 1
+            if not _is_closed(ms):
+                overdue.append(
+                    f"{ms.get('id', '<no id>')} ({ms.get('event', '?')}): due {ms_date.isoformat()}, "
+                    f"{(today - ms_date).days}d overdue with no closure record"
+                )
     if bad_dates:
         print(f"Calendar date violations ({len(bad_dates)}):")
         for b in bad_dates:
             print(f"  {b}")
         return 1
-    print(
-        f"Calendar valid. {len(ms_list)} milestones; "
-        f"{count_past} past deadlines older than {PAST_DEADLINE_THRESHOLD_DAYS}d."
-    )
+    if overdue:
+        print(f"Overdue milestones without closure record ({len(overdue)}):")
+        for o in overdue:
+            print(f"  {o}")
+        print(
+            "Mark a milestone `status: closed` (or add `closure_ref:`) once its "
+            "obligations are discharged, per SOP-102."
+        )
+        return 1
+    print(f"Calendar valid. {len(ms_list)} milestones; no overdue milestones without closure.")
     return 0
 
 
