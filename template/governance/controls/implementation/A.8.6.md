@@ -28,11 +28,11 @@ A.8.6 Capacity management (theme: technological).
 
 ## Implementation
 
-Resource use is monitored and capacity requirements projected to ensure required performance, per P-006 and P-011.
+Resource use is monitored and capacity requirements projected to ensure required performance, per P-013 and P-006.
 
 ## Evidence
 
-No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-301 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 

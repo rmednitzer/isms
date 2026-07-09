@@ -28,7 +28,7 @@ A.8.20 Networks security (theme: technological).
 
 ## Implementation
 
-Networks and network devices are secured, managed, and controlled to protect information, with segments recorded in `governance/assets/networks.yaml`, per P-011.
+Networks and network devices are secured, managed, and controlled to protect information, with segments recorded in `governance/assets/networks.yaml`, per P-013.
 
 ## Evidence
 

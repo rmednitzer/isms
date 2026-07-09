@@ -32,7 +32,7 @@ A formal disciplinary process is in place and communicated to take action agains
 
 ## Evidence
 
-No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-301 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 

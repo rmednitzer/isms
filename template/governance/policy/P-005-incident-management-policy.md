@@ -84,7 +84,7 @@ Per `users/roles.yaml`. Key accountability: role:CISO.
 
 ## 6. Compliance
 
-Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per SOP-005.
+Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 7. Revision history
 

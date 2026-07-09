@@ -17,6 +17,8 @@ framework_refs:
   - gdpr:Art.24
   - gdpr:Art.25
   - gdpr:Art.32
+  - gdpr:Art.33
+  - gdpr:Art.35
 signature_ref: null
 ---
 
@@ -70,7 +72,7 @@ Austrian DSG (GDPR Art. 5, Art. 24; A.5.34).
 ### 3.5 Exceptions
 
 There are no exceptions to statutory data-protection obligations. Processing-specific risk
-decisions shall be recorded via a DPIA and risk acceptance per SOP-005.
+decisions shall be recorded via a DPIA and risk acceptance per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 4. Roles and responsibilities
 
@@ -84,7 +86,7 @@ Per `users/roles.yaml`. Key accountability: role:DPO.
 
 ## 6. Compliance
 
-Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per SOP-005.
+Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 7. Revision history
 

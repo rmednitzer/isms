@@ -7,64 +7,64 @@ mappings:
     nisg2026:
       - §31(2)(a)
     implreg-2024-2690:
-      - Annex.1.1
+      - Annex.1
     gdpr: []
   - iso27001: A.5.9
     nisg2026:
       - §31(2)(i)
     implreg-2024-2690:
-      - Annex.11
+      - Annex.12
     gdpr: []
   - iso27001: A.5.15
     nisg2026:
       - §31(2)(i)
     implreg-2024-2690:
-      - Annex.10
+      - Annex.11
     gdpr: []
   - iso27001: A.5.17
     nisg2026:
       - §31(2)(j)
     implreg-2024-2690:
-      - Annex.10
+      - Annex.11
     gdpr: []
   - iso27001: A.5.19
     nisg2026:
       - §31(2)(d)
     implreg-2024-2690:
-      - Annex.4
+      - Annex.5
     gdpr: []
   - iso27001: A.5.20
     nisg2026:
       - §31(2)(d)
     implreg-2024-2690:
-      - Annex.4
+      - Annex.5
     gdpr: []
   - iso27001: A.5.21
     nisg2026:
       - §31(2)(d)
     implreg-2024-2690:
-      - Annex.4
+      - Annex.5
     gdpr: []
   - iso27001: A.5.24
     nisg2026:
       - §31(2)(b)
       - §32
     implreg-2024-2690:
-      - Annex.2
+      - Annex.3
     gdpr:
       - Art.33
   - iso27001: A.5.25
     nisg2026:
       - §31(2)(b)
     implreg-2024-2690:
-      - Annex.2
+      - Annex.3
     gdpr: []
   - iso27001: A.5.26
     nisg2026:
       - §31(2)(b)
       - §32
     implreg-2024-2690:
-      - Annex.2
+      - Annex.3
     gdpr:
       - Art.33
       - Art.34
@@ -72,20 +72,20 @@ mappings:
     nisg2026:
       - §31(2)(b)
     implreg-2024-2690:
-      - Annex.2
+      - Annex.3
     gdpr: []
   - iso27001: A.5.29
     nisg2026:
       - §31(2)(c)
     implreg-2024-2690:
-      - Annex.3
+      - Annex.4
     gdpr:
       - Art.32(1)(c)
   - iso27001: A.5.30
     nisg2026:
       - §31(2)(c)
     implreg-2024-2690:
-      - Annex.3
+      - Annex.4
     gdpr:
       - Art.32(1)(c)
   - iso27001: A.5.31
@@ -102,76 +102,76 @@ mappings:
     nisg2026:
       - §31(2)(g)
     implreg-2024-2690:
-      - Annex.7
+      - Annex.8
     gdpr: []
   - iso27001: A.8.2
     nisg2026:
       - §31(2)(i)
       - §31(2)(j)
     implreg-2024-2690:
-      - Annex.10
+      - Annex.11
     gdpr: []
   - iso27001: A.8.5
     nisg2026:
       - §31(2)(j)
     implreg-2024-2690:
-      - Annex.10
+      - Annex.11
     gdpr: []
   - iso27001: A.8.7
     nisg2026:
       - §31(2)(g)
     implreg-2024-2690:
-      - Annex.7
+      - Annex.8
     gdpr: []
   - iso27001: A.8.8
     nisg2026:
       - §31(2)(e)
     implreg-2024-2690:
-      - Annex.5
+      - Annex.6
     gdpr: []
   - iso27001: A.8.13
     nisg2026:
       - §31(2)(c)
     implreg-2024-2690:
-      - Annex.3
+      - Annex.4
     gdpr:
       - Art.32(1)(c)
   - iso27001: A.8.15
     nisg2026:
       - §31(2)(f)
     implreg-2024-2690:
-      - Annex.6
+      - Annex.7
     gdpr:
       - Art.32(1)(d)
   - iso27001: A.8.16
     nisg2026:
       - §31(2)(f)
     implreg-2024-2690:
-      - Annex.6
+      - Annex.7
     gdpr:
       - Art.32(1)(d)
   - iso27001: A.8.24
     nisg2026:
       - §31(2)(h)
     implreg-2024-2690:
-      - Annex.8
+      - Annex.9
     gdpr:
       - Art.32(1)(a)
   - iso27001: A.8.25
     nisg2026:
       - §31(2)(e)
     implreg-2024-2690:
-      - Annex.5
+      - Annex.6
     gdpr: []
   - iso27001: A.8.28
     nisg2026:
       - §31(2)(e)
     implreg-2024-2690:
-      - Annex.5
+      - Annex.6
     gdpr: []
   - iso27001: A.8.32
     nisg2026:
       - §31(2)(e)
     implreg-2024-2690:
-      - Annex.5
+      - Annex.6
     gdpr: []

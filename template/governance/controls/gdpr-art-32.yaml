@@ -1,5 +1,7 @@
 schema_version: 1
-source: Regulation (EU) 2016/679 Article 32 security of processing
+source: Regulation (EU) 2016/679 (GDPR) crosswalk of selected articles (Art. 32
+  security of processing plus related accountability, privacy-by-design, records,
+  breach-notification, and DPIA articles)
 authoritative_url: https://eur-lex.europa.eu/eli/reg/2016/679
 celex: 32016R0679
 controls:
@@ -49,6 +51,9 @@ controls:
   - id: Art.30
     title: Records of processing activities
     category: organisational
+  - id: Art.35
+    title: Data protection impact assessment (DPIA)
+    category: risk
   - id: Art.32
     title: Security of processing (umbrella for Art.32(1)(a) through (d) and 
       Art.32(2) to (4))

@@ -67,7 +67,7 @@ responsibilities before, during, and on termination or change of employment (A.6
 
 ### 3.5 Exceptions
 
-Exceptions shall be risk-accepted per SOP-005.
+Exceptions shall be risk-accepted per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 4. Roles and responsibilities
 
@@ -81,7 +81,7 @@ Per `users/roles.yaml`. Key accountability: role:ISMS-Manager.
 
 ## 6. Compliance
 
-Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per SOP-005.
+Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 7. Revision history
 

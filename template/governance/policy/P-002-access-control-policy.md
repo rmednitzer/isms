@@ -69,7 +69,7 @@ recorded, and reviewed (A.5.15).
 
 ### 3.5 Exceptions
 
-Exceptions shall be risk-accepted per SOP-005 with an expiry date and reviewed at the
+Exceptions shall be risk-accepted per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`) with an expiry date and reviewed at the
 next access review.
 
 ## 4. Roles and responsibilities
@@ -84,7 +84,7 @@ Per `users/roles.yaml`. Key accountability: role:ISMS-Manager.
 
 ## 6. Compliance
 
-Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per SOP-005.
+Non-compliance is addressed per the applicable disciplinary procedure. Exceptions require risk acceptance per the risk acceptance process (`governance/risk/methodology.md`, logged in `governance/risk/acceptance-log.md`).
 
 ## 7. Revision history
 

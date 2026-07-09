@@ -28,7 +28,7 @@ A.8.22 Segregation of networks (theme: technological).
 
 ## Implementation
 
-Groups of information services, users, and information systems are segregated in the organisation's networks, per P-011.
+Groups of information services, users, and information systems are segregated in the organisation's networks, per P-013.
 
 ## Evidence
 

@@ -28,11 +28,11 @@ A.8.23 Web filtering (theme: technological).
 
 ## Implementation
 
-Access to external websites is managed to reduce exposure to malicious content, per P-011.
+Access to external websites is managed to reduce exposure to malicious content, per P-013.
 
 ## Evidence
 
-No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-301 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
