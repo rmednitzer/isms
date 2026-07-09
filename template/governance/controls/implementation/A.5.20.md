@@ -28,15 +28,15 @@ A.5.20 Addressing information security within supplier agreements (theme: organi
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Relevant security requirements are established and agreed with each supplier in contracts or data-processing agreements, per P-004.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-004, ET-004 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.5.24 Information security incident management planning and preparation (theme:
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Incident management is planned and prepared, with responsibilities and procedures established, per P-005 and SOP-001.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:CISO
 
 ## Revision history
 

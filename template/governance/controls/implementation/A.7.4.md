@@ -28,15 +28,15 @@ A.7.4 Physical security monitoring (theme: physical).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Premises are monitored for unauthorised physical access, per P-008.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-002, ET-003 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

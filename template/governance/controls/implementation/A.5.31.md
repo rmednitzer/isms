@@ -28,15 +28,15 @@ A.5.31 Legal, statutory, regulatory and contractual requirements (theme: organis
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Legal, statutory, regulatory, and contractual requirements (including NISG 2026, GDPR, and the DSG) are identified, documented, and kept current, per P-012 and P-000.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:DPO
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.5.10 Acceptable use of information and other associated assets (theme: organis
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Rules for acceptable use and handling of information and associated assets are defined, acknowledged by users, and enforced, per P-001 and P-010.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.8.8 Management of technical vulnerabilities (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Technical vulnerabilities are identified, evaluated, and remediated within defined SLAs, with state pulled from the vulnerability scanner, per P-011 and SOP-009.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-100 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.5.9 Inventory of information and other associated assets (theme: organisationa
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+An inventory of information and other associated assets with assigned owners is maintained in `governance/assets/register.yaml`, per P-010.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-001 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

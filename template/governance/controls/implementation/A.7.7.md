@@ -28,15 +28,15 @@ A.7.7 Clear desk and clear screen (theme: physical).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Clear desk rules for papers and removable media and clear screen rules for information processing facilities are defined and enforced, per P-008.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

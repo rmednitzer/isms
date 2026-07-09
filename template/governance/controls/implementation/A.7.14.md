@@ -28,15 +28,15 @@ A.7.14 Secure disposal or re-use of equipment (theme: physical).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Items of equipment containing storage media are verified to ensure sensitive data and licensed software are removed or securely overwritten before disposal or reuse, per P-008.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

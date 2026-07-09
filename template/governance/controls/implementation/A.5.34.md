@@ -28,15 +28,15 @@ A.5.34 Privacy and protection of personal identifiable information (theme: organ
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Privacy and protection of personally identifiable information is ensured, with processing recorded in `governance/data/inventory.yaml`, per P-012.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-005 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:DPO
 
 ## Revision history
 
