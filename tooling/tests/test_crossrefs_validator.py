@@ -7,7 +7,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "tooling" / "validators"))
 
-from validate_crossrefs import build_catalogue, extract_refs  # noqa: E402
+from validate_crossrefs import _check_framework_ref, build_catalogue, extract_refs  # noqa: E402
 
 
 class TestBuildCatalogue:
@@ -18,9 +18,19 @@ class TestBuildCatalogue:
 
     def test_structural_prefixes_accept_any_id(self) -> None:
         from validate_crossrefs import STRUCTURAL_PREFIXES
-        assert "iso27001" in STRUCTURAL_PREFIXES
         assert "eidas" in STRUCTURAL_PREFIXES
         assert "nis2" in STRUCTURAL_PREFIXES
+        # iso27001 is no longer a blanket structural prefix: its Annex A refs
+        # are now verified against the catalogue.
+        assert "iso27001" not in STRUCTURAL_PREFIXES
+
+    def test_iso27001_annex_a_ref_is_validated(self) -> None:
+        cat = build_catalogue()
+        # A real Annex A control and an ISO management-system clause both pass;
+        # a bogus Annex A id is rejected.
+        assert _check_framework_ref(Path("x"), "iso27001:A.5.1", cat) is None
+        assert _check_framework_ref(Path("x"), "iso27001:6.1.2", cat) is None
+        assert _check_framework_ref(Path("x"), "iso27001:A.9.99", cat) is not None
 
 
 class TestExtractRefs:

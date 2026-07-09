@@ -97,6 +97,11 @@ def render_placeholders(text: str, cfg: dict, file_path: Path) -> tuple[str, lis
         if val is None:
             unresolved.append(key)
             return m.group(0)
+        # A config value left as a "TODO:" sentinel is not a real value; treat it
+        # as unresolved so it cannot render verbatim into governance text.
+        if isinstance(val, str) and val.lstrip().upper().startswith("TODO:"):
+            unresolved.append(f"{key} (TODO sentinel)")
+            return m.group(0)
         return str(val)
 
     rendered = PLACEHOLDER_RE.sub(replacer, text)
