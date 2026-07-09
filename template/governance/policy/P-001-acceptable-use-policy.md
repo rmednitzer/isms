@@ -32,14 +32,40 @@ Acceptable use of information, information processing facilities, and associated
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Information, information processing facilities, and associated assets of
+{{entity.short_name}} are provided for authorised business purposes and shall be used
+lawfully, ethically, and in a manner that preserves their confidentiality, integrity,
+and availability.
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Users shall use assets only for authorised purposes and in accordance with the
+  acceptable-use rules issued under this policy (A.5.10).
+- Users shall protect authentication credentials and shall lock or log off unattended
+  sessions.
+- Users shall report suspected information security events without undue delay per P-005.
+- Information security awareness relevant to acceptable use shall be delivered to all
+  users (A.6.3).
+
+### 3.3 Prohibitions
+
+- Users shall not attempt to bypass security controls, access information without
+  authorisation, or install unapproved software.
+- Users shall not use assets for unlawful activity or to store or transmit prohibited
+  content.
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager maintains the acceptable-use rules.
+- Line management ensures users acknowledge the rules; all users are responsible for
+  compliance.
+
+### 3.5 Exceptions
+
+Exceptions shall be approved as a risk acceptance per SOP-005 and recorded with an
+expiry date.
 
 ## 4. Roles and responsibilities
 

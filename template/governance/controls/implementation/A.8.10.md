@@ -28,15 +28,15 @@ A.8.10 Information deletion (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Information stored in systems, devices, or any other storage media is deleted when no longer required, per P-010 and P-012.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 

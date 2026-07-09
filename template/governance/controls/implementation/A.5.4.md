@@ -28,15 +28,15 @@ A.5.4 Management responsibilities (theme: organisational).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Management directs personnel to apply information security per the policies and provides the resources for the ISMS, discharged through management review (clause 9.3) and P-000.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:Management
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.5.37 Documented operating procedures (theme: organisational).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Operating procedures for information processing facilities are documented and made available to those who need them, per P-000.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-007 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

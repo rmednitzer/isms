@@ -28,15 +28,15 @@ A.8.22 Segregation of networks (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Groups of information services, users, and information systems are segregated in the organisation's networks, per P-011.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-003, ET-002 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 

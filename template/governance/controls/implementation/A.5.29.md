@@ -28,15 +28,15 @@ A.5.29 Information security during disruption (theme: organisational).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Information security is maintained during disruption through continuity arrangements derived from the business impact analysis, per P-006.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

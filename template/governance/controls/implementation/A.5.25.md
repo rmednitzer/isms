@@ -28,15 +28,15 @@ A.5.25 Assessment and decision on information security events (theme: organisati
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Information security events are assessed and classified to decide whether they are incidents, per P-005.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:CISO
 
 ## Revision history
 

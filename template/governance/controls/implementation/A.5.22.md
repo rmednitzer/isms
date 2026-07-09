@@ -28,15 +28,15 @@ A.5.22 Monitoring, review and change management of supplier services (theme: org
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Supplier service delivery, including security, is monitored, reviewed, and changes managed against agreed requirements, per P-004.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-004, ET-004 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

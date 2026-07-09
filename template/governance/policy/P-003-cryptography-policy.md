@@ -31,14 +31,37 @@ Use of cryptography: key management, algorithm selection, crypto-agility.
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Cryptography shall be used to protect the confidentiality, integrity, and authenticity
+of information according to its classification and applicable legal requirements
+(A.8.24).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Approved algorithms and key lengths shall meet current recognised standards, and only
+  vetted implementations shall be used.
+- Information classified confidential or higher shall be encrypted in transit and at rest.
+- Cryptographic keys shall be managed across their full lifecycle (generation,
+  distribution, storage, rotation, revocation, destruction) with access restricted to
+  authorised roles.
+- An algorithm inventory shall be maintained to support crypto-agility and timely
+  migration away from weakened primitives.
+
+### 3.3 Prohibitions
+
+- Deprecated or unapproved algorithms shall not be used for new processing.
+- Keys shall not be stored in plaintext alongside the data they protect, nor committed
+  to the repository.
+
+### 3.4 Responsibilities
+
+- role:CISO approves the approved-algorithm standard; role:SysAdmin operates key
+  management.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005 with a defined remediation date.
 
 ## 4. Roles and responsibilities
 

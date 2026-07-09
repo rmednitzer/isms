@@ -28,15 +28,15 @@ A.5.27 Learning from information security incidents (theme: organisational).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Knowledge gained from incidents is used to strengthen controls and reduce future likelihood and impact, per P-005.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:CISO
 
 ## Revision history
 

@@ -28,15 +28,15 @@ A.6.6 Confidentiality or non-disclosure agreements (theme: people).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Confidentiality or non-disclosure agreements reflecting the organisation's needs are identified, documented, and signed, per P-009.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

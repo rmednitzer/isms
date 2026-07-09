@@ -28,15 +28,15 @@ A.8.18 Use of privileged utility programs (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Use of privileged utility programs capable of overriding system and application controls is restricted and tightly controlled, per P-002.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 

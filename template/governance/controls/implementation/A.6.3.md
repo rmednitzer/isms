@@ -28,15 +28,15 @@ A.6.3 Information security awareness, education and training (theme: people).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Personnel receive information security awareness, education, and training relevant to their role and refreshed regularly, per P-009.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-200 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import sys
 from datetime import UTC, datetime
@@ -24,6 +25,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DIST = REPO_ROOT / "dist-audit-pack"
+
+
+AUDIT_ARG_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]*$")
 
 
 def copytree_without_symlinks(src: Path, dst: Path, *, ignore=None) -> None:
@@ -37,10 +41,41 @@ def copytree_without_symlinks(src: Path, dst: Path, *, ignore=None) -> None:
     shutil.copytree(src, dst, dirs_exist_ok=True, ignore=ignore)
 
 
+def has_content(directory: Path) -> bool:
+    """True if the directory holds at least one non-empty, non-scaffold file.
+
+    A directory that contains only ``.gitkeep`` placeholders (the shipped
+    skeleton state before ``make instantiate`` has run) is treated as empty so
+    that packaging falls back to the populated ``template/`` layer instead of
+    silently shipping an empty section.
+    """
+    if not directory.is_dir():
+        return False
+    for entry in directory.rglob("*"):
+        if not entry.is_file() or entry.is_symlink():
+            continue
+        if entry.name == ".gitkeep":
+            continue
+        try:
+            if entry.stat().st_size > 0:
+                return True
+        except OSError:
+            continue
+    return False
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--audit", required=True, help="stage-1 | stage-2 | surveillance-YYYY | recertification-YYYY")
     args = parser.parse_args()
+
+    if not AUDIT_ARG_PATTERN.match(args.audit):
+        print(
+            f"error: invalid --audit value {args.audit!r}; "
+            "expected characters [A-Za-z0-9-] only (e.g. stage-1, surveillance-2026)",
+            file=sys.stderr,
+        )
+        return 2
 
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     out = DIST / f"{args.audit}-{stamp}"
@@ -49,16 +84,26 @@ def main() -> int:
     print(f"Building audit pack: {args.audit}")
     print(f"Output: {out}")
 
-    # Governance (instance-rendered if available, else template)
+    warnings: list[str] = []
+
+    # Governance / operations / users: prefer the instance-rendered layer, but
+    # only when it has actually been instantiated. A bare .gitkeep scaffold must
+    # not shadow the populated template layer (that would ship an empty pack).
     for sub in ["governance", "operations", "users"]:
         inst = REPO_ROOT / "instance" / sub
         tmpl = REPO_ROOT / "template" / sub
-        if inst.is_dir():
+        if has_content(inst):
             src: Path | None = inst
-        elif tmpl.is_dir():
+        elif has_content(tmpl):
             src = tmpl
+            if inst.is_dir():
+                warnings.append(
+                    f"{sub}/: instance layer is an empty scaffold; packaged from template/ "
+                    f"instead. Run 'make instantiate' to render the instance before an audit."
+                )
         else:
             src = None
+            warnings.append(f"{sub}/: no content in instance/ or template/; section omitted from pack.")
         if src is not None:
             copytree_without_symlinks(src, out / sub)
 
@@ -108,6 +153,11 @@ Evidence traces from SoA to evidence/ via controls/evidence-plan.yaml.
 All commits signed; see .gitsigners and CODEOWNERS at repo root.
 QES-signed PDFs under evidence/signatures/; verify via EU DSS.
 """, encoding="utf-8")
+
+    if warnings:
+        print("\nWARNINGS:", file=sys.stderr)
+        for w in warnings:
+            print(f"  - {w}", file=sys.stderr)
 
     print(f"Audit pack built at {out}")
     return 0

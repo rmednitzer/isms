@@ -28,15 +28,15 @@ A.8.14 Redundancy of information processing facilities (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Information processing facilities are implemented with redundancy sufficient to meet availability requirements, per P-006.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 

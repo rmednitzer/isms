@@ -28,15 +28,15 @@ A.5.16 Identity management (theme: organisational).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+The full identity lifecycle is managed so that identities are uniquely assigned, provisioned, and de-provisioned in step with the user lifecycle, per P-002.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

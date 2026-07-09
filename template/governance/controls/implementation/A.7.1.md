@@ -28,15 +28,15 @@ A.7.1 Physical security perimeters (theme: physical).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Security perimeters are defined and used to protect areas containing information and associated assets, per P-008 and `governance/assets/facilities.yaml`.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-CORE-002 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:ISMS-Manager
 
 ## Revision history
 

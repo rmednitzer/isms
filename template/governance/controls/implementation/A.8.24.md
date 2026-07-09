@@ -28,15 +28,15 @@ A.8.24 Use of cryptography (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Rules for the effective use of cryptography, including key management, are defined and implemented per the approved-algorithm standard, per P-003.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+No dedicated automated evidence task is bound to this control yet; evidence is captured manually per SOP-011 and the binding is tracked in `controls/evidence-plan.yaml`.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:CISO
 
 ## Revision history
 

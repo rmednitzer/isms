@@ -38,14 +38,39 @@ Access control for information and systems: identity, authentication, authorisat
 Applies to {{entity.short_name}} and to all information, systems, personnel, and third parties within the ISMS scope per `governance/context/scope-statement.md`.
 
 ## 3. Policy statements
+### 3.1 Principle
 
-TODO: draft specific statements applicable to the topic. Structure:
+Access to information and information processing facilities shall be granted on the
+basis of business need, least privilege, and need to know, and shall be authorised,
+recorded, and reviewed (A.5.15).
 
-- 3.1 Principle (what must be upheld).
-- 3.2 Requirement (what shall happen).
-- 3.3 Prohibition (what shall not happen).
-- 3.4 Responsibilities (who is accountable).
-- 3.5 Exceptions (how deviations are managed).
+### 3.2 Requirements
+
+- Access shall be provisioned and de-provisioned through a formal process tied to the
+  user lifecycle (A.5.16, A.5.18).
+- Privileged access rights shall be restricted, individually attributable, and reviewed
+  at least quarterly (A.8.2).
+- Authentication shall use secure methods; multi-factor authentication shall be required
+  for privileged and remote access (A.8.5).
+- Information access shall be restricted in line with topic-specific access-control rules
+  and the classification of the information (A.5.15, A.8.3).
+- Access rights shall be reviewed at planned intervals and revoked promptly on role
+  change or termination (A.5.18).
+
+### 3.3 Prohibitions
+
+- Shared or generic accounts shall not be used for privileged actions.
+- Access shall not persist after the business need ends.
+
+### 3.4 Responsibilities
+
+- role:ISMS-Manager owns the access-control rules; system owners approve access;
+  role:SysAdmin implements and reviews it.
+
+### 3.5 Exceptions
+
+Exceptions shall be risk-accepted per SOP-005 with an expiry date and reviewed at the
+next access review.
 
 ## 4. Roles and responsibilities
 

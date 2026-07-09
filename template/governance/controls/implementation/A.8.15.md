@@ -28,15 +28,15 @@ A.8.15 Logging (theme: technological).
 
 ## Implementation
 
-TODO: describe how {{entity.short_name}} implements this control.
+Logs recording activities, exceptions, faults, and other relevant events are produced, protected, and retained, per P-011.
 
 ## Evidence
 
-TODO: reference evidence tasks (ET-NNN) bound to this control in `controls/evidence-plan.yaml`.
+Evidence is collected under ET-060 per `controls/evidence-plan.yaml`, which defines the cadence, owner, and collection method for this control.
 
 ## Responsible role
 
-TODO: role accountable for operating this control.
+role:SysAdmin
 
 ## Revision history
 
